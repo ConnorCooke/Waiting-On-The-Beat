@@ -5,8 +5,8 @@ using UnityEngine;
 public class TipCounter : MonoBehaviour
 {
 
-    private totalTips = 0;
-    private comboMultiplier;
+    private int totalTips = 0;
+    private int comboMultiplier;
     
     // Start is called before the first frame update
     void Start()
