@@ -11,7 +11,6 @@ public class BeatVis : MonoBehaviour
     SpriteRenderer sprite;
 
     
-    private bool trigger= false;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,13 +20,13 @@ public class BeatVis : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (transform.position.x < visualizer.transform.position.x)
+        if (transform.position.x > visualizer.transform.position.x)
         {
-            transform.position = new Vector2(transform.position.x + speed, transform.position.y);
+            transform.position = new Vector2(transform.position.x - speed, transform.position.y);
         }
         else
         {
-            transform.position = new Vector2(transform.position.x - speed, transform.position.y);
+            transform.position = new Vector2(transform.position.x + speed, transform.position.y);
 
         }
         
@@ -35,11 +34,13 @@ public class BeatVis : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (trigger)
+        if (collision.CompareTag("DestructiveCollider"))
         {
             Destroy(gameObject);
         }
-        trigger = true;
-        sprite.color = new Color(sprite.color.r + 25, sprite.color.g - 25, sprite.color.b + 10);
+        else if (collision.CompareTag("Plate"))
+        {
+            sprite.color = new Color(sprite.color.r + 25, sprite.color.g - 25, sprite.color.b + 10);
+        }
     }
 }
