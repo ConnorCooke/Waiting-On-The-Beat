@@ -6,7 +6,10 @@ public class BeatVis : MonoBehaviour
 {
     //This will be determined by bpm
     public float speed;
+    public GameObject visualizer;
+
     SpriteRenderer sprite;
+
     
     private bool trigger= false;
     // Start is called before the first frame update
@@ -18,7 +21,16 @@ public class BeatVis : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.position = new Vector2(transform.position.x - speed, transform.position.y);
+        if (transform.position.x < visualizer.transform.position.x)
+        {
+            transform.position = new Vector2(transform.position.x + speed, transform.position.y);
+        }
+        else
+        {
+            transform.position = new Vector2(transform.position.x - speed, transform.position.y);
+
+        }
+        
         sprite.color = new Color(sprite.color.r,sprite.color.g,sprite.color.b,sprite.color.a+0.02f);
     }
     private void OnTriggerEnter2D(Collider2D collision)
