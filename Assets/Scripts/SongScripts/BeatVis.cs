@@ -30,7 +30,7 @@ public class BeatVis : MonoBehaviour
 
         }
         
-        sprite.color = new Color(sprite.color.r,sprite.color.g,sprite.color.b,sprite.color.a+0.02f);
+        sprite.color = new Color(sprite.color.r,sprite.color.g,sprite.color.b,sprite.color.a+0.005f);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
