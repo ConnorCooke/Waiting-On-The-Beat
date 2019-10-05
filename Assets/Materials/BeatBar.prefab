@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.05
-  visualizer: {fileID: 2928256204509498089, guid: eb2dfca7c0f9fbd458159c14b609c7e7,
+  visualizer: {fileID: 5335867668144507642, guid: 68900e744d8bfef47b3d4ee897323de4,
     type: 3}
 --- !u!61 &8870253581511546303
 BoxCollider2D:
