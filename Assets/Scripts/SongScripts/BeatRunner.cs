@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class BeatRunner : MonoBehaviour
 {
+    /*
     public string fileName;
     public int currentBeat;
     public AudioSource musicSource;
     private float[] beatPositionsInTime;
     public float inputLeeway;
-    /***
+    
     
     void Start()
     {

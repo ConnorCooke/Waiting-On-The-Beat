@@ -12,8 +12,6 @@ public class PlayerActionAndMovement : MonoBehaviour
         Vertical
     };
     private Orientation gridOrientation = Orientation.Horizontal;
-    private bool allowDiagonals = false;
-    private bool correctDiagonalSpeed = true;
     private Vector2 input;
     private bool isMoving = false;
     private Vector3 startPosition;
@@ -84,36 +82,98 @@ public class PlayerActionAndMovement : MonoBehaviour
         {
             if (input.x > 0 && playerPosition[0] + 1 < width && tileContents[playerPosition[1], playerPosition[0] + 1] == 0)
             {
-                validMovement = true;
-                playerPosition[0] += 1;
+                switch(tileContents[playerPosition[1], playerPosition[0] + 1])
+                {
+                    case 0:
+                        validMovement = true;
+                        playerPosition[0] += 1;
+                        break;
+                    /*case 2:
+                        //TODO request food from kitchen counter
+                    case 3:
+                        //TODO give order to kitchen
+                    case 4:
+                        //TODO request order from customer
+                    case 5:
+                        //TODO give food to customer
+                    case 6:
+                        //TODO clean table space*/
+                }
             }
         }
 
         void CheckWestwardInteractions()
         {
-            if (input.x < 0 && playerPosition[0] > 0 && tileContents[playerPosition[1], playerPosition[0] - 1] == 0)
+            if (input.x < 0 && playerPosition[0] > 0)
             {
-                validMovement = true;
-                playerPosition[0] -= 1;
+                switch (tileContents[playerPosition[1], playerPosition[0] - 1])
+                {
+                    case 0:
+                        validMovement = true;
+                        playerPosition[0] -= 1;
+                        break;
+                    /*case 2:
+                    //TODO request food from kitchen counter
+                    case 3:
+                    //TODO give order to kitchen
+                    case 4:
+                    //TODO request order from customer
+                    case 5:
+                    //TODO give food to customer
+                    case 6:
+                        //TODO clean table space*/
+                }
             }
 
         }
         
         void CheckNorthwardInteractions()
         {
-            if (input.y > 0 && playerPosition[1] > 0 && tileContents[playerPosition[1] - 1, playerPosition[0]] == 0)
+            if (input.y > 0 && playerPosition[1] > 0 )
             {
-                validMovement = true;
-                playerPosition[1] -= 1;
+                switch (tileContents[playerPosition[1] - 1, playerPosition[0]])
+                {
+                    case 0:
+                        validMovement = true;
+                        playerPosition[1] -= 1;
+                        break;
+                        /*
+                    case 2:
+                    //TODO request food from kitchen counter
+                    case 3:
+                    //TODO give order to kitchen
+                    case 4:
+                    //TODO request order from customer
+                    case 5:
+                    //TODO give food to customer
+                    case 6:
+                        //TODO clean table space*/
+                }
             }
         }
         
         void CheckSouthwardInteractions()
         {
-            if (input.y < 0 && playerPosition[1] + 1 < height && tileContents[playerPosition[1] + 1, playerPosition[0]] == 0)
+            if (input.y < 0 && playerPosition[1] + 1 < height)
             {
-                validMovement = true;
-                playerPosition[1] += 1;
+                switch (tileContents[playerPosition[1] + 1, playerPosition[0]])
+                {
+                    case 0:
+                        validMovement = true;
+                        playerPosition[1] += 1;
+                        break;
+                        /*
+                    case 2:
+                    //TODO request food from kitchen counter
+                    case 3:
+                    //TODO give order to kitchen
+                    case 4:
+                    //TODO request order from customer
+                    case 5:
+                    //TODO give food to customer
+                    case 6:
+                    //TODO clean table space*/
+                }
             }
         }
 
@@ -137,16 +197,7 @@ public class PlayerActionAndMovement : MonoBehaviour
 
         
         endPosition = new Vector3(startPosition.x + System.Math.Sign(input.x) * gridSize, startPosition.y + System.Math.Sign(input.y) * gridSize, startPosition.z);
-        
-
-        if (allowDiagonals && correctDiagonalSpeed && input.x != 0 && input.y != 0)
-        {
-            factor = 0.7071f;
-        }
-        else
-        {
-            factor = 1f;
-        }
+        factor = 1f;
 
         while (t < 1f)
         {
@@ -157,5 +208,20 @@ public class PlayerActionAndMovement : MonoBehaviour
 
         isMoving = false;
         yield return 0;
+    }
+
+    /**
+     * Given the transform of a specific object determines the correct tile and sets its value to tileValue
+     */
+    private void SetTileAtTransform(Transform TilePosition, int tileValue)
+    {
+        int xPosition = (int)(TilePosition.position.x / 0.5 + 10);
+        int yPosition = (int)(-(TilePosition.position.y / 0.5) + 6);
+        tileContents[yPosition, xPosition] = tileValue;
+    }
+
+    public void CustomerEating(Transform customerPosition)
+    {
+        SetTileAtTransform(customerPosition, 1);
     }
 }
