@@ -262,4 +262,5 @@ public class PlayerActionAndMovement : MonoBehaviour
     {
         SetTileAtTransform(customerPosition, 1);
     }
+    
 }
