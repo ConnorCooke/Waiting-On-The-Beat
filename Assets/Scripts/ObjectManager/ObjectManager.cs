@@ -41,7 +41,7 @@ public class ObjectManager : MonoBehaviour
      * Determines the table closest to player and then tells the Table to give the
      * player the nearest customer to players order
      */
-    void RequestOrder()
+    public void RequestOrder()
     {
         //TODO
     }
@@ -50,7 +50,7 @@ public class ObjectManager : MonoBehaviour
      * Determines the table closest to player and then tells the Table to determine
      * closest customer to player and have that customer pay for their food
      */
-    void RequestPayment()
+    public void RequestPayment()
     {
         //TODO
     }
@@ -60,7 +60,7 @@ public class ObjectManager : MonoBehaviour
      * the food to the nearest customer to the player
      * @param food GameObject A food prefab that the player is currently holding
      */
-    void DeliverFood(GameObject food)
+    public void DeliverFood(GameObject food)
     {
         //TODO
     }
@@ -69,7 +69,7 @@ public class ObjectManager : MonoBehaviour
      * Tells player to hold the food
      * @param food GameObject A food prefab player is picking up
      */
-    void GivePlayerFood(GameObject food)
+    public void GivePlayerFood(GameObject food)
     {
         //TODO
     }
@@ -78,7 +78,7 @@ public class ObjectManager : MonoBehaviour
      * Tells the kitchen to take in the food order
      * @param order FoodOrder adt taht tells kitchen relevant info to "cook" a new food prefab
      */
-    void DeliverOrderToKitchen(FoodOrder order)
+    public void DeliverOrdersToKitchen(List<FoodOrder> orders)
     {
         //TODO
     }
@@ -87,7 +87,7 @@ public class ObjectManager : MonoBehaviour
      * Tells the player to carry order
      * @param order FoodOrder adt that holds info for "cooking" a new food prefab
      */
-    void GivePlayerOrder(FoodOrder order)
+    public void GivePlayerOrder(FoodOrder order)
     {
         //TODO
     }
@@ -96,7 +96,7 @@ public class ObjectManager : MonoBehaviour
      * Tells tiptracker the current multiplier based on the players combo
      * @param multiplier float
      */
-    void GiveComboMultiplier(float multiplier)
+    public void GiveComboMultiplier(float multiplier)
     {
         //TODO
     }
@@ -105,7 +105,7 @@ public class ObjectManager : MonoBehaviour
      * Tells the result tracker the total amount of tips the player made
      * @param tipTotal float
      */
-    void GiveTipTotal(float tipTotal)
+    public void GiveTipTotal(float tipTotal)
     {
         //TODO
     }
@@ -113,7 +113,15 @@ public class ObjectManager : MonoBehaviour
     /*
      * Tells the CustomerQueueTracker the request for a customer
      */
-    void RequestCustomer(int tableNumber)
+    public void RequestCustomer(int tableNumber)
+    {
+        //TODO
+    }
+
+    /*
+     * Tells the kitchen to give the player the food from the nearest tile to the player
+     */
+    public void RequestFood()
     {
         //TODO
     }
@@ -124,7 +132,7 @@ public class ObjectManager : MonoBehaviour
      * @param customer GameObject
      * @param tableNumber int
      */
-    void GiveCustomer(GameObject customer, int tableNumber)
+    public void GiveCustomer(GameObject customer, int tableNumber)
     {
         //TODO
     }
@@ -132,7 +140,7 @@ public class ObjectManager : MonoBehaviour
     /*
      * Tells combotracker the corretness of the last input
      */
-    void GiveCorrectness(bool isCorrect)
+    public void GiveCorrectness(bool isCorrect)
     {
         //TODO
     }
@@ -141,7 +149,15 @@ public class ObjectManager : MonoBehaviour
      * Informs all relevant objects when a beat has occured, namely all objects
      * with beat based timers
      */
-    void BeatOccured()
+    public void BeatOccured()
+    {
+        //TODO
+    }
+
+    /*
+     * Cleans the nearest table to the player
+     */
+     public void CleanNearestTable()
     {
         //TODO
     }

@@ -2120,3 +2120,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPosition: 
+  objectManager: {fileID: 134908785}

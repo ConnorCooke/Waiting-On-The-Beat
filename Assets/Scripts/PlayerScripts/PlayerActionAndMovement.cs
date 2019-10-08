@@ -24,20 +24,25 @@ public class PlayerActionAndMovement : MonoBehaviour
     private int width = 17;
     private int height = 11;
 
+    //private Food currentFood;
+    //private List<FoodOrder> currentOrders;
+
+    public ObjectManager objectManager;
+
     // Start is called before the first frame update
     void Start()
     {
-        playerPosition = new int[] {10,5 };
+        playerPosition = new int[] {10, 5};
         tileContents =new int[,] { { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                                   { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                                   { 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0 },
-                                   { 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0 },
-                                   { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                                   { 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                                   { 0, 4, 0, 0, 0, 6, 1, 1, 6, 0, 0, 1, 1, 1, 1, 0, 0 },
+                                   { 0, 4, 0, 0, 0, 6, 1, 1, 6, 0, 0, 1, 1, 1, 1, 0, 0 },
+                                   { 0, 4, 0, 0, 0, 2, 2, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0 },
                                    { 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                                   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                                   { 0, 0, 0, 0, 0, 7, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                                    { 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0 },
-                                   { 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0 },
-                                   { 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                                   { 3, 3, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0 },
+                                   { 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                                    { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }};
     }
 
@@ -71,6 +76,39 @@ public class PlayerActionAndMovement : MonoBehaviour
         }
     }
 
+    private void RequestFood()
+    {
+        objectManager.RequestFood();
+    }
+
+    private void DeliverFood()
+    {
+        //objectManager.DeliverFood(currentFood);
+    }
+
+    private void RequestOrder()
+    {
+        objectManager.RequestOrder();
+    }
+
+    private void DeliverOrders()
+    {
+        //objectManager.DeliverOrdersToKitchen(currentOrders);
+    }
+
+    /**
+     * Calls objectmanager which tells the nearest table ot the player to clean itself
+     */
+    private void CleanTable()
+    {
+        objectManager.CleanNearestTable();
+    }
+
+    private void RequestPayment()
+    {
+        objectManager.RequestPayment();
+    }
+
     /**
      * Determines if any interactions occur due to the players input, including allowing movement,  picking up orders, placing orders
      * picking up food, dropping off food, and clean tables. It sends the respective messages if neccessary
@@ -78,26 +116,50 @@ public class PlayerActionAndMovement : MonoBehaviour
      */
     private void CheckMovementInteractions()
     {
+        void DetermineTileInteractivity(int tileValue)
+        {
+            switch (tileValue)
+            {
+                case 2:
+                    print("request order");
+                    RequestOrder();
+                    break;
+                case 3:
+                    print("deliver order");
+                    DeliverOrders();
+                    break;
+                case 4:
+                    print("request food");
+                    RequestFood();
+                    break;
+                case 5:
+                    print("deliver food");
+                    DeliverFood();
+                    break;
+                case 6:
+                    print("clean table");
+                    CleanTable();
+                    break;
+                case 7:
+                    print("request payment");
+                    RequestPayment();
+                    break;
+            }
+        }
+
         void CheckEastwardInteractions()
         {
             if (input.x > 0 && playerPosition[0] + 1 < width && tileContents[playerPosition[1], playerPosition[0] + 1] == 0)
             {
-                switch(tileContents[playerPosition[1], playerPosition[0] + 1])
+                int tileValue = tileContents[playerPosition[1], playerPosition[0] + 1];
+                if (tileValue==0)
                 {
-                    case 0:
-                        validMovement = true;
-                        playerPosition[0] += 1;
-                        break;
-                    /*case 2:
-                        //TODO request food from kitchen counter
-                    case 3:
-                        //TODO give order to kitchen
-                    case 4:
-                        //TODO request order from customer
-                    case 5:
-                        //TODO give food to customer
-                    case 6:
-                        //TODO clean table space*/
+                    validMovement = true;
+                    playerPosition[0] += 1;
+                }
+                else
+                {
+                    DetermineTileInteractivity(tileValue);
                 }
             }
         }
@@ -106,48 +168,32 @@ public class PlayerActionAndMovement : MonoBehaviour
         {
             if (input.x < 0 && playerPosition[0] > 0)
             {
-                switch (tileContents[playerPosition[1], playerPosition[0] - 1])
+                int tileValue = tileContents[playerPosition[1], playerPosition[0] - 1];
+                if (tileValue == 0)
                 {
-                    case 0:
-                        validMovement = true;
-                        playerPosition[0] -= 1;
-                        break;
-                    /*case 2:
-                    //TODO request food from kitchen counter
-                    case 3:
-                    //TODO give order to kitchen
-                    case 4:
-                    //TODO request order from customer
-                    case 5:
-                    //TODO give food to customer
-                    case 6:
-                        //TODO clean table space*/
+                    validMovement = true;
+                    playerPosition[0] -= 1;
+                }
+                else
+                {
+                    DetermineTileInteractivity(tileValue);
                 }
             }
-
         }
         
         void CheckNorthwardInteractions()
         {
             if (input.y > 0 && playerPosition[1] > 0 )
             {
-                switch (tileContents[playerPosition[1] - 1, playerPosition[0]])
+                int tileValue = tileContents[playerPosition[1] - 1, playerPosition[0]];
+                if (tileValue == 0)
                 {
-                    case 0:
-                        validMovement = true;
-                        playerPosition[1] -= 1;
-                        break;
-                        /*
-                    case 2:
-                    //TODO request food from kitchen counter
-                    case 3:
-                    //TODO give order to kitchen
-                    case 4:
-                    //TODO request order from customer
-                    case 5:
-                    //TODO give food to customer
-                    case 6:
-                        //TODO clean table space*/
+                    validMovement = true;
+                    playerPosition[1] -= 1;
+                }
+                else
+                {
+                    DetermineTileInteractivity(tileValue);
                 }
             }
         }
@@ -156,23 +202,15 @@ public class PlayerActionAndMovement : MonoBehaviour
         {
             if (input.y < 0 && playerPosition[1] + 1 < height)
             {
-                switch (tileContents[playerPosition[1] + 1, playerPosition[0]])
+                int tileValue = tileContents[playerPosition[1] + 1, playerPosition[0]];
+                if(tileValue == 0)
                 {
-                    case 0:
-                        validMovement = true;
-                        playerPosition[1] += 1;
-                        break;
-                        /*
-                    case 2:
-                    //TODO request food from kitchen counter
-                    case 3:
-                    //TODO give order to kitchen
-                    case 4:
-                    //TODO request order from customer
-                    case 5:
-                    //TODO give food to customer
-                    case 6:
-                    //TODO clean table space*/
+                    validMovement = true;
+                    playerPosition[1] += 1;
+                }
+                else
+                {
+                    DetermineTileInteractivity(tileValue);
                 }
             }
         }
