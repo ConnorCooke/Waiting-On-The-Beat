@@ -1,6 +1,7 @@
 import essentia
 from essentia.standard import *
 import numpy as np
+import json
 
 fname = './beat-test.wav'
 audiobeat = MonoLoader(filename=fname)()
@@ -13,7 +14,10 @@ bpm, beats, b_conf, _, _ = rhythm_extractor(audiobeat)
 # print("Beat Positions (sec.): ", beats)
 # print("Beat Estimation Confidence: ", b_conf)
 
-f = open("./beat-test.txt", "w+")
-f.write(str(beats).replace('[',' ').replace(']',''))
-f.close()
+# beats is a numpy array filled with numpy.float32
+# converted to floats by list comprehension stored in f_beats
+f_beats = [float(np_float) for np_float in list(beats)]
+
+with open("./beat-test.json", "w+") as outfile:
+	json.dump(f_beats, outfile)
 
