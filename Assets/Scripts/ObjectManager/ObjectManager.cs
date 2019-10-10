@@ -142,6 +142,7 @@ public class ObjectManager : MonoBehaviour
      */
     public void GiveCorrectness(bool isCorrect)
     {
+        print("last input was::" + isCorrect);
         //TODO
     }
 
@@ -151,6 +152,7 @@ public class ObjectManager : MonoBehaviour
      */
     public void BeatOccured()
     {
+        print("beatOccured");
         //TODO
     }
 

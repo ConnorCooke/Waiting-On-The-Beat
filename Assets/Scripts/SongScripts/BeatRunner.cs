@@ -4,21 +4,23 @@ using UnityEngine;
 
 public class BeatRunner : MonoBehaviour
 {
-    /*
+    
     public string fileName;
     public int currentBeat;
     public AudioSource musicSource;
     private float[] beatPositionsInTime;
     public float inputLeeway;
+    public string beatFilePath;
+    public ObjectManager objectManager;
+    private bool isActing;
     
     
     void Start()
     {
         musicSource = GetComponent<AudioSource>();
-        /**
-         * TODO:: Convert a file with the name filename into an array of floats equivalent to beat positions
-         * 
-         *
+
+        beatPositionsInTime = JsonUtility.FromJson<float[]>(beatFilePath);
+        
         currentBeat = 1;
 
         musicSource.Play();
@@ -27,23 +29,41 @@ public class BeatRunner : MonoBehaviour
 
     void Update()
     {
-        if(musicSource.time > beatPositionsInTime[currentBeat + 1])
+        float currentSongTime = musicSource.time;
+        if (currentSongTime > beatPositionsInTime[currentBeat + 1])
         {
             currentBeat++;
+            objectManager.BeatOccured();
+        }
+        else if (currentSongTime> beatPositionsInTime[currentBeat]+inputLeeway)
+        {
+            objectManager.GiveCorrectness(false);
         }
 
+        if (!isActing)
+        {
+            Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
+            if (input != Vector2.zero )
+            {
+                isActing = true;
+                objectManager.GiveCorrectness(PlayerInputCloseToCurrentBeat());
+                StartCoroutine(WaitForActionToComplete());
+            }
+        }
     }
 
-    private void initializeBeatPositionArray()
+    IEnumerator WaitForActionToComplete()
     {
-
+        yield return new WaitForSeconds((float).1);
+        isActing = false;
     }
 
     /**
      * When called checks if the current time is close enough to a beat to be considered correct input and returns true if it is.
      * As long as the players input is before the next beat by that time - leeway or it is after the previous beat but before that beat time + leeway
      * the input is acceptable.
-     *
+     */
     public bool PlayerInputCloseToCurrentBeat()
     {
         float inputTime = musicSource.time;
@@ -70,5 +90,5 @@ public class BeatRunner : MonoBehaviour
         return musicSource.time;
     }
 
-    */
+    
 }

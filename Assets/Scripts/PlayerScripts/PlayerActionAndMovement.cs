@@ -251,16 +251,47 @@ public class PlayerActionAndMovement : MonoBehaviour
     /**
      * Given the transform of a specific object determines the correct tile and sets its value to tileValue
      */
-    private void SetTileAtTransform(Transform TilePosition, int tileValue)
+    private void SetTileAtTransform(Vector3 TilePosition, int tileValue)
     {
-        int xPosition = (int)(TilePosition.position.x / 0.5 + 10);
-        int yPosition = (int)(-(TilePosition.position.y / 0.5) + 6);
+        int xPosition = (int)(TilePosition.x / 0.5 + 10);
+        int yPosition = (int)(-(TilePosition.y / 0.5) + 6);
         tileContents[yPosition, xPosition] = tileValue;
     }
 
-    public void CustomerEating(Transform customerPosition)
+    private void UpdateCustomerTiles(Vector3 customerPosition, int tileValue)
     {
-        SetTileAtTransform(customerPosition, 1);
+        SetTileAtTransform(customerPosition + new Vector3((float) -0.5, 0, 0), tileValue);
+        SetTileAtTransform(customerPosition + new Vector3((float) 0.5, 0, 0), tileValue);
     }
+
+    public void CustomerEating(Transform customerTransform)
+    {
+        UpdateCustomerTiles(customerTransform.position, 1);
+    }
+
+    public void CustomerReadyToOrder(Transform customerTransform)
+    {
+        UpdateCustomerTiles(customerTransform.position, 2);
+    }
+
+    public void CustomerReadyToPay(Transform customerTransform)
+    {
+        UpdateCustomerTiles(customerTransform.position, 7);
+    }
+
     
+    /*
+    public void ReceiveFood(Food food)
+    {
+        currentFood = food;
+    }
+    */
+
+    /*
+    public void ReceiveOrder(FoodOrder order)
+    {
+        currentOrders.add(order);
+    }
+    */
+
 }

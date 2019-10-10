@@ -357,6 +357,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2ce50c39079d014581ef952b36b5d15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fileName: 
+  currentBeat: 0
+  musicSource: {fileID: 0}
+  inputLeeway: 0.1
+  beatFilePath: /Assets/BeatLayoutTextFiles
+  objectManager: {fileID: 134908785}
 --- !u!4 &920333706
 Transform:
   m_ObjectHideFlags: 0
