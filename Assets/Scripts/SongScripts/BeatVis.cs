@@ -5,16 +5,25 @@ using UnityEngine;
 public class BeatVis : MonoBehaviour
 {
     //This will be determined by bpm
-    public float speed;
-    public GameObject visualizer;
+    [SerializeField]
+    float speed;
+    [SerializeField]
+    GameObject visualizer;
+
+
+    [SerializeField]
+    Color changedColor;
 
     SpriteRenderer sprite;
+    float timer;
 
+    
     
     // Start is called before the first frame update
     void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
+        timer = Time.deltaTime;
     }
 
     // Update is called once per frame
@@ -40,7 +49,9 @@ public class BeatVis : MonoBehaviour
         }
         else if (collision.CompareTag("Plate"))
         {
-            sprite.color = new Color(sprite.color.r + 25, sprite.color.g - 25, sprite.color.b + 10);
+            sprite.color = changedColor;
         }
     }
+
+    
 }

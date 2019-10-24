@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class BeatSpawner : MonoBehaviour
 {
-    public float spawnRate = 1.0f;
-    public GameObject beatBar;
+    [SerializeField]
+    float spawnRate = 1.0f;
+    [SerializeField]
+    GameObject beatBar;
     private float nextTimeToSpawn = 0.0f;
     // Start is called before the first frame update
     void Awake()
@@ -22,5 +24,11 @@ public class BeatSpawner : MonoBehaviour
 
             nextTimeToSpawn = Time.time + 1f / spawnRate;
         }
+    }
+
+    public void SpawnBeat()
+    {
+        Instantiate(beatBar, new Vector2(transform.position.x + 10, transform.position.y), Quaternion.identity);
+        Instantiate(beatBar, new Vector2(transform.position.x - 10, transform.position.y), Quaternion.identity);
     }
 }
