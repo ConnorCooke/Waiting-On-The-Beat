@@ -360,8 +360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentBeat: 0
   musicSource: {fileID: 920333707}
-  inputLeeway: 0
-  beatFilePath: {fileID: 4900000, guid: 2641bfd4a6650ee41b57d24d334aac1a, type: 3}
+  inputLeeway: 0.1
   objectManager: {fileID: 134908785}
 --- !u!4 &920333706
 Transform:

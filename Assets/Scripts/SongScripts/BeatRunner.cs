@@ -1,27 +1,45 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class BeatRunner : MonoBehaviour
 {
     
     public int currentBeat;
     public AudioSource musicSource;
-    private float[] beatPositionsInTime=null;
+    private static List<float> beatPositionsInTime = new List<float>();
     public float inputLeeway;
-    public TextAsset beatFilePath;
+    public static string beatFilePath = "./Assets/Songs/beat-test.txt";
     public ObjectManager objectManager;
     private bool isActing;
+    bool beatHit = false;
+    bool alreadyFailed = false;
     
     
     void Start()
     {
-        beatPositionsInTime = JsonHelper.FromJson<float>(beatFilePath.text);
+        LoadJson();
         
         currentBeat = 1;
 
         musicSource.Play();
 
+    }
+
+    static void LoadJson()
+    {
+        StreamReader r = new StreamReader(beatFilePath);
+
+        while (!r.EndOfStream)
+        {
+            string ln = r.ReadLine();
+            beatPositionsInTime.Add(float.Parse(ln));
+        }
+
+        r.Close();
+
+        // Debug.Log(beats[beats.Count-1]);
     }
 
     void Update()
@@ -32,9 +50,16 @@ public class BeatRunner : MonoBehaviour
             currentBeat++;
             objectManager.BeatOccured();
         }
-        else if (currentSongTime> beatPositionsInTime[currentBeat]+inputLeeway)
+        else if (currentSongTime > beatPositionsInTime[currentBeat] + inputLeeway)
         {
-            objectManager.GiveCorrectness(false);
+            if (!beatHit && !alreadyFailed) {
+                objectManager.GiveCorrectness(false);
+                alreadyFailed = true;
+            }
+            else
+            {
+                beatHit = false;
+            }
         }
 
         if (!isActing)
@@ -66,17 +91,19 @@ public class BeatRunner : MonoBehaviour
         float inputTime = musicSource.time;
         if(inputTime < beatPositionsInTime[currentBeat] + inputLeeway || inputTime > beatPositionsInTime[currentBeat+1] - inputLeeway)
         {
+            beatHit = true;
             return true;
         }
         else
         {
+            beatHit = false;
             return false;
         }
 
     }
 
     // gets the array of beat positions for use by other object managers
-    public float[] getBeatPositions()
+    public List<float> getBeatPositions()
     {
         return beatPositionsInTime;
     }

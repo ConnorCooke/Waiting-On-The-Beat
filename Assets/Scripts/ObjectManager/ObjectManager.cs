@@ -6,7 +6,8 @@ using System;
 public class ObjectManager : MonoBehaviour
 {
     public GameObject[] Tables;
-    public GameObject PlayerCharacter;
+    public GameObject playerCharacter;
+    public BeatRunner beatRunner;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,8 +22,8 @@ public class ObjectManager : MonoBehaviour
 
     private int FindNearestTable()
     {
-        float playerx = PlayerCharacter.transform.position.x;
-        float playery = PlayerCharacter.transform.position.y;
+        float playerx = playerCharacter.transform.position.x;
+        float playery = playerCharacter.transform.position.y;
         float smallestDifference = 0;
         int nearestTable = -1;
         for (int index = 0; index < Tables.Length; index++)
