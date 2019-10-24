@@ -18,6 +18,6 @@ bpm, beats, b_conf, _, _ = rhythm_extractor(audiobeat)
 # converted to floats by list comprehension stored in f_beats
 f_beats = [float(np_float) for np_float in list(beats)]
 
-with open("./beat-test.json", "w+") as outfile:
-	json.dump(f_beats, outfile)
+with open("./beat-test.txt", "w+") as writer:
+	writer.write('\n'.join(str(x) for x in f_beats))
 
