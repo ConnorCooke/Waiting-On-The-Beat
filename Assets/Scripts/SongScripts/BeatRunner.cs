@@ -9,12 +9,14 @@ public class BeatRunner : MonoBehaviour
     public int currentBeat;
     public AudioSource musicSource;
     private static List<float> beatPositionsInTime = new List<float>();
+    private static List<float> beatObjectSpawnTime = new List<float>();
     public float inputLeeway;
     public static string beatFilePath = "./Assets/Songs/beat-test.txt";
     public ObjectManager objectManager;
     private bool isActing;
     bool beatHit = false;
     bool alreadyFailed = false;
+    public int currentSpawn = 0;
     
     
     void Start()
@@ -30,11 +32,21 @@ public class BeatRunner : MonoBehaviour
     static void LoadJson()
     {
         StreamReader r = new StreamReader(beatFilePath);
-
+        int count = 0;
         while (!r.EndOfStream)
         {
             string ln = r.ReadLine();
-            beatPositionsInTime.Add(float.Parse(ln));
+            float time = float.Parse(ln);
+            beatPositionsInTime.Add(time);
+            if (count<3)
+            {
+                count++;
+            }
+            else
+            {
+                beatObjectSpawnTime.Add(time - 2);
+            }
+            
         }
 
         r.Close();
@@ -60,6 +72,12 @@ public class BeatRunner : MonoBehaviour
             {
                 beatHit = false;
             }
+        }
+
+        if(currentSongTime > beatObjectSpawnTime[currentSpawn])
+        {
+            objectManager.SpawnBeatVisual();
+            currentSpawn++;
         }
 
         if (!isActing)

@@ -8,6 +8,8 @@ public class ObjectManager : MonoBehaviour
     public GameObject[] Tables;
     public GameObject playerCharacter;
     public BeatRunner beatRunner;
+    public BeatSpawner beatSpawner;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -163,5 +165,13 @@ public class ObjectManager : MonoBehaviour
      public void CleanNearestTable()
     {
         //TODO
+    }
+
+    /*
+     * Spawns a beat visualisation
+     */
+    public void SpawnBeatVisual()
+    {
+        beatSpawner.SpawnBeat();
     }
 }
