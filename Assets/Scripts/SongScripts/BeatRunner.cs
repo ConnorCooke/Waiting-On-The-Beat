@@ -5,21 +5,18 @@ using UnityEngine;
 public class BeatRunner : MonoBehaviour
 {
     
-    public string fileName;
     public int currentBeat;
     public AudioSource musicSource;
-    private float[] beatPositionsInTime;
+    private float[] beatPositionsInTime=null;
     public float inputLeeway;
-    public string beatFilePath;
+    public TextAsset beatFilePath;
     public ObjectManager objectManager;
     private bool isActing;
     
     
     void Start()
     {
-        musicSource = GetComponent<AudioSource>();
-
-        beatPositionsInTime = JsonUtility.FromJson<float[]>(beatFilePath);
+        beatPositionsInTime = JsonHelper.FromJson<float>(beatFilePath.text);
         
         currentBeat = 1;
 
