@@ -42,7 +42,7 @@ public class ObjectManager : MonoBehaviour
 
     /*
      * Determines the table closest to player and then tells the Table to give the
-     * player the nearest customer to players order
+     * player the nearest customers order
      */
     public void RequestOrder()
     {
