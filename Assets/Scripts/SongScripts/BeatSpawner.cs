@@ -14,6 +14,7 @@ public class BeatSpawner : MonoBehaviour
     {
     }
 
+    /*
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -25,6 +26,7 @@ public class BeatSpawner : MonoBehaviour
             nextTimeToSpawn = Time.time + 1f / spawnRate;
         }
     }
+    */
 
     public void SpawnBeat()
     {

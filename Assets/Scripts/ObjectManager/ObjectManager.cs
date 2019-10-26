@@ -6,7 +6,10 @@ using System;
 public class ObjectManager : MonoBehaviour
 {
     public GameObject[] Tables;
-    public GameObject PlayerCharacter;
+    public GameObject playerCharacter;
+    public BeatRunner beatRunner;
+    public BeatSpawner beatSpawner;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,8 +24,8 @@ public class ObjectManager : MonoBehaviour
 
     private int FindNearestTable()
     {
-        float playerx = PlayerCharacter.transform.position.x;
-        float playery = PlayerCharacter.transform.position.y;
+        float playerx = playerCharacter.transform.position.x;
+        float playery = playerCharacter.transform.position.y;
         float smallestDifference = 0;
         int nearestTable = -1;
         for (int index = 0; index < Tables.Length; index++)
@@ -39,7 +42,7 @@ public class ObjectManager : MonoBehaviour
 
     /*
      * Determines the table closest to player and then tells the Table to give the
-     * player the nearest customer to players order
+     * player the nearest customers order
      */
     public void RequestOrder()
     {
@@ -142,6 +145,7 @@ public class ObjectManager : MonoBehaviour
      */
     public void GiveCorrectness(bool isCorrect)
     {
+        print("last input was::" + isCorrect);
         //TODO
     }
 
@@ -151,6 +155,7 @@ public class ObjectManager : MonoBehaviour
      */
     public void BeatOccured()
     {
+        print("beatOccured");
         //TODO
     }
 
@@ -160,5 +165,13 @@ public class ObjectManager : MonoBehaviour
      public void CleanNearestTable()
     {
         //TODO
+    }
+
+    /*
+     * Spawns a beat visualisation
+     */
+    public void SpawnBeatVisual()
+    {
+        beatSpawner.SpawnBeat();
     }
 }
