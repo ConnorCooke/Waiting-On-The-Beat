@@ -24,8 +24,8 @@ public class PlayerActionAndMovement : MonoBehaviour
     private int width = 17;
     private int height = 11;
 
-    //private Food currentFood;
-    //private List<FoodOrder> currentOrders;
+    private GameObject currentFood;
+    private List<FoodOrder> currentOrders;
 
     public ObjectManager objectManager;
 
@@ -83,7 +83,7 @@ public class PlayerActionAndMovement : MonoBehaviour
 
     private void DeliverFood()
     {
-        //objectManager.DeliverFood(currentFood);
+        objectManager.DeliverFood(currentFood);
     }
 
     private void RequestOrder()
@@ -93,7 +93,7 @@ public class PlayerActionAndMovement : MonoBehaviour
 
     private void DeliverOrders()
     {
-        //objectManager.DeliverOrdersToKitchen(currentOrders);
+        objectManager.DeliverOrdersToKitchen(currentOrders);
     }
 
     /**
@@ -264,34 +264,33 @@ public class PlayerActionAndMovement : MonoBehaviour
         SetTileAtTransform(customerPosition + new Vector3((float) 0.5, 0, 0), tileValue);
     }
 
-    public void CustomerEating(Transform customerTransform)
+    public void CustomerPaid(Vector3 position)
     {
-        UpdateCustomerTiles(customerTransform.position, 1);
+        UpdateCustomerTiles(position, 1);
     }
 
-    public void CustomerReadyToOrder(Transform customerTransform)
+    public void CustomerReadyToOrder(Vector3 position)
     {
-        UpdateCustomerTiles(customerTransform.position, 2);
+        UpdateCustomerTiles(position, 2);
     }
 
-    public void CustomerReadyToPay(Transform customerTransform)
+    public void CustomerEating(Vector3 position)
     {
-        UpdateCustomerTiles(customerTransform.position, 7);
+        UpdateCustomerTiles(position, 7);
+        currentFood = null;
     }
-
     
-    /*
-    public void ReceiveFood(Food food)
+    public void ReceiveFood(GameObject food)
     {
         currentFood = food;
     }
-    */
+    
 
-    /*
+    
     public void ReceiveOrder(FoodOrder order)
     {
-        currentOrders.add(order);
+        currentOrders.Add(order);
     }
-    */
+    
 
 }
