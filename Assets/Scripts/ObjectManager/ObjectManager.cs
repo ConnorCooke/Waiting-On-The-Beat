@@ -31,7 +31,7 @@ public class ObjectManager : MonoBehaviour
         for (int index = 0; index < Tables.Length; index++)
         {
             float diff = Math.Abs(Tables[index].transform.position.x - playerx) + Math.Abs(Tables[index].transform.position.y - playery);
-            if (smallestDifference<diff)
+            if (smallestDifference > diff)
             {
                 smallestDifference = diff;
                 nearestTable = index;
@@ -46,7 +46,7 @@ public class ObjectManager : MonoBehaviour
      */
     public void RequestOrder()
     {
-        //TODO
+        Tables[FindNearestTable()].GetComponent<Table>().ReceiveOrderRequest(playerCharacter.transform.position);
     }
 
     /*
@@ -60,12 +60,12 @@ public class ObjectManager : MonoBehaviour
 
     /*
      * Determines the table closest to player and then tells the table to give
-     * the food to the nearest customer to the player
+     * the food to the customer nearest to the player
      * @param food GameObject A food prefab that the player is currently holding
      */
     public void DeliverFood(GameObject food)
     {
-        //TODO
+        Tables[FindNearestTable()].GetComponent<Table>().ReceiveFood(food, playerCharacter.transform.position);
     }
 
     /*
@@ -78,12 +78,37 @@ public class ObjectManager : MonoBehaviour
     }
 
     /*
-     * Tells the kitchen to take in the food order
+     * Tells the kitchen to take in the food orders
      * @param order FoodOrder adt taht tells kitchen relevant info to "cook" a new food prefab
      */
     public void DeliverOrdersToKitchen(List<FoodOrder> orders)
     {
         //TODO
+    }
+
+    /*
+     * Tells the player that they are able to pick up the order from the customer at position
+     */
+    public void CustomerReadyToOrder(Vector3 position)
+    {
+        playerCharacter.GetComponent<PlayerActionAndMovement>().CustomerReadyToOrder(position);
+    }
+
+    /*
+    * Tells the player that the customer at position is eating, allowing payment requests to occur
+    */
+    public void CustomerEating(Vector3 position)
+    {
+        playerCharacter.GetComponent<PlayerActionAndMovement>().CustomerEating(position);
+    }
+
+    /*
+    * Tells the player that the customer at position is eating and cannot be interacting
+    */
+    public void CustomerPaid(float tip, Vector3 position)
+    {
+        playerCharacter.GetComponent<PlayerActionAndMovement>().CustomerPaid(position);
+        //TODO:: send the payment to the tip calculator
     }
 
     /*
@@ -155,7 +180,10 @@ public class ObjectManager : MonoBehaviour
      */
     public void BeatOccured()
     {
-        print("beatOccured");
+        foreach(GameObject table in Tables)
+        {
+            table.GetComponent<Table>().BeatOccurred();
+        }
         //TODO
     }
 
