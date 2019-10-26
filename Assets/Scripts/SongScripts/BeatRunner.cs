@@ -1,65 +1,127 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class BeatRunner : MonoBehaviour
 {
-    /*
-    public string fileName;
+    
     public int currentBeat;
     public AudioSource musicSource;
-    private float[] beatPositionsInTime;
+    private static List<float> beatPositionsInTime = new List<float>();
+    private static List<float> beatObjectSpawnTime = new List<float>();
     public float inputLeeway;
+    public static string beatFilePath = "./Assets/Songs/beat-test.txt";
+    public ObjectManager objectManager;
+    private bool isActing;
+    bool beatHit = false;
+    bool alreadyFailed = false;
+    public int currentSpawn = 0;
     
     
     void Start()
     {
-        musicSource = GetComponent<AudioSource>();
-        /**
-         * TODO:: Convert a file with the name filename into an array of floats equivalent to beat positions
-         * 
-         *
+        LoadJson();
+        
         currentBeat = 1;
 
         musicSource.Play();
 
     }
 
-    void Update()
+    static void LoadJson()
     {
-        if(musicSource.time > beatPositionsInTime[currentBeat + 1])
+        StreamReader r = new StreamReader(beatFilePath);
+        int count = 0;
+        while (!r.EndOfStream)
         {
-            currentBeat++;
+            string ln = r.ReadLine();
+            float time = float.Parse(ln);
+            beatPositionsInTime.Add(time);
+            if (count<3)
+            {
+                count++;
+            }
+            else
+            {
+                beatObjectSpawnTime.Add(time - 2);
+            }
+            
         }
 
+        r.Close();
+
+        // Debug.Log(beats[beats.Count-1]);
     }
 
-    private void initializeBeatPositionArray()
+    void Update()
     {
+        float currentSongTime = musicSource.time;
+        if (currentSongTime > beatPositionsInTime[currentBeat + 1])
+        {
+            currentBeat++;
+            objectManager.BeatOccured();
+        }
+        else if (currentSongTime > beatPositionsInTime[currentBeat] + inputLeeway)
+        {
+            if (!beatHit && !alreadyFailed) {
+                objectManager.GiveCorrectness(false);
+                alreadyFailed = true;
+            }
+            else
+            {
+                beatHit = false;
+            }
+        }
 
+        if(currentSongTime > beatObjectSpawnTime[currentSpawn])
+        {
+            objectManager.SpawnBeatVisual();
+            currentSpawn++;
+        }
+
+        if (!isActing)
+        {
+            Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
+            if (input != Vector2.zero )
+            {
+                isActing = true;
+                objectManager.GiveCorrectness(PlayerInputCloseToCurrentBeat());
+                StartCoroutine(WaitForActionToComplete());
+            }
+        }
+    }
+
+    IEnumerator WaitForActionToComplete()
+    {
+        yield return new WaitForSeconds((float).1);
+        isActing = false;
     }
 
     /**
      * When called checks if the current time is close enough to a beat to be considered correct input and returns true if it is.
      * As long as the players input is before the next beat by that time - leeway or it is after the previous beat but before that beat time + leeway
      * the input is acceptable.
-     *
+     */
     public bool PlayerInputCloseToCurrentBeat()
     {
         float inputTime = musicSource.time;
         if(inputTime < beatPositionsInTime[currentBeat] + inputLeeway || inputTime > beatPositionsInTime[currentBeat+1] - inputLeeway)
         {
+            beatHit = true;
             return true;
         }
         else
         {
+            beatHit = false;
             return false;
         }
 
     }
 
     // gets the array of beat positions for use by other object managers
-    public float[] getBeatPositions()
+    public List<float> getBeatPositions()
     {
         return beatPositionsInTime;
     }
@@ -70,5 +132,5 @@ public class BeatRunner : MonoBehaviour
         return musicSource.time;
     }
 
-    */
+    
 }
