@@ -38,6 +38,10 @@ public class Table : MonoBehaviour
         }
     }
 
+    /*
+     * Based off of the transform of the player the table determines which
+     * customer is closest to the player
+     */
     private int FindNearestCustomer(Vector3 position)
     {
         float playerx = position.x;
@@ -73,6 +77,11 @@ public class Table : MonoBehaviour
         objectManager.RequestCustomer(GetTableID());
     }
 
+    /*
+     * Determines where no customer is seated, places the customer in that position of
+     * the customers array and then changes its transform so it is seated in the correct 
+     * position. When this is completed the table is able to request customers again
+     */
     public void ReceiveCustomer(GameObject customer)
     {
         void SetCustomerTransform(int idx)
@@ -111,9 +120,11 @@ public class Table : MonoBehaviour
                 customers[index] = customer;
                 SetCustomerTransform(index);
                 CustomerReceived(index);
+                notPlaced = false;
             }
             index++;
         }
+        requestedCustomer = false;
     }
 
     private void CustomerReceived(int index)
@@ -126,6 +137,10 @@ public class Table : MonoBehaviour
         objectManager.CustomerEating(customers[index].transform.position);
     }
 
+    /*
+     * When a pay request is successful the customer is despawned and the tip amount is added
+     * to the total tips, as well the tile that customer was on is no longer interactable
+     */
     private void CustomerPaid(float tip, int index)
     {
         Vector3 pos = customers[index].transform.position;
@@ -134,6 +149,9 @@ public class Table : MonoBehaviour
         customers[index] = null;
     }
 
+    /*
+     * Whenever a beat occurs the table informs the customers that the beat occured
+     */
     public void BeatOccurred()
     {
         for(int index = 0; index < customers.Length; index++)
