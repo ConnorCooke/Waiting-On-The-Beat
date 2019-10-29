@@ -22,7 +22,7 @@ public class BeatRunner : MonoBehaviour
     
     void Start()
     {
-        LoadJson();
+        loadBeatsFromFile();
         
         currentBeat = 1;
 
@@ -30,14 +30,13 @@ public class BeatRunner : MonoBehaviour
 
     }
 
-    static void LoadJson()
+    static void loadBeatsFromFile()
     {
         StreamReader r = new StreamReader(beatFilePath);
         int count = 0;
         while (!r.EndOfStream)
         {
-            string ln = r.ReadLine();
-            // string lnfix = ln.ToString(CultureInfo.InvariantCulture.NumberFormat);
+            string ln = r.ReadLine();            
             double time = double.Parse(ln, CultureInfo.InvariantCulture.NumberFormat);
             beatPositionsInTime.Add(time);            
             
@@ -53,8 +52,6 @@ public class BeatRunner : MonoBehaviour
         }
 
         r.Close();
-
-        // Debug.Log(beats[beats.Count-1]);
     }
 
     void Update()
