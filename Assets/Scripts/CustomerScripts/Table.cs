@@ -8,8 +8,9 @@ public class Table : MonoBehaviour
     public ObjectManager objectManager;
 
     private int tableID;
-    public GameObject[] customers;
+    public GameObject[] customers = new GameObject[4];
     private bool requestedCustomer;
+    private Food[] customersFood = new Food[4];
 
     // Start is called before the first frame update
     void Start()
@@ -132,9 +133,27 @@ public class Table : MonoBehaviour
         objectManager.CustomerReadyToOrder(customers[index].transform.position);
     }
 
-    private void CustomerReceivedFood(int index)
+    private void CustomerReceivedFood(int index, Food food)
     {
+        void SetFoodTransform(int index)
+        {
+            void SetTransform(float yChange )
+            {
+                Vector3 customerPosition = customers[index].transform.position;
+                customers[index].transform.position = new Vector3(customerPosition.x, customerPosition.y + yChange, customerPosition.z);
+            }
+
+            if(index < 2){
+                SetTransform(-1);
+            }
+            else{
+                SetTransform(1);
+            }
+        }
+
         objectManager.CustomerEating(customers[index].transform.position);
+        customersFood[index] = food;
+        SetFoodTransform(index);
     }
 
     /*
@@ -158,23 +177,27 @@ public class Table : MonoBehaviour
         {
             if(!(customers[index] is null))
             {
-                //TODO: customers[index].GetComponent<Customer>().BeatOccured();
+                customers[index].GetComponent<Customer>().BeatOccured();
             }
         }
     }
 
     public void ReceiveFood(GameObject food, Vector3 position)
     {
-        // TODO:: customers[FindNearestCustomer(position)].GetComponent<Customer>().ReceiveFood(food);
+        customers[FindNearestCustomer(position)].GetComponent<Customer>().ReceiveFood(food);
     }
 
     public void ReceiveOrderRequest(Vector3 position)
     {
-        // TODO:: customers[FindNearestCustomer(position)].GetComponent<Customer>().ReceiveOrderRequest();
+        customers[FindNearestCustomer(position)].GetComponent<Customer>().ReceiveOrderRequest();
     }
 
     public void ReceivePayRequest(Vector3 position)
     {
-        // TODO:: customers[FindNearestCustomer(position)].GetComponent<Customer>().ReceivePayRequest();
+        customers[FindNearestCustomer(position)].GetComponent<Customer>().ReceivePayRequest();
+    }
+
+    public void GiveFoodOrder(FoodOrder order){
+        objectManager.GivePlayerOrder(order)
     }
 }
