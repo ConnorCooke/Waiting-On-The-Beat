@@ -8,25 +8,27 @@ using UnityEngine;
 public class Kitchen : MonoBehaviour
 {
     
-
-   
-    //public GameObject Food;
-    public List<FoodOrder> TestOrder = new List<FoodOrder>();
-    
-    
-    public static Queue<GameObject> cookedFood = new Queue<GameObject>();
+    public static Queue<Food> cookedFood = new Queue<Food>();
     public static Queue<FoodOrder> uncookedFood = new Queue<FoodOrder>();
     public static int kitchenSize = 6; //kitchen size
     public static GameObject[] counterTop = new GameObject[kitchenSize]; //countertop where cooked food it placed
+    public ObjectManager objectmanager;
+    public FoodOrder BeingCooked; //thing that be cookin
+    public int kitchenTimer = 0;
+   
 
-    //public GameObject foodBeingCooked;
-    //Food onGrill = new Food("Oil", 10);
-    //Food onGrill = gameObject.AddComponent<Food>();
+    bool GrillOccupied()
+    {
+        if(kitchenTimer > 0) //something is cooking, therefore grill occupied
+        {
+            return true;
+        }
+        else //something finished cooking and timer == 0
+        {
+            return false;
+        }
+    }
   
-
-
-
-
 
     public void ReceiveOrders(List<FoodOrder> order)
     {
@@ -37,18 +39,12 @@ public class Kitchen : MonoBehaviour
         }
     } 
     
-    /*public void cookFood(bool occupied, FoodOrder food)
-    {
-        if(!(occupied)) //if there is nothing on the grill
-        {
-            onGrill = uncookedFood.Dequeue(); //put earliest order on the grill
-            sprite = Resources.Load("Assets/Sprites/Foods" + onGrill.foodName + ".png", typeof(Sprite)) as Sprite;
-            spriteR = gameObject.GetComponent<SpriteRenderer>();
-        }
-    }*/
 
-    public static void FoodAvailable(Food f, int spot)
+    public static void FoodAvailable(FoodOrder f, int spot)
     {
+        //NOT WORKING DONT USE
+
+
         //Sprite sprite = Resources.Load("Assets/Sprites/Foods" + f.name + ".png", typeof(Sprite)) as Sprite;
        // SpriteRenderer spriteR = f.GetComponent<SpriteRenderer>();
         Debug.Log("sprite assigned");
@@ -62,83 +58,61 @@ public class Kitchen : MonoBehaviour
     }
     // Start is called before the first frame update
     
-   
-    /*
-    void test(Food g)
+   private void toKitchenCounter()
     {
-        
-        FoodOrder testFood = gameObject.AddComponent<FoodOrder>();
-        FoodOrder testFood2 = gameObject.AddComponent<FoodOrder>();
-        List<FoodOrder> testL = new List<FoodOrder>
+        for(int x = 0; x < kitchenSize; x++)
         {
-            testFood, testFood2
-        };
-        ReceiveOrders(testL);
-        g = gameObject.AddComponent<Food>();
-        g = new Food(uncookedFood.Dequeue());
+            if (cookedFood.Count > 0 && counterTop[x] == null) //if there are food to put out and space to put food
+            {
+                counterTop[x] = cookedFood.Dequeue().gameObject;
+                Instantiate(counterTop[x]);
+            }
+        }
+
     }
-    */
+    
+
+    public void ReveiveFoodRequest(Transform playerPosition)
+    {
+            //give player food from the counter
+            //remove food from kitchen
+            //counterTop[?] = null
+        for(int x = 0; x < kitchenSize; x++)
+        {
+            if (playerPosition.position.x == counterTop[x].transform.position.x) //if player touching tile with food
+            {
+                objectmanager.GivePlayerFood(counterTop[x]); //give the player that piece of food
+                counterTop[x] = null;
+            }
+    }
+        }
+        
     void Start()
     {
 
-
-        //testing//
-
-        Food onGrill = gameObject.AddComponent<Food>();
-        onGrill.FoodName = "oil";
-        onGrill.CookTimer = 10;
-        Debug.Log(onGrill.GetComponents<SpriteRenderer>());
-
-        //end testing
-        FoodAvailable(onGrill, 2);
-
-        if (onGrill == null && uncookedFood.Count > 0){//nothing being cooked yet and there is stuff to be cooked
+        Debug.Log("if this gets called youre fucked");
+        if (!GrillOccupied()){ //nothing being cooked
             Debug.Log("nothing on grill");
 
-           //put food on the grill
-            
-            
-            Debug.Log("ongrill now has " + onGrill.FoodName);
-            //used for testing cuz beat occured never happens
-            //Sprite sprite = onGrill.GetComponent.spriteR; //Resources.Load("Assets/Sprites/Foods" + onGrill.FoodName + ".png", typeof(Sprite)) as Sprite;
-            //SpriteRenderer spriteR = GetComponent<SpriteRenderer>(); // = onGrill.gameObject.GetComponent<SpriteRenderer>();
-            //spriteR.sprite = onGrill.sprite;
-            Debug.Log("sprite assigned");
-
-            // Food f = new Food() {FoodName = onGrill.FoodName };
-            //Food ff = (Food) onGrill;
-            // f.FoodName = onGrill.FoodName;
-            //f.gameObject;
-            FoodAvailable(onGrill, 2);
-            
-            //Instantiate(onGrill, new Vector3(0, 0, 0), Quaternion.identity);
-                                    //GameObject cooking = Instantiate(onGrill.gameObject);
-            //end of testing that block
-            Debug.Log("sprite rendered");
-        }
-        else if (onGrill.CookTimer == 0) //if done bing cooked
-        {
-            cookedFood.Enqueue(onGrill.gameObject); //put that shit in the queue of cooked stuff
-            Debug.Log("food enqueued");
-            for (int x = 0; x < Kitchen.kitchenSize; x++)
+            if (BeingCooked != null)//food is cooked and needs to be removed from grill
             {
-                if (Kitchen.counterTop[x] == null) //check if couner space is full so food cooked can be immediatly got'd
-                {
-                    Kitchen.counterTop[x] = cookedFood.Dequeue(); //gottem
-                    //FoodAvailable(counterTop[x], x); //spawn the food onto counter
-                    break; //stop looking
-                }
+                cookedFood.Enqueue(BeingCooked.FoodObject);
+                BeingCooked = null; //food removed from grill
             }
-
-
+            if (uncookedFood.Count > 0) //if there is food to be cooked
+            {
+                BeingCooked = uncookedFood.Dequeue();
+                kitchenTimer = BeingCooked.CookTimer; //reset the timer
+            }
+           
         }
-
+        toKitchenCounter(); //clean out the cooked queeu to the counter
     }
 
     void BeatOccured()
     {
-        
-        //onGrill.CookTimer -= 1; //decrement cook timer
+     
+        kitchenTimer -= 1; //decrement cook timer
         Debug.Log("beat occured");
     }
 
