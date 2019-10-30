@@ -46,7 +46,7 @@ public class ObjectManager : MonoBehaviour
      */
     public void RequestOrder()
     {
-        //Tables[FindNearestTable()].GetComponent<Table>().ReceiveOrderRequest(playerCharacter.transform.position);
+        Tables[FindNearestTable()].GetComponent<Table>().ReceiveOrderRequest(playerCharacter.transform.position);
     }
 
     /*
@@ -65,7 +65,7 @@ public class ObjectManager : MonoBehaviour
      */
     public void DeliverFood(GameObject food)
     {
-        //Tables[FindNearestTable()].GetComponent<Table>().ReceiveFood(food, playerCharacter.transform.position);
+        Tables[FindNearestTable()].GetComponent<Table>().ReceiveFood(food, playerCharacter.transform.position);
     }
 
     /*
@@ -182,7 +182,7 @@ public class ObjectManager : MonoBehaviour
     {
         foreach(GameObject table in Tables)
         {
-           // table.GetComponent<Table>().BeatOccurred();
+            table.GetComponent<Table>().BeatOccurred();
         }
         //TODO
     }
