@@ -11,24 +11,39 @@ public class CustomerObject : MonoBehaviour
     private bool isEating = false;
     private int index;
     private Table parentTable;
-
+    private float tipValue;
     private int timer;
+
+    public void SetTimer(int time)
+    {
+        timer = time;
+    }
+
+    public void SetTable(Table table)
+    {
+        parentTable = table;
+    }
 
     public void SetFoodOrder(FoodOrder order)
     {
         foodOrder = order;
     }
 
-    void SetIndex(int idx)
+    public void SetIndex(int idx)
     {
         index = idx;
     }
 
-    private int GetIndex()
+    public void SetTipValue(float tip)
+    {
+        tipValue = tip;
+    }
+
+    public int GetIndex()
     {
         return index;
     }
-2
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,46 +56,43 @@ public class CustomerObject : MonoBehaviour
         //leave empty
     }
 
-    void TrackImpatience()
+    public void TrackImpatience()
     {
         if(timer > 12) //cooking time + 2* max walk distance
         {
-            customer.impatienceLevel =+ 1;
+            impatienceLevel++;
         }
     }
 
-    void ReceiveFood(Food food)
+    public void ReceiveFood(Food food)
     {
-        /*
-        if(food.GetFoodName() == foodOrder.GetFoodName())
+        if(food.GetName() == foodOrder.GetFoodName())
         {
             parentTable.CustomerReceivedFood(index, food);
         }
-        */
-
-        // TODO once josh has pushed food related code
+        
     }
 
-    void receiveOrderRequest()
+    public void ReceiveOrderRequest()
     {
         parentTable.GiveFoodOrder(foodOrder);
     }
 
-    bool isCustomerDoneEating()
+    public void ReceivePayRequest()
     {
-        if(isEating == false)
+        if (isEating)
         {
-            return true;
+            impatienceLevel++;
         }
         else
         {
-            false;
+            parentTable.CustomerPaid(foodOrder.GetPrice() * (tipValue/100), index);
         }
     }
 
     //customer has an integer with its index within the parent tables array with getter and setter
 
-    void BeatOccured()
+    public void BeatOccured()
     {   
         if(isEating){
             if(timer > 0){
