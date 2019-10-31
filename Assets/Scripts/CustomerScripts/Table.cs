@@ -169,6 +169,7 @@ public class Table : MonoBehaviour
         Destroy(customers[index]);
         Destroy(customersFood[index]);
         customers[index] = null;
+        customersFood[index] = null;
     }
 
     /*

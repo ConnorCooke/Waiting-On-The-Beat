@@ -139,27 +139,21 @@ public class PlayerActionAndMovement : MonoBehaviour
             switch (tileValue)
             {
                 case 2:
-                    print("request order");
                     RequestOrder(direction);
                     break;
                 case 3:
-                    print("deliver order");
                     DeliverOrders();
                     break;
                 case 4:
-                    print("request food");
                     RequestFood();
                     break;
                 case 5:
-                    print("deliver food");
                     DeliverFood(direction);
                     break;
                 case 6:
-                    print("clean table");
                     CleanTable();
                     break;
                 case 7:
-                    print("request payment");
                     RequestPayment(direction);
                     break;
             }
