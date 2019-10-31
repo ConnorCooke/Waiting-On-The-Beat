@@ -3,37 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class CustomerQueue : MonoBehaviour
+public class CustomerQueueTracker : MonoBehaviour
 {
-    public CustomerObject customerObject;
     public ObjectManager objectManager;
     public GameObject customer;
 
-    private Queue<customer> customerEntranceQueue = new Queue<customer>();
+    public int numberOfStartingCustomers;
+
+    private Queue<GameObject> customerEntranceQueue = new Queue<GameObject>();
+    private Queue<int> customerRequestQueue = new Queue<int>();
 
     public int spawnTimer = 10;
     private int timer;
     public int[] customerTimerValues;
-
-    public FoodOrder[] possibleOrders;
-    public int index;  
-    public int impatienceLevel;
-    public bool isEating;
+    public int[] customerTipValues;
+    public FoodOrder[] possibleOrders = new FoodOrder[] { new FoodOrder("temp", 2, 20) };
 
 
     /*
     * This is for generating any new customers for the game
     */
-    private generateCustomer();
+    private void generateCustomer()
     {
-        Instantiate(customer, new Vector3(0, 15, 0));
+        GameObject newCustomer = Instantiate(customer, new Vector3(15, 0, 0), Quaternion.identity);
 
-        customer.impatienceLevel = 0;
+        System.Random picker = new System.Random();
 
-        customer.isEating = false;
+        CustomerObject customerObject = newCustomer.GetComponent<CustomerObject>();
 
-        customer.order = Random.Range(1.0f - 4.0f)
-
+        customerObject.SetFoodOrder(possibleOrders[picker.Next(0, possibleOrders.Length)]);
+        customerObject.SetTimer(customerTimerValues[picker.Next(0, customerTimerValues.Length)]);
+        customerObject.SetTipValue(customerTipValues[picker.Next(0, customerTipValues.Length)]);
+        customerEntranceQueue.Enqueue(newCustomer);
         //customer.index
     }
 
@@ -42,7 +43,10 @@ public class CustomerQueue : MonoBehaviour
     void Start()
     {
         timer = 0;
-        generateCustomer()
+        for(int count = 0; count< numberOfStartingCustomers; count++)
+        {
+            generateCustomer();
+        }
     }
 
 
@@ -56,33 +60,36 @@ public class CustomerQueue : MonoBehaviour
     /*
     * Receives customer request from a table
     */
-    void ReceiveCustomerRequest(int tableNumber)//NOT DONE
+    public void ReceiveCustomerRequest(int tableNumber)
     {
-        //table number int requests a customer, then call GiveCustomer()
-        GiveCustomer(tableNumber, customerEntranceQueue.Dequeue());
+        customerRequestQueue.Enqueue(tableNumber);
     }
-
 
     /*
     * Send customer to the table that requested one
     */
-    void GiveCustomer(int tableNumber, GameObject customer)//NOT DONE
+    public void GiveCustomer(int tableNumber, GameObject customer)//NOT DONE
     {
         //attach customerObject to table
-
+        objectManager.GiveCustomer(customer, tableNumber);
     }
 
 
     /*
     * This is called each time ObjectManager calls BeatOccured
     */
-    void BeatOccured()
+    public void BeatOccured()
     {
         timer++;
         if(timer == spawnTimer)
         {          
             generateCustomer();
-            timer =0;
+            timer = 0;
+        }
+
+        if(customerRequestQueue.Count > 0 && customerEntranceQueue.Count > 0)
+        {
+            GiveCustomer(customerRequestQueue.Dequeue(), customerEntranceQueue.Dequeue());
         }
     }
 }
