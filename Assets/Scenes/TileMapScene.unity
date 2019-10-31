@@ -2431,10 +2431,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   objectmanager: {fileID: 134908785}
-  beingCooked: {fileID: 0}
   kitchenTimer: 0
   foodPrefab: {fileID: 9049343872903146929, guid: 86b91837bdd2bb84e9049bdfd8ada3c2,
     type: 3}
+  foodBeingCooked: {fileID: 0}
 --- !u!4 &1883977924
 Transform:
   m_ObjectHideFlags: 0
