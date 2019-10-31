@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerActionAndMovement : MonoBehaviour
 {
-    private float moveSpeed = 3f;
+    private float moveSpeed = 2f;
     private float gridSize = 1f;
     private enum Orientation
     {
@@ -34,15 +34,15 @@ public class PlayerActionAndMovement : MonoBehaviour
     {
         playerPosition = new int[] {10, 5};
         tileContents =new int[,] { { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                                   { 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0 },
-                                   { 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0 },
-                                   { 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0 },
-                                   { 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0 },
+                                   { 0, 4, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0 },
+                                   { 0, 4, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0 },
+                                   { 0, 4, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0 },
+                                   { 0, 4, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0 },
                                    { 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                                    { 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0 },
                                    { 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0 },
-                                   { 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0 },
-                                   { 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0 },
+                                   { 1, 3, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0 },
+                                   { 1, 3, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0 },
                                    { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }};
     }
 
@@ -74,6 +74,10 @@ public class PlayerActionAndMovement : MonoBehaviour
                 StartCoroutine(move(transform));
             }
         }
+        if(!(currentFood is null))
+        {
+            currentFood.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - 1);
+        }
     }
 
     private void RequestFood()
@@ -81,19 +85,27 @@ public class PlayerActionAndMovement : MonoBehaviour
         objectManager.RequestFood();
     }
 
-    private void DeliverFood()
+    private void DeliverFood(int direction)
     {
-        objectManager.DeliverFood(currentFood);
+        if(!(currentFood is null))
+        {
+            objectManager.DeliverFood(currentFood, direction);
+        }
+        
     }
 
-    private void RequestOrder()
+    private void RequestOrder(int direction)
     {
-        objectManager.RequestOrder();
+        objectManager.RequestOrder(direction);
     }
 
     private void DeliverOrders()
     {
-        objectManager.DeliverOrdersToKitchen(currentOrders);
+        if (!(currentOrders is null))
+        {
+            objectManager.DeliverOrdersToKitchen(currentOrders);
+        }
+        
     }
 
     /**
@@ -104,9 +116,9 @@ public class PlayerActionAndMovement : MonoBehaviour
         objectManager.CleanNearestTable();
     }
 
-    private void RequestPayment()
+    private void RequestPayment(int direction)
     {
-        objectManager.RequestPayment();
+        objectManager.RequestPayment(direction);
     }
 
     /**
@@ -118,11 +130,17 @@ public class PlayerActionAndMovement : MonoBehaviour
     {
         void DetermineTileInteractivity(int tileValue)
         {
+            int direction = 0;
+            if(input.y < 0)
+            {
+                direction = 1;
+            }
+            isMoving = true;
             switch (tileValue)
             {
                 case 2:
                     print("request order");
-                    RequestOrder();
+                    RequestOrder(direction);
                     break;
                 case 3:
                     print("deliver order");
@@ -134,7 +152,7 @@ public class PlayerActionAndMovement : MonoBehaviour
                     break;
                 case 5:
                     print("deliver food");
-                    DeliverFood();
+                    DeliverFood(direction);
                     break;
                 case 6:
                     print("clean table");
@@ -142,9 +160,10 @@ public class PlayerActionAndMovement : MonoBehaviour
                     break;
                 case 7:
                     print("request payment");
-                    RequestPayment();
+                    RequestPayment(direction);
                     break;
             }
+            StartCoroutine(WaitWhileInteracting());
         }
 
         void CheckEastwardInteractions()
@@ -221,6 +240,12 @@ public class PlayerActionAndMovement : MonoBehaviour
         CheckSouthwardInteractions();
     }
 
+    public IEnumerator WaitWhileInteracting()
+    {
+        yield return new WaitForSeconds((float)0.25);
+        isMoving = false;
+    }
+
     /**
      * Given the position to move the player character sprite, gradually increment the player sprite position until it arrives
      * at the given position. IEnumerator act over a time period without interrupting other game processes
@@ -253,15 +278,15 @@ public class PlayerActionAndMovement : MonoBehaviour
      */
     private void SetTileAtTransform(Vector3 TilePosition, int tileValue)
     {
-        int xPosition = (int)(TilePosition.x / 0.5 + 10);
-        int yPosition = (int)(-(TilePosition.y / 0.5) + 6);
+        int xPosition = (int)((TilePosition.x - 0.5) + (float)10.0);
+        int yPosition = (int)(-(TilePosition.y - 0.5) + (float)5.0);
         tileContents[yPosition, xPosition] = tileValue;
     }
 
     private void UpdateCustomerTiles(Vector3 customerPosition, int tileValue)
     {
-        SetTileAtTransform(customerPosition + new Vector3((float) -0.5, 0, 0), tileValue);
-        SetTileAtTransform(customerPosition + new Vector3((float) 0.5, 0, 0), tileValue);
+        SetTileAtTransform(new Vector3( customerPosition.x - (float)0.5, customerPosition.y, customerPosition.z), tileValue);
+        SetTileAtTransform(new Vector3( customerPosition.x + (float)0.5, customerPosition.y, customerPosition.z), tileValue);
     }
 
     public void CustomerPaid(Vector3 position)
@@ -272,6 +297,11 @@ public class PlayerActionAndMovement : MonoBehaviour
     public void CustomerReadyToOrder(Vector3 position)
     {
         UpdateCustomerTiles(position, 2);
+    }
+
+    public void CustomerOrdered(Vector3 position)
+    {
+        UpdateCustomerTiles(position, 5);
     }
 
     public void CustomerEating(Vector3 position)
@@ -285,10 +315,18 @@ public class PlayerActionAndMovement : MonoBehaviour
         currentFood = food;
     }
     
-
+    public void OrdersReceived()
+    {
+        currentOrders = null;
+    }
     
     public void ReceiveOrder(FoodOrder order)
     {
+        if(currentOrders is null)
+        {
+            currentOrders = new List<FoodOrder>();
+        }
+
         currentOrders.Add(order);
     }
     
