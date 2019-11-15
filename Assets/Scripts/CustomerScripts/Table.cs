@@ -10,7 +10,13 @@ public class Table : MonoBehaviour
     private int tableID;
     private GameObject[] customers = new GameObject[4];
     private bool requestedCustomer;
-    private Food[] customersFood = new Food[4];
+    private GameObject[] customersFood = new GameObject[4];
+
+    public int lowerBaseLayer;
+    public int upperBaseLayer;
+    public float middleX;
+    public float middleY;
+
 
     // Start is called before the first frame update
     void Start()
@@ -24,15 +30,12 @@ public class Table : MonoBehaviour
         if (!requestedCustomer)
         {
             int index = 0;
-            while(true)
+            while(index < 4)
             {
-                if(index == 4)
-                {
-                    break;
-                }
                 if(customers[index] is null)
                 {
                     RequestCustomer();
+                    index = 4;
                 }
                 index++;
             }
@@ -77,6 +80,7 @@ public class Table : MonoBehaviour
     private void RequestCustomer()
     {
         objectManager.RequestCustomer(GetTableID());
+        requestedCustomer = true;
     }
 
     /*
@@ -90,8 +94,8 @@ public class Table : MonoBehaviour
         {
             void SetTransform(float x, float y)
             {
-                float tablex = this.transform.position.x;
-                float tabley = this.transform.position.y;
+                float tablex = middleX;
+                float tabley = middleY;
                 float tablez = this.transform.position.z;
                 customers[idx].transform.position = new Vector3((tablex + x), (tabley + y), tablez);
                 customers[idx].GetComponent<CustomerObject>().SetTable(this);
@@ -99,18 +103,22 @@ public class Table : MonoBehaviour
             if (idx == 0)
             {
                 SetTransform(-1, (float)1.5);
+                customer.GetComponent<CustomerSpriteManager>().faceSouth(upperBaseLayer);
             }
             else if (idx == 1)
             {
                 SetTransform(1, (float)1.5);
+                customer.GetComponent<CustomerSpriteManager>().faceSouth(upperBaseLayer);
             }
             else if (idx == 2)
             {
-                SetTransform(-1, (float)-1.5);
+                SetTransform(-1, (float)-.5);
+                customer.GetComponent<CustomerSpriteManager>().faceNorth(lowerBaseLayer);
             }
             else
             {
-                SetTransform(1, (float)-1.5);
+                SetTransform(1, (float)-.5);
+                customer.GetComponent<CustomerSpriteManager>().faceNorth(lowerBaseLayer);
             }
         }
 
@@ -121,6 +129,7 @@ public class Table : MonoBehaviour
             if(customers[index] is null)
             {
                 customers[index] = customer;
+                customer.GetComponent<CustomerObject>().SetIndex(index);
                 SetCustomerTransform(index);
                 CustomerReceived(index);
                 notPlaced = false;
@@ -135,7 +144,7 @@ public class Table : MonoBehaviour
         objectManager.CustomerReadyToOrder(customers[index].transform.position);
     }
 
-    public void CustomerReceivedFood(int index, Food food)
+    public void CustomerReceivedFood(int index, GameObject food)
     {
         void SetFoodTransform(int indx)
         {
@@ -166,9 +175,11 @@ public class Table : MonoBehaviour
         Vector3 pos = customers[index].transform.position;
         objectManager.CustomerPaid(tip, new Vector3(pos.x, pos.y, pos.z));
         //todo remove customer animation activations
-        Destroy(customers[index]);
-        Destroy(customersFood[index]);
+        DestroyImmediate(customers[index]);
+        print(customersFood[index].GetComponent<Food>().GetName());
+        DestroyImmediate(customersFood[index]);
         customers[index] = null;
+        customersFood[index] = null;
     }
 
     /*
@@ -187,7 +198,7 @@ public class Table : MonoBehaviour
 
     public void ReceiveFood(GameObject food, Vector3 position)
     {
-        customers[FindNearestCustomer(position)].GetComponent<CustomerObject>().ReceiveFood(food.GetComponent<Food>());
+        customers[FindNearestCustomer(position)].GetComponent<CustomerObject>().ReceiveFood(food);
     }
 
     public void ReceiveOrderRequest(Vector3 position)
