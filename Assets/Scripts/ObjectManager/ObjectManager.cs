@@ -100,6 +100,11 @@ public class ObjectManager : MonoBehaviour
         kitchen.ReceiveOrders(orders);
     }
 
+    public void OrdersDelivered()
+    {
+        playerCharacter.GetComponent<PlayerActionAndMovement>().OrdersReceived();
+    }
+
     /*
      * Tells the player that they are able to pick up the order from the customer at position
      */

@@ -14,6 +14,7 @@ public class PlayerActionAndMovement : MonoBehaviour
     private Orientation gridOrientation = Orientation.Horizontal;
     private Vector2 input;
     private bool isMoving = false;
+    private bool wasMoving = false;
     private Vector3 startPosition;
     private Vector3 endPosition;
     private float t;
@@ -53,7 +54,24 @@ public class PlayerActionAndMovement : MonoBehaviour
          * When the player is not already moving input can be taken in, it then deals with ambiguities/player trying to input both directions
          * simultaneously, checks if there is an interaction or movement involved with the input, and then starts a coroutine for movement
          */
-        if (!isMoving)
+        if(wasMoving && !isMoving){
+            input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
+            if (Mathf.Abs(input.x) > Mathf.Abs(input.y))
+            {
+                input.y = 0;
+            }
+            else
+            {
+                input.x = 0;
+            }
+            if(input.y == 0 && input.x == 0)
+            {
+                wasMoving = false;
+            }
+        }
+
+        if (!isMoving && !wasMoving)
         {
             validMovement = false;
             input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
@@ -71,6 +89,7 @@ public class PlayerActionAndMovement : MonoBehaviour
 
             if (input != Vector2.zero && validMovement)
             {
+                wasMoving = true;
                 StartCoroutine(move(transform));
             }
         }
@@ -121,6 +140,22 @@ public class PlayerActionAndMovement : MonoBehaviour
         objectManager.RequestPayment(direction);
     }
 
+    private int DetermineBaseLayer()
+    {
+        if(playerPosition[1] < 1)
+        {
+            return 5;
+        }
+        else if (playerPosition[1] < 5)
+        {
+            return 35;
+        }
+        else
+        {
+            return 65;
+        }
+    }
+
     /**
      * Determines if any interactions occur due to the players input, including allowing movement,  picking up orders, placing orders
      * picking up food, dropping off food, and clean tables. It sends the respective messages if neccessary
@@ -131,35 +166,30 @@ public class PlayerActionAndMovement : MonoBehaviour
         void DetermineTileInteractivity(int tileValue)
         {
             int direction = 0;
-            if(input.y < 0)
+            if(input.y < 0 || playerPosition[1] > 5)
             {
                 direction = 1;
             }
             isMoving = true;
+            wasMoving = true;
             switch (tileValue)
             {
                 case 2:
-                    print("request order");
                     RequestOrder(direction);
                     break;
                 case 3:
-                    print("deliver order");
                     DeliverOrders();
                     break;
                 case 4:
-                    print("request food");
                     RequestFood();
                     break;
                 case 5:
-                    print("deliver food");
                     DeliverFood(direction);
                     break;
                 case 6:
-                    print("clean table");
                     CleanTable();
                     break;
                 case 7:
-                    print("request payment");
                     RequestPayment(direction);
                     break;
             }
@@ -168,13 +198,16 @@ public class PlayerActionAndMovement : MonoBehaviour
 
         void CheckEastwardInteractions()
         {
-            if (input.x > 0 && playerPosition[0] + 1 < width && tileContents[playerPosition[1], playerPosition[0] + 1] == 0)
+            if (input.x > 0 && playerPosition[0] + 1 < width)
             {
                 int tileValue = tileContents[playerPosition[1], playerPosition[0] + 1];
+                GetComponent<Animator>().SetInteger("Direction", 1);
+                GetComponent<PlayerSpriteManager>().faceEast(DetermineBaseLayer());
                 if (tileValue==0)
                 {
                     validMovement = true;
                     playerPosition[0] += 1;
+                    GetComponent<Animator>().SetBool("Walking", true);
                 }
                 else
                 {
@@ -188,10 +221,14 @@ public class PlayerActionAndMovement : MonoBehaviour
             if (input.x < 0 && playerPosition[0] > 0)
             {
                 int tileValue = tileContents[playerPosition[1], playerPosition[0] - 1];
+                GetComponent<Animator>().SetInteger("Direction", 3);
+                GetComponent<PlayerSpriteManager>().faceWest(DetermineBaseLayer());
                 if (tileValue == 0)
                 {
                     validMovement = true;
                     playerPosition[0] -= 1;
+                    
+                    GetComponent<Animator>().SetBool("Walking", true);
                 }
                 else
                 {
@@ -205,10 +242,13 @@ public class PlayerActionAndMovement : MonoBehaviour
             if (input.y > 0 && playerPosition[1] > 0 )
             {
                 int tileValue = tileContents[playerPosition[1] - 1, playerPosition[0]];
+                GetComponent<Animator>().SetInteger("Direction", 2);
+                GetComponent<PlayerSpriteManager>().faceNorth(DetermineBaseLayer());
                 if (tileValue == 0)
                 {
                     validMovement = true;
                     playerPosition[1] -= 1;
+                    GetComponent<Animator>().SetBool("Walking", true);
                 }
                 else
                 {
@@ -222,10 +262,12 @@ public class PlayerActionAndMovement : MonoBehaviour
             if (input.y < 0 && playerPosition[1] + 1 < height)
             {
                 int tileValue = tileContents[playerPosition[1] + 1, playerPosition[0]];
+                GetComponent<Animator>().SetInteger("Direction", 2);
                 if(tileValue == 0)
                 {
                     validMovement = true;
                     playerPosition[1] += 1;
+                    GetComponent<Animator>().SetBool("Walking", true);
                 }
                 else
                 {
@@ -243,6 +285,8 @@ public class PlayerActionAndMovement : MonoBehaviour
     public IEnumerator WaitWhileInteracting()
     {
         yield return new WaitForSeconds((float)0.25);
+        GetComponent<Animator>().SetInteger("Direction", -1);
+        GetComponent<PlayerSpriteManager>().faceSouth(DetermineBaseLayer());
         isMoving = false;
     }
 
@@ -261,15 +305,16 @@ public class PlayerActionAndMovement : MonoBehaviour
         
         endPosition = new Vector3(startPosition.x + System.Math.Sign(input.x) * gridSize, startPosition.y + System.Math.Sign(input.y) * gridSize, startPosition.z);
         factor = 1f;
-
         while (t < 1f)
         {
             t += Time.deltaTime * (moveSpeed / gridSize) * factor;
             transform.position = Vector3.Lerp(startPosition, endPosition, t);
             yield return null;
         }
-
         isMoving = false;
+        GetComponent<Animator>().SetInteger("Direction", -1);
+        GetComponent<Animator>().SetBool("Walking", false);
+        GetComponent<PlayerSpriteManager>().faceSouth(DetermineBaseLayer());
         yield return 0;
     }
 

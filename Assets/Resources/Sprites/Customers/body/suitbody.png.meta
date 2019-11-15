@@ -1,0 +1,703 @@
+fileFormatVersion: 2
+guid: 5b15c960b91ce77478dc1a359526ff6b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8316982476217123344
+    second: suitbody_0
+  - first:
+      213: 9167225389027655374
+    second: suitbody_1
+  - first:
+      213: 5514928119625012562
+    second: suitbody_2
+  - first:
+      213: 571038235983911383
+    second: suitbody_3
+  - first:
+      213: -1628067011059971114
+    second: suitbody_4
+  - first:
+      213: -8662351848801492701
+    second: suitbody_5
+  - first:
+      213: -2849825047085145102
+    second: suitbody_6
+  - first:
+      213: 5079335636071537471
+    second: suitbody_7
+  - first:
+      213: -7536883650868916388
+    second: suitbody_8
+  - first:
+      213: -6412469332784222804
+    second: suitbody_9
+  - first:
+      213: 8100170624186962651
+    second: suitbody_10
+  - first:
+      213: 4289202795454068399
+    second: suitbody_11
+  - first:
+      213: 5277201601248824780
+    second: suitbody_12
+  - first:
+      213: 1169377325210485602
+    second: suitbody_13
+  - first:
+      213: 1657761004321757948
+    second: suitbody_14
+  - first:
+      213: 6008739979299099915
+    second: suitbody_15
+  - first:
+      213: -454366506040572708
+    second: suitbody_16
+  - first:
+      213: 3085854068979581250
+    second: suitbody_17
+  - first:
+      213: -6637163383121681982
+    second: suitbody_18
+  - first:
+      213: 4696510483867655591
+    second: suitbody_19
+  - first:
+      213: -454354898763485761
+    second: suitbody_20
+  - first:
+      213: 7165629155392687670
+    second: suitbody_21
+  - first:
+      213: 9160823693742213930
+    second: suitbody_22
+  - first:
+      213: -8931490542643811790
+    second: suitbody_23
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: suitbody_0
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 234
+        width: 115
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7977eb4cc5ffb61499d5f377f3250fc5
+      internalID: -8316982476217123344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: suitbody_1
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 59
+        width: 269
+        height: 339
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c2a2b2d2985c19478fa24244762df38
+      internalID: 9167225389027655374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: suitbody_2
+      rect:
+        serializedVersion: 2
+        x: 507
+        y: 252
+        width: 116
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0341621f4a6e57a45917877aa9b21c6e
+      internalID: 5514928119625012562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: suitbody_3
+      rect:
+        serializedVersion: 2
+        x: 654
+        y: 77
+        width: 122
+        height: 205
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0f8ce5aa83f6f7478099fdba3c4f5e6
+      internalID: 571038235983911383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: suitbody_4
+      rect:
+        serializedVersion: 2
+        x: 854
+        y: 77
+        width: 123
+        height: 205
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0f81f4dd61a31e438cfb74d1b92a405
+      internalID: -1628067011059971114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: suitbody_5
+      rect:
+        serializedVersion: 2
+        x: 998
+        y: 64
+        width: 243
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce5f82671762b7a419d6f160046752b1
+      internalID: -8662351848801492701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: suitbody_6
+      rect:
+        serializedVersion: 2
+        x: 1267
+        y: 237
+        width: 131
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc335e5cd54ed2c41950eeccbbb4cd2b
+      internalID: -2849825047085145102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: suitbody_7
+      rect:
+        serializedVersion: 2
+        x: 1434
+        y: 230
+        width: 110
+        height: 173
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04e5957d3b5533f4b85c6d58ed76c546
+      internalID: 5079335636071537471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: suitbody_8
+      rect:
+        serializedVersion: 2
+        x: 1586
+        y: 26
+        width: 258
+        height: 356
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d82cfca127badee42a553e71f9f3b888
+      internalID: -7536883650868916388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: suitbody_9
+      rect:
+        serializedVersion: 2
+        x: 1853
+        y: 232
+        width: 124
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65b40b022def6494391b89a5b2a2c128
+      internalID: -6412469332784222804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: suitbody_10
+      rect:
+        serializedVersion: 2
+        x: 2015
+        y: 241
+        width: 74
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbc907748486a2c4d8fbbd4524eb33f9
+      internalID: 8100170624186962651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: suitbody_11
+      rect:
+        serializedVersion: 2
+        x: 2128
+        y: 241
+        width: 74
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8407606e3f4a92f45a3c04d13abd0467
+      internalID: 4289202795454068399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: suitbody_12
+      rect:
+        serializedVersion: 2
+        x: 2251
+        y: 245
+        width: 74
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01be13215410a704fbd27ea7ea311f9b
+      internalID: 5277201601248824780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: suitbody_13
+      rect:
+        serializedVersion: 2
+        x: 2384
+        y: 86
+        width: 245
+        height: 312
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3aa3b183bac1041479b99f6b1224e045
+      internalID: 1169377325210485602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: suitbody_14
+      rect:
+        serializedVersion: 2
+        x: 2694
+        y: 240
+        width: 133
+        height: 149
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68011d5b2e3edeb4d864053b3f397263
+      internalID: 1657761004321757948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: suitbody_15
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 66
+        width: 120
+        height: 159
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca1982b28cfb97841b2b39b762a1cca7
+      internalID: 6008739979299099915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: suitbody_16
+      rect:
+        serializedVersion: 2
+        x: 501
+        y: 64
+        width: 119
+        height: 166
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38203ad3a5aad7f45b31c373cf1d2037
+      internalID: -454366506040572708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: suitbody_17
+      rect:
+        serializedVersion: 2
+        x: 1263
+        y: 59
+        width: 132
+        height: 149
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e37a6c3efb6398445a107c5491c925d0
+      internalID: 3085854068979581250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: suitbody_18
+      rect:
+        serializedVersion: 2
+        x: 1435
+        y: 42
+        width: 113
+        height: 176
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f76fdb388f94e9141916601c16db7957
+      internalID: -6637163383121681982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: suitbody_19
+      rect:
+        serializedVersion: 2
+        x: 1846
+        y: 70
+        width: 129
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 527537b7603cd944a82d41c94ccdc920
+      internalID: 4696510483867655591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: suitbody_20
+      rect:
+        serializedVersion: 2
+        x: 2015
+        y: 94
+        width: 74
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bc61dbc41e05784dbb35704092e7534
+      internalID: -454354898763485761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: suitbody_21
+      rect:
+        serializedVersion: 2
+        x: 2128
+        y: 95
+        width: 74
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afc0e3a7498c9ef4f959cb8791b362c7
+      internalID: 7165629155392687670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: suitbody_22
+      rect:
+        serializedVersion: 2
+        x: 2251
+        y: 98
+        width: 74
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b65d48c193cfae4eb04861b911e4197
+      internalID: 9160823693742213930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: suitbody_23
+      rect:
+        serializedVersion: 2
+        x: 2698
+        y: 63
+        width: 132
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b44ecbae4b06b4d42971d3461928d59e
+      internalID: -8931490542643811790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

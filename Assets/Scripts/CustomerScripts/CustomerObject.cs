@@ -64,9 +64,9 @@ public class CustomerObject : MonoBehaviour
         }
     }
 
-    public void ReceiveFood(Food food)
+    public void ReceiveFood(GameObject food)
     {
-        if(food.GetName() == foodOrder.GetFoodName())
+        if(food.GetComponent<Food>().GetName() == foodOrder.GetFoodName())
         {
             parentTable.CustomerReceivedFood(index, food);
         }

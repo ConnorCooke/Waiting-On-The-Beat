@@ -8,6 +8,8 @@ public class CustomerQueueTracker : MonoBehaviour
     public ObjectManager objectManager;
     public GameObject customer;
 
+    public String[] bodypaths;
+
     public int numberOfStartingCustomers;
 
     private Queue<GameObject> customerEntranceQueue = new Queue<GameObject>();
@@ -35,7 +37,17 @@ public class CustomerQueueTracker : MonoBehaviour
         customerObject.SetTimer(customerTimerValues[picker.Next(0, customerTimerValues.Length)]);
         customerObject.SetTipValue(customerTipValues[picker.Next(0, customerTipValues.Length)]);
         customerEntranceQueue.Enqueue(newCustomer);
-        //customer.index
+
+        newCustomer.GetComponent<CustomerSpriteManager>().LoadSprites(
+            UnityEngine.Random.Range(0, 6), // headshape
+            UnityEngine.Random.Range(0, 6), // skintone
+            UnityEngine.Random.Range(0, 6), // nose
+            UnityEngine.Random.Range(0, 16), // accessory
+            UnityEngine.Random.Range(0, 14), // hairtype
+            UnityEngine.Random.Range(0, 8), // haircolour
+            bodypaths[UnityEngine.Random.Range(0, bodypaths.Length)], //bodypath
+            UnityEngine.Random.Range(0, 6)); // mouth
+        
     }
 
 
@@ -76,7 +88,8 @@ public class CustomerQueueTracker : MonoBehaviour
 
 
     /*
-    * This is called each time ObjectManager calls BeatOccured
+    * Increments the timer for spawning customers and gives a customer to the earliest tables request,
+    * occasionally changes the order of the requests to appear more random
     */
     public void BeatOccured()
     {
@@ -89,9 +102,11 @@ public class CustomerQueueTracker : MonoBehaviour
 
         if(customerRequestQueue.Count > 0 && customerEntranceQueue.Count > 0)
         {
+            if(UnityEngine.Random.Range(0.0f,1.0f) < .35)
+            {
+                customerRequestQueue.Enqueue(customerRequestQueue.Dequeue());
+            }
             GiveCustomer(customerRequestQueue.Dequeue(), customerEntranceQueue.Dequeue());
         }
     }
 }
-
-// Spawn outside of screen -> (0, 15);
