@@ -36,6 +36,7 @@ public class CustomerQueueTracker : MonoBehaviour
         customerObject.SetTipValue(customerTipValues[picker.Next(0, customerTipValues.Length)]);
         customerEntranceQueue.Enqueue(newCustomer);
         //customer.index
+        
     }
 
 
@@ -76,7 +77,8 @@ public class CustomerQueueTracker : MonoBehaviour
 
 
     /*
-    * This is called each time ObjectManager calls BeatOccured
+    * Increments the timer for spawning customers and gives a customer to the earliest tables request,
+    * occasionally changes the order of the requests to appear more random
     */
     public void BeatOccured()
     {
@@ -89,9 +91,11 @@ public class CustomerQueueTracker : MonoBehaviour
 
         if(customerRequestQueue.Count > 0 && customerEntranceQueue.Count > 0)
         {
+            if(UnityEngine.Random.Range(0.0f,1.0f) < .35)
+            {
+                customerRequestQueue.Enqueue(customerRequestQueue.Dequeue());
+            }
             GiveCustomer(customerRequestQueue.Dequeue(), customerEntranceQueue.Dequeue());
         }
     }
 }
-
-// Spawn outside of screen -> (0, 15);

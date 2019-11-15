@@ -166,7 +166,7 @@ public class PlayerActionAndMovement : MonoBehaviour
         void DetermineTileInteractivity(int tileValue)
         {
             int direction = 0;
-            if(input.y < 0)
+            if(input.y < 0 || playerPosition[1] > 5)
             {
                 direction = 1;
             }
@@ -198,7 +198,7 @@ public class PlayerActionAndMovement : MonoBehaviour
 
         void CheckEastwardInteractions()
         {
-            if (input.x > 0 && playerPosition[0] + 1 < width && tileContents[playerPosition[1], playerPosition[0] + 1] == 0)
+            if (input.x > 0 && playerPosition[0] + 1 < width)
             {
                 int tileValue = tileContents[playerPosition[1], playerPosition[0] + 1];
                 GetComponent<Animator>().SetInteger("Direction", 1);
@@ -305,7 +305,6 @@ public class PlayerActionAndMovement : MonoBehaviour
         
         endPosition = new Vector3(startPosition.x + System.Math.Sign(input.x) * gridSize, startPosition.y + System.Math.Sign(input.y) * gridSize, startPosition.z);
         factor = 1f;
-        print(Time.deltaTime);
         while (t < 1f)
         {
             t += Time.deltaTime * (moveSpeed / gridSize) * factor;

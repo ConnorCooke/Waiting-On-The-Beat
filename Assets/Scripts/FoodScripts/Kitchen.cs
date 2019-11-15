@@ -26,11 +26,16 @@ public class Kitchen : MonoBehaviour
         objectManager.OrdersDelivered();
     }
     
+    /*
+     * If there is an empty countertop position then the cooking bot places a cooked piece of food there
+     * setting its rendering position and its transform accordingly
+     */
     private void toKitchenCounter()
     {
         void SetTransform(int x)
         {
             counterTop[x].transform.position = new Vector3((float)-8.5, (float)4.5-x, 0);
+            counterTop[x].GetComponent<SpriteRenderer>().sortingOrder = 61;
         }
 
         void AttemptToPlaceFoodAtIndex(int index)
@@ -38,7 +43,6 @@ public class Kitchen : MonoBehaviour
             if (cookedFood.Count > 0 && counterTop[index] is null)
             {
                 counterTop[index] = cookedFood.Dequeue().gameObject;
-                Instantiate(counterTop[index]);
                 SetTransform(index);
             }
         }
@@ -50,7 +54,10 @@ public class Kitchen : MonoBehaviour
 
     }
     
-
+    /*
+     * Receives a request from the player for the food at a specific countertop position
+     * and sends the food to the player
+     */
     public void ReceiveFoodRequest(Transform playerPosition)
     {
         void CheckIndex(int index)
@@ -83,6 +90,10 @@ public class Kitchen : MonoBehaviour
         
     }
 
+    /*
+     * Decrements timer if there is food currently being cooked, if the food has finished cooking it is
+     * put in the queue for placement on the counter
+     */
     public void BeatOccured()
     {
         if(kitchenTimer > 0)

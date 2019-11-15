@@ -10,7 +10,7 @@ public class Table : MonoBehaviour
     private int tableID;
     private GameObject[] customers = new GameObject[4];
     private bool requestedCustomer;
-    private Food[] customersFood = new Food[4];
+    private GameObject[] customersFood = new GameObject[4];
 
     // Start is called before the first frame update
     void Start()
@@ -24,15 +24,12 @@ public class Table : MonoBehaviour
         if (!requestedCustomer)
         {
             int index = 0;
-            while(true)
+            while(index < 4)
             {
-                if(index == 4)
-                {
-                    break;
-                }
                 if(customers[index] is null)
                 {
                     RequestCustomer();
+                    index = 4;
                 }
                 index++;
             }
@@ -77,6 +74,7 @@ public class Table : MonoBehaviour
     private void RequestCustomer()
     {
         objectManager.RequestCustomer(GetTableID());
+        requestedCustomer = true;
     }
 
     /*
@@ -121,6 +119,7 @@ public class Table : MonoBehaviour
             if(customers[index] is null)
             {
                 customers[index] = customer;
+                customer.GetComponent<CustomerObject>().SetIndex(index);
                 SetCustomerTransform(index);
                 CustomerReceived(index);
                 notPlaced = false;
@@ -135,7 +134,7 @@ public class Table : MonoBehaviour
         objectManager.CustomerReadyToOrder(customers[index].transform.position);
     }
 
-    public void CustomerReceivedFood(int index, Food food)
+    public void CustomerReceivedFood(int index, GameObject food)
     {
         void SetFoodTransform(int indx)
         {
@@ -166,8 +165,9 @@ public class Table : MonoBehaviour
         Vector3 pos = customers[index].transform.position;
         objectManager.CustomerPaid(tip, new Vector3(pos.x, pos.y, pos.z));
         //todo remove customer animation activations
-        Destroy(customers[index]);
-        Destroy(customersFood[index]);
+        DestroyImmediate(customers[index]);
+        print(customersFood[index].GetComponent<Food>().GetName());
+        DestroyImmediate(customersFood[index]);
         customers[index] = null;
         customersFood[index] = null;
     }
@@ -188,7 +188,7 @@ public class Table : MonoBehaviour
 
     public void ReceiveFood(GameObject food, Vector3 position)
     {
-        customers[FindNearestCustomer(position)].GetComponent<CustomerObject>().ReceiveFood(food.GetComponent<Food>());
+        customers[FindNearestCustomer(position)].GetComponent<CustomerObject>().ReceiveFood(food);
     }
 
     public void ReceiveOrderRequest(Vector3 position)

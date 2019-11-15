@@ -98,11 +98,11 @@ public class PlayerSpriteManager : MonoBehaviour
         armontheright.GetComponent<SpriteRenderer>().sprite = sprites[8][1];
         mouth.GetComponent<SpriteRenderer>().sprite = empty;
 
-        headShape.GetComponent<SpriteRenderer>().sortingOrder = baseLayer - 3;
+        headShape.GetComponent<SpriteRenderer>().sortingOrder = baseLayer - 2;
         nose.GetComponent<SpriteRenderer>().sortingOrder = baseLayer + 2;
         accessory.GetComponent<SpriteRenderer>().sortingOrder = baseLayer + 3;
         hair.GetComponent<SpriteRenderer>().sortingOrder = baseLayer + 4;
-        body.GetComponent<SpriteRenderer>().sortingOrder = baseLayer + -2;
+        body.GetComponent<SpriteRenderer>().sortingOrder = baseLayer + -3;
         legontheleft.GetComponent<SpriteRenderer>().sortingOrder = baseLayer - 4;
         legontheright.GetComponent<SpriteRenderer>().sortingOrder = baseLayer - 5;
         armontheleft.GetComponent<SpriteRenderer>().sortingOrder = baseLayer;
@@ -125,17 +125,17 @@ public class PlayerSpriteManager : MonoBehaviour
         armontheleft.GetComponent<SpriteRenderer>().sprite = sprites[7][3];
         armontheright.GetComponent<SpriteRenderer>().sprite = sprites[8][3];
 
-        headShape.GetComponent<SpriteRenderer>().sortingOrder = baseLayer - 3;
+        headShape.GetComponent<SpriteRenderer>().sortingOrder = baseLayer - 2;
         nose.GetComponent<SpriteRenderer>().sortingOrder = baseLayer + 2;
         accessory.GetComponent<SpriteRenderer>().sortingOrder = baseLayer + 3;
         hair.GetComponent<SpriteRenderer>().sortingOrder = baseLayer + 4;
-        body.GetComponent<SpriteRenderer>().sortingOrder = baseLayer + -2;
+        body.GetComponent<SpriteRenderer>().sortingOrder = baseLayer + -3;
         legontheleft.GetComponent<SpriteRenderer>().sortingOrder = baseLayer - 5;
         legontheright.GetComponent<SpriteRenderer>().sortingOrder = baseLayer - 4;
         armontheleft.GetComponent<SpriteRenderer>().sortingOrder = baseLayer - 4;
         armontheright.GetComponent<SpriteRenderer>().sortingOrder = baseLayer;
-        handontheleft.GetComponent<SpriteRenderer>().sortingOrder = baseLayer - 1;
-        handontheright.GetComponent<SpriteRenderer>().sortingOrder = baseLayer - 5;
+        handontheleft.GetComponent<SpriteRenderer>().sortingOrder = baseLayer - 5;
+        handontheright.GetComponent<SpriteRenderer>().sortingOrder = baseLayer - 1;
         mouth.GetComponent<SpriteRenderer>().sortingOrder = baseLayer + 1;
     }
 
@@ -202,9 +202,9 @@ public class PlayerSpriteManager : MonoBehaviour
         Sprite[] bodyParts = Resources.LoadAll<Sprite>(PlayerVisual.getBody());
 
         sprites[4][0] = bodyParts[8];//body
-        sprites[4][1] = bodyParts[5];
+        sprites[4][1] = bodyParts[13];
         sprites[4][2] = bodyParts[1];
-        sprites[4][3] = bodyParts[13];
+        sprites[4][3] = bodyParts[5];
 
         sprites[5][0] = bodyParts[9];//legonleft
         sprites[5][1] = bodyParts[14];
@@ -218,7 +218,7 @@ public class PlayerSpriteManager : MonoBehaviour
 
         sprites[7][0] = bodyParts[2];//armonleft
         sprites[7][1] = bodyParts[4];
-        sprites[7][2] = bodyParts[16];
+        sprites[7][2] = bodyParts[18];
         sprites[7][3] = bodyParts[3];
 
         sprites[8][0] = bodyParts[0];//armonright
