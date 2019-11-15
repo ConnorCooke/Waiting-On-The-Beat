@@ -5,15 +5,20 @@ using System;
 
 public class ObjectManager : MonoBehaviour
 {
-    public GameObject[] Tables;
+    public GameObject[] tables;
     public GameObject playerCharacter;
     public BeatRunner beatRunner;
     public BeatSpawner beatSpawner;
+    public Kitchen kitchen;
+    public CustomerQueueTracker customerQueueTracker;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        for(int index = 0; index < tables.Length; index++)
+        {
+            tables[index].GetComponent<Table>().SetTableID(index);
+        }
     }
 
     // Update is called once per frame
@@ -22,15 +27,24 @@ public class ObjectManager : MonoBehaviour
         
     }
 
-    private int FindNearestTable()
+    private int FindNearestTable(int direction)
     {
         float playerx = playerCharacter.transform.position.x;
         float playery = playerCharacter.transform.position.y;
-        float smallestDifference = 0;
+        float smallestDifference = 20000;
         int nearestTable = -1;
-        for (int index = 0; index < Tables.Length; index++)
+        int startPoint = 2;
+        int endPoint = 4;
+
+        if(direction == 0)
         {
-            float diff = Math.Abs(Tables[index].transform.position.x - playerx) + Math.Abs(Tables[index].transform.position.y - playery);
+            startPoint = 0;
+            endPoint = 2;
+        }
+
+        for (int index = startPoint; index < endPoint; index++)
+        {
+            float diff = Math.Abs(tables[index].transform.position.x - playerx) + Math.Abs(tables[index].transform.position.y - playery);
             if (smallestDifference > diff)
             {
                 smallestDifference = diff;
@@ -44,18 +58,18 @@ public class ObjectManager : MonoBehaviour
      * Determines the table closest to player and then tells the Table to give the
      * player the nearest customers order
      */
-    public void RequestOrder()
+    public void RequestOrder(int direction)
     {
-        Tables[FindNearestTable()].GetComponent<Table>().ReceiveOrderRequest(playerCharacter.transform.position);
+        tables[FindNearestTable(direction)].GetComponent<Table>().ReceiveOrderRequest(playerCharacter.transform.position);
     }
 
     /*
      * Determines the table closest to player and then tells the Table to determine
      * closest customer to player and have that customer pay for their food
      */
-    public void RequestPayment()
+    public void RequestPayment(int direction)
     {
-        //TODO
+        tables[FindNearestTable(direction)].GetComponent<Table>().ReceivePayRequest(playerCharacter.transform.position);
     }
 
     /*
@@ -63,9 +77,9 @@ public class ObjectManager : MonoBehaviour
      * the food to the customer nearest to the player
      * @param food GameObject A food prefab that the player is currently holding
      */
-    public void DeliverFood(GameObject food)
+    public void DeliverFood(GameObject food, int direction)
     {
-        Tables[FindNearestTable()].GetComponent<Table>().ReceiveFood(food, playerCharacter.transform.position);
+        tables[FindNearestTable(direction)].GetComponent<Table>().ReceiveFood(food, playerCharacter.transform.position);
     }
 
     /*
@@ -74,16 +88,16 @@ public class ObjectManager : MonoBehaviour
      */
     public void GivePlayerFood(GameObject food)
     {
-        //TODO
+        playerCharacter.GetComponent<PlayerActionAndMovement>().ReceiveFood(food);
     }
 
     /*
      * Tells the kitchen to take in the food orders
-     * @param order FoodOrder adt taht tells kitchen relevant info to "cook" a new food prefab
+     * @param order FoodOrder adt that tells kitchen relevant info to "cook" a new food prefab
      */
     public void DeliverOrdersToKitchen(List<FoodOrder> orders)
     {
-        //TODO
+        kitchen.ReceiveOrders(orders);
     }
 
     /*
@@ -92,6 +106,11 @@ public class ObjectManager : MonoBehaviour
     public void CustomerReadyToOrder(Vector3 position)
     {
         playerCharacter.GetComponent<PlayerActionAndMovement>().CustomerReadyToOrder(position);
+    }
+
+    public void CustomerOrdered(Vector3 position)
+    {
+        playerCharacter.GetComponent<PlayerActionAndMovement>().CustomerOrdered(position);
     }
 
     /*
@@ -117,6 +136,7 @@ public class ObjectManager : MonoBehaviour
      */
     public void GivePlayerOrder(FoodOrder order)
     {
+        playerCharacter.GetComponent<PlayerActionAndMovement>().ReceiveOrder(order);
         //TODO
     }
 
@@ -143,7 +163,7 @@ public class ObjectManager : MonoBehaviour
      */
     public void RequestCustomer(int tableNumber)
     {
-        //TODO
+        customerQueueTracker.ReceiveCustomerRequest(tableNumber);
     }
 
     /*
@@ -151,7 +171,7 @@ public class ObjectManager : MonoBehaviour
      */
     public void RequestFood()
     {
-        //TODO
+        kitchen.ReceiveFoodRequest(playerCharacter.transform);
     }
 
     /*
@@ -162,7 +182,7 @@ public class ObjectManager : MonoBehaviour
      */
     public void GiveCustomer(GameObject customer, int tableNumber)
     {
-        //TODO
+        tables[tableNumber].GetComponent<Table>().ReceiveCustomer(customer);
     }
 
     /*
@@ -180,10 +200,12 @@ public class ObjectManager : MonoBehaviour
      */
     public void BeatOccured()
     {
-        foreach(GameObject table in Tables)
+        foreach(GameObject table in tables)
         {
             table.GetComponent<Table>().BeatOccurred();
         }
+        kitchen.BeatOccured();
+        customerQueueTracker.BeatOccured();
         //TODO
     }
 
