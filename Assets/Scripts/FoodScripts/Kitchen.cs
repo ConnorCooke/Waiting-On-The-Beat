@@ -12,7 +12,7 @@ public class Kitchen : MonoBehaviour
     public static int kitchenSize = 4; 
     public GameObject[] counterTop;
 
-    public ObjectManager objectmanager;
+    public ObjectManager objectManager;
     public int kitchenTimer = 0;
     public GameObject foodPrefab;
     public GameObject foodBeingCooked;
@@ -23,23 +23,29 @@ public class Kitchen : MonoBehaviour
         {
             uncookedFood.Enqueue(order);
         }
+        objectManager.OrdersDelivered();
     }
     
-   private void toKitchenCounter()
+    private void toKitchenCounter()
     {
         void SetTransform(int x)
         {
             counterTop[x].transform.position = new Vector3((float)-8.5, (float)4.5-x, 0);
         }
 
+        void AttemptToPlaceFoodAtIndex(int index)
+        {
+            if (cookedFood.Count > 0 && counterTop[index] is null)
+            {
+                counterTop[index] = cookedFood.Dequeue().gameObject;
+                Instantiate(counterTop[index]);
+                SetTransform(index);
+            }
+        }
+
         for(int x = 0; x < counterTop.Length; x++)
         {
-            if (cookedFood.Count > 0 && counterTop[x] is null)
-            {
-                counterTop[x] = cookedFood.Dequeue().gameObject;
-                Instantiate(counterTop[x]);
-                SetTransform(x);
-            }
+            AttemptToPlaceFoodAtIndex(x);
         }
 
     }
@@ -47,16 +53,21 @@ public class Kitchen : MonoBehaviour
 
     public void ReceiveFoodRequest(Transform playerPosition)
     {
+        void CheckIndex(int index)
+        {
+            if (playerPosition.position.y < counterTop[index].transform.position.y + .1 && playerPosition.position.y > counterTop[index].transform.position.y-.1)
+            {
+                objectManager.GivePlayerFood(counterTop[index]);
+                counterTop[index] = null;
+                return;
+            }
+        }
+
         for(int x = 0; x < kitchenSize; x++)
         {
             if(!(counterTop[x] is null))
             {
-                if (playerPosition.position.y < counterTop[x].transform.position.y + .1 && playerPosition.position.y > counterTop[x].transform.position.y-.1)
-                {
-                    objectmanager.GivePlayerFood(counterTop[x]);
-                    counterTop[x] = null;
-                    return;
-                }
+                CheckIndex(x);
             }
             
         }
