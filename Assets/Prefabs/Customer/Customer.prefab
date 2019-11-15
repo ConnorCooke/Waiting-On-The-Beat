@@ -142,8 +142,8 @@ MonoBehaviour:
   body: {fileID: 9132693189901341362}
   legontheleft: {fileID: 9132693189665030107}
   legontheright: {fileID: 9132693191086875518}
-  armontheleft: {fileID: 9132693190120385274}
-  armontheright: {fileID: 9132693189168742782}
+  armontheleft: {fileID: 9132693189168742782}
+  armontheright: {fileID: 9132693190120385274}
   handontheleft: {fileID: 9132693191014153842}
   handontheright: {fileID: 9132693189397899095}
   empty: {fileID: 21300000, guid: 218d0e51790cc0747b3e4c5350211ae8, type: 3}
