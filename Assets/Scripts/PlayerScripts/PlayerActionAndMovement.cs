@@ -144,7 +144,7 @@ public class PlayerActionAndMovement : MonoBehaviour
     {
         if(playerPosition[1] < 1)
         {
-            return 15;
+            return 5;
         }
         else if (playerPosition[1] < 5)
         {
@@ -152,7 +152,7 @@ public class PlayerActionAndMovement : MonoBehaviour
         }
         else
         {
-            return 55;
+            return 65;
         }
     }
 

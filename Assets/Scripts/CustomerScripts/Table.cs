@@ -12,6 +12,12 @@ public class Table : MonoBehaviour
     private bool requestedCustomer;
     private GameObject[] customersFood = new GameObject[4];
 
+    public int lowerBaseLayer;
+    public int upperBaseLayer;
+    public float middleX;
+    public float middleY;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -88,8 +94,8 @@ public class Table : MonoBehaviour
         {
             void SetTransform(float x, float y)
             {
-                float tablex = this.transform.position.x;
-                float tabley = this.transform.position.y;
+                float tablex = middleX;
+                float tabley = middleY;
                 float tablez = this.transform.position.z;
                 customers[idx].transform.position = new Vector3((tablex + x), (tabley + y), tablez);
                 customers[idx].GetComponent<CustomerObject>().SetTable(this);
@@ -97,18 +103,22 @@ public class Table : MonoBehaviour
             if (idx == 0)
             {
                 SetTransform(-1, (float)1.5);
+                customer.GetComponent<CustomerSpriteManager>().faceSouth(upperBaseLayer);
             }
             else if (idx == 1)
             {
                 SetTransform(1, (float)1.5);
+                customer.GetComponent<CustomerSpriteManager>().faceSouth(upperBaseLayer);
             }
             else if (idx == 2)
             {
-                SetTransform(-1, (float)-1.5);
+                SetTransform(-1, (float)-.5);
+                customer.GetComponent<CustomerSpriteManager>().faceNorth(lowerBaseLayer);
             }
             else
             {
-                SetTransform(1, (float)-1.5);
+                SetTransform(1, (float)-.5);
+                customer.GetComponent<CustomerSpriteManager>().faceNorth(lowerBaseLayer);
             }
         }
 
