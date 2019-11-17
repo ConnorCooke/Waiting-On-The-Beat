@@ -53,3 +53,7 @@ sysinfo.txt
 
 # Crashlytics generated file
 crashlytics-build.properties
+
+
+# Apple Generated Files
+*.DS_Store
