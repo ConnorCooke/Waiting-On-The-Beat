@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System.Globalization;
 
 public class BeatRunner : MonoBehaviour
 {
     
     public int currentBeat;
     public AudioSource musicSource;
-    private static List<float> beatPositionsInTime = new List<float>();
-    private static List<float> beatObjectSpawnTime = new List<float>();
+    private static List<double> beatPositionsInTime = new List<double>();
+    private static List<double> beatObjectSpawnTime = new List<double>();
     public float inputLeeway;
     public static string beatFilePath = "./Assets/Songs/beat-test.txt";
     public ObjectManager objectManager;
@@ -23,7 +24,7 @@ public class BeatRunner : MonoBehaviour
     
     void Start()
     {
-        LoadJson();
+        loadBeatsFromFile();
         
         currentBeat = 1;
 
@@ -31,15 +32,16 @@ public class BeatRunner : MonoBehaviour
 
     }
 
-    static void LoadJson()
+    static void loadBeatsFromFile()
     {
         StreamReader r = new StreamReader(beatFilePath);
         int count = 0;
         while (!r.EndOfStream)
         {
-            string ln = r.ReadLine();
-            float time = float.Parse(ln);
-            beatPositionsInTime.Add(time);
+            string ln = r.ReadLine();            
+            double time = double.Parse(ln, CultureInfo.InvariantCulture.NumberFormat);
+            beatPositionsInTime.Add(time);            
+            
             if (count<3)
             {
                 count++;
@@ -52,13 +54,12 @@ public class BeatRunner : MonoBehaviour
         }
 
         r.Close();
-
-        // Debug.Log(beats[beats.Count-1]);
     }
 
     void Update()
     {
         float currentSongTime = musicSource.time;
+        // Debug.Log(beatPositionsInTime);
         if (currentSongTime > beatPositionsInTime[currentBeat + 1])
         {
             currentBeat++;
@@ -128,7 +129,7 @@ public class BeatRunner : MonoBehaviour
     }
 
     // gets the array of beat positions for use by other object managers
-    public List<float> getBeatPositions()
+    public List<double> getBeatPositions()
     {
         return beatPositionsInTime;
     }
