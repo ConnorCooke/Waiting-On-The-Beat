@@ -166,7 +166,6 @@ public class CustomerSpriteManager : MonoBehaviour
 
     public void LoadSprites(int headshape, int skinTone, int nose, int accessory, int hairType, int hairColour, string bodyPath, int mouth)
     {
-        print("began");
         Sprite[] heads = Resources.LoadAll<Sprite>("Sprites/Customers/faceshapes");
 
         sprites[0][0] = heads[headshape + skinTone * 12];

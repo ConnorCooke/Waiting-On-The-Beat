@@ -181,7 +181,10 @@ public class PlayerActionAndMovement : MonoBehaviour
                     DeliverOrders();
                     break;
                 case 4:
-                    RequestFood();
+                    if(currentFood is null)
+                    {
+                        RequestFood();
+                    }
                     break;
                 case 5:
                     DeliverFood(direction);

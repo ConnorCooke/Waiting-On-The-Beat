@@ -14,8 +14,10 @@ public class BeatRunner : MonoBehaviour
     public static string beatFilePath = "./Assets/Songs/beat-test.txt";
     public ObjectManager objectManager;
     private bool isActing;
-    bool beatHit = false;
-    bool alreadyFailed = false;
+    private bool beatHit = false;
+    private bool noInput = true;
+    private bool beatHitReset = false;
+    private bool noInputReset = false;
     public int currentSpawn = 0;
     
     
@@ -61,20 +63,24 @@ public class BeatRunner : MonoBehaviour
         {
             currentBeat++;
             objectManager.BeatOccured();
+            noInputReset = false;
+            beatHitReset = false;
         }
         else if (currentSongTime > beatPositionsInTime[currentBeat] + inputLeeway)
         {
-            if (!beatHit && !alreadyFailed) {
-                objectManager.GiveCorrectness(false);
-                alreadyFailed = true;
-            }
-            else
+            if(!noInputReset && !beatHitReset)
             {
+                if (!beatHit && noInput) {
+                    objectManager.GiveCorrectness(false);
+                }
+                noInput = true;
                 beatHit = false;
+                noInputReset = true;
+                beatHitReset = true;
             }
         }
 
-        if(currentSongTime > beatObjectSpawnTime[currentSpawn])
+        if (currentSongTime > beatObjectSpawnTime[currentSpawn])
         {
             objectManager.SpawnBeatVisual();
             currentSpawn++;
@@ -95,7 +101,7 @@ public class BeatRunner : MonoBehaviour
 
     IEnumerator WaitForActionToComplete()
     {
-        yield return new WaitForSeconds((float).1);
+        yield return new WaitForSeconds((float).25);
         isActing = false;
     }
 
@@ -107,6 +113,7 @@ public class BeatRunner : MonoBehaviour
     public bool PlayerInputCloseToCurrentBeat()
     {
         float inputTime = musicSource.time;
+        noInput = false;
         if(inputTime < beatPositionsInTime[currentBeat] + inputLeeway || inputTime > beatPositionsInTime[currentBeat+1] - inputLeeway)
         {
             beatHit = true;

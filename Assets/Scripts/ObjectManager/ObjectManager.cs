@@ -11,6 +11,7 @@ public class ObjectManager : MonoBehaviour
     public BeatSpawner beatSpawner;
     public Kitchen kitchen;
     public CustomerQueueTracker customerQueueTracker;
+    public ComboTracker comboTracker;
 
     // Start is called before the first frame update
     void Start()
@@ -155,7 +156,8 @@ public class ObjectManager : MonoBehaviour
     }
 
     /*
-     * Tells the result tracker the total amount of tips the player made
+     * Tells the result tracker the total amount of tips the player made, so that it can determine
+     * the result of the players performance
      * @param tipTotal float
      */
     public void GiveTipTotal(float tipTotal)
@@ -191,13 +193,17 @@ public class ObjectManager : MonoBehaviour
     }
 
     /*
-     * Tells combotracker the corretness of the last input
+     * Tells combotracker the correctness of the last input
      */
     public void GiveCorrectness(bool isCorrect)
     {
         print("last input was::" + isCorrect);
+        beatSpawner.GetComponent<BeatVisualizerCorrectnessDisplay>().Input(isCorrect);
+        comboTracker.ReceiveCorrectness(isCorrect);
         //TODO
     }
+
+    private int totalBeats = 0;
 
     /*
      * Informs all relevant objects when a beat has occured, namely all objects
@@ -211,6 +217,8 @@ public class ObjectManager : MonoBehaviour
         }
         kitchen.BeatOccured();
         customerQueueTracker.BeatOccured();
+        totalBeats += 1;
+        print(totalBeats);
         //TODO
     }
 
