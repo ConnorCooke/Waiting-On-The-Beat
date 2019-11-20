@@ -10,10 +10,6 @@ public class BeatVis : MonoBehaviour
     [SerializeField]
     GameObject visualizer;
 
-
-    [SerializeField]
-    Color changedColor;
-
     SpriteRenderer sprite;
     float timer;
 
@@ -38,18 +34,12 @@ public class BeatVis : MonoBehaviour
             transform.position = new Vector2(transform.position.x + speed, transform.position.y);
 
         }
-        
-        sprite.color = new Color(sprite.color.r,sprite.color.g,sprite.color.b,sprite.color.a+0.005f);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("DestructiveCollider"))
         {
             Destroy(gameObject);
-        }
-        else if (collision.CompareTag("Plate"))
-        {
-            sprite.color = changedColor;
         }
     }
 
