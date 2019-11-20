@@ -103,8 +103,8 @@ public class PlayerSpriteManager : MonoBehaviour
         accessory.GetComponent<SpriteRenderer>().sortingOrder = baseLayer + 3;
         hair.GetComponent<SpriteRenderer>().sortingOrder = baseLayer + 4;
         body.GetComponent<SpriteRenderer>().sortingOrder = baseLayer + -3;
-        legontheleft.GetComponent<SpriteRenderer>().sortingOrder = baseLayer - 4;
-        legontheright.GetComponent<SpriteRenderer>().sortingOrder = baseLayer - 5;
+        legontheleft.GetComponent<SpriteRenderer>().sortingOrder = baseLayer - 5;
+        legontheright.GetComponent<SpriteRenderer>().sortingOrder = baseLayer - 4;
         armontheleft.GetComponent<SpriteRenderer>().sortingOrder = baseLayer;
         armontheright.GetComponent<SpriteRenderer>().sortingOrder = baseLayer - 4;
         handontheleft.GetComponent<SpriteRenderer>().sortingOrder = baseLayer - 5;
@@ -158,26 +158,8 @@ public class PlayerSpriteManager : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void LoadAccessory()
     {
-        Sprite[] heads = Resources.LoadAll<Sprite>("Sprites/Customers/faceshapes");
-
-        sprites[0][0] = heads[PlayerVisual.getHeadshape() + PlayerVisual.getSkinTone()*12];
-        sprites[0][1] = heads[PlayerVisual.getHeadshape() + 6 + PlayerVisual.getSkinTone() * 12];
-
-        Sprite[] headEast = Resources.LoadAll<Sprite>("Sprites/Customers/faceeast");
-
-        sprites[0][2] = headEast[PlayerVisual.getHeadshape() + 6 * PlayerVisual.getSkinTone()];
-
-        Sprite[] noses = Resources.LoadAll<Sprite>("Sprites/Customers/noses");
-
-        sprites[1][0] = noses[PlayerVisual.getNose()];
-        sprites[1][1] = noses[PlayerVisual.getNose() + 6 * (PlayerVisual.getSkinTone()+1)];
-
-        Sprite[] noseEast = Resources.LoadAll<Sprite>("Sprites/Customers/nosesEast");
-        sprites[1][2] = noseEast[PlayerVisual.getNose() + 6 * PlayerVisual.getSkinTone()];
-
         Sprite[] accessory = Resources.LoadAll<Sprite>("Sprites/Customers/accessories");
 
         sprites[2][0] = accessory[PlayerVisual.getAccessory()];
@@ -185,14 +167,53 @@ public class PlayerSpriteManager : MonoBehaviour
 
         Sprite[] accessoryEast = Resources.LoadAll<Sprite>("Sprites/Customers/accessorieseast");
         sprites[2][2] = accessoryEast[PlayerVisual.getAccessory()];
+    }
 
+    public void LoadHeadshape()
+    {
+        Sprite[] heads = Resources.LoadAll<Sprite>("Sprites/Customers/faceshapes");
+
+        sprites[0][0] = heads[PlayerVisual.getHeadshape() + PlayerVisual.getSkinTone() * 12];
+        sprites[0][1] = heads[PlayerVisual.getHeadshape() + 6 + PlayerVisual.getSkinTone() * 12];
+
+        Sprite[] headEast = Resources.LoadAll<Sprite>("Sprites/Customers/faceeast");
+
+        sprites[0][2] = headEast[PlayerVisual.getHeadshape() + 6 * PlayerVisual.getSkinTone()];
+        Sprite[] bodyParts = Resources.LoadAll<Sprite>(PlayerVisual.getBody());
+        handontheleft.GetComponent<SpriteRenderer>().sprite = bodyParts[GetHand()];
+        handontheright.GetComponent<SpriteRenderer>().sprite = bodyParts[GetHand()];
+    }
+
+    public void LoadNose()
+    {
+        Sprite[] noses = Resources.LoadAll<Sprite>("Sprites/Customers/noses");
+
+        sprites[1][0] = noses[PlayerVisual.getNose()];
+        sprites[1][1] = noses[PlayerVisual.getNose() + 6 * (PlayerVisual.getSkinTone() + 1)];
+
+        Sprite[] noseEast = Resources.LoadAll<Sprite>("Sprites/Customers/nosesEast");
+        sprites[1][2] = noseEast[PlayerVisual.getNose() + 6 * PlayerVisual.getSkinTone()];
+    }
+
+    public void LoadHairType()
+    {
         Sprite[] hairTypes = Resources.LoadAll<Sprite>("Sprites/Customers/hair");
 
         sprites[3][0] = hairTypes[PlayerVisual.getHairType() + PlayerVisual.getHairColour() * 56];
         sprites[3][1] = hairTypes[PlayerVisual.getHairType() + 28 + PlayerVisual.getHairColour() * 56];
         sprites[3][2] = hairTypes[PlayerVisual.getHairType() + 42 + PlayerVisual.getHairColour() * 56];
         sprites[3][3] = hairTypes[PlayerVisual.getHairType() + 14 + PlayerVisual.getHairColour() * 56];
+    }
 
+    public void LoadMouth()
+    {
+        Sprite[] mouths = Resources.LoadAll<Sprite>("Sprites/Customers/mouths");
+
+        sprites[9][0] = mouths[PlayerVisual.getMouth()];
+    }
+
+    public void LoadBody()
+    {
         Sprite[] bodyParts = Resources.LoadAll<Sprite>(PlayerVisual.getBody());
 
         sprites[4][0] = bodyParts[8];//body
@@ -201,12 +222,12 @@ public class PlayerSpriteManager : MonoBehaviour
         sprites[4][3] = bodyParts[5];
 
         sprites[5][0] = bodyParts[9];//legonleft
-        sprites[5][1] = bodyParts[14];
+        sprites[5][1] = bodyParts[23];
         sprites[5][2] = bodyParts[15];
         sprites[5][3] = bodyParts[17];
 
-        sprites[6][0] = bodyParts[16];//legonright
-        sprites[6][1] = bodyParts[23];
+        sprites[6][0] = bodyParts[19];//legonright
+        sprites[6][1] = bodyParts[14];
         sprites[6][2] = bodyParts[16];
         sprites[6][3] = bodyParts[6];
 
@@ -219,14 +240,28 @@ public class PlayerSpriteManager : MonoBehaviour
         sprites[8][1] = bodyParts[3];
         sprites[8][2] = bodyParts[7];
         sprites[8][3] = bodyParts[4];
+    }
 
-        Sprite[] mouths = Resources.LoadAll<Sprite>("Sprites/Customers/mouths");
+    public void LoadAll()
+    {
+        LoadHeadshape();
 
-        sprites[9][0] = mouths[PlayerVisual.getMouth()];
+        LoadNose();
 
-        handontheleft.GetComponent<SpriteRenderer>().sprite = bodyParts[GetHand()];
-        handontheright.GetComponent<SpriteRenderer>().sprite = bodyParts[GetHand()];
+        LoadAccessory();
+
+        LoadHairType();
+
+        LoadBody();
+
+        LoadMouth();
         faceSouth(35);
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        LoadAll();
     }
 
     // Update is called once per frame
