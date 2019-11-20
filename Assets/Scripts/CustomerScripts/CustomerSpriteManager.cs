@@ -145,22 +145,16 @@ public class CustomerSpriteManager : MonoBehaviour
         {
             case 0:
                 return 10;
-                break;
             case 1:
                 return 20;
-                break;
             case 2:
                 return 11;
-                break;
             case 3:
                 return 21;
-                break;
             case 4:
                 return 12;
-                break;
             default:
                 return 22;
-                break;
         }
     }
 

@@ -58,11 +58,11 @@ public class Kitchen : MonoBehaviour
      * Receives a request from the player for the food at a specific countertop position
      * and sends the food to the player
      */
-    public void ReceiveFoodRequest(Transform playerPosition)
+    public void ReceiveFoodRequest(Vector3 playerPosition)
     {
         void CheckIndex(int index)
         {
-            if (playerPosition.position.y < counterTop[index].transform.position.y + .1 && playerPosition.position.y > counterTop[index].transform.position.y-.1)
+            if (playerPosition.y < counterTop[index].transform.position.y + .1 && playerPosition.y > counterTop[index].transform.position.y-.1)
             {
                 objectManager.GivePlayerFood(counterTop[index]);
                 counterTop[index] = null;

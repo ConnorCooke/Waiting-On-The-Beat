@@ -121,7 +121,6 @@ public class Table : MonoBehaviour
                 customer.GetComponent<CustomerSpriteManager>().faceNorth(lowerBaseLayer);
             }
         }
-
         bool notPlaced = true;
         int index = 0;
         while (notPlaced)
@@ -176,7 +175,6 @@ public class Table : MonoBehaviour
         objectManager.CustomerPaid(tip, new Vector3(pos.x, pos.y, pos.z));
         //todo remove customer animation activations
         DestroyImmediate(customers[index]);
-        print(customersFood[index].GetComponent<Food>().GetName());
         DestroyImmediate(customersFood[index]);
         customers[index] = null;
         customersFood[index] = null;

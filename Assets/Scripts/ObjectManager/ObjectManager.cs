@@ -12,6 +12,11 @@ public class ObjectManager : MonoBehaviour
     public Kitchen kitchen;
     public CustomerQueueTracker customerQueueTracker;
     public ComboTracker comboTracker;
+    public LaserManager laserManager;
+    public TipCounter tipCounter;
+    public BeatVisualizerCorrectnessDisplay visualizer;
+    public EndTracker endTracker;
+    private int[] playerPosition= {10, 5};
 
     // Start is called before the first frame update
     void Start()
@@ -133,7 +138,7 @@ public class ObjectManager : MonoBehaviour
     public void CustomerPaid(float tip, Vector3 position)
     {
         playerCharacter.GetComponent<PlayerActionAndMovement>().CustomerPaid(position);
-        //TODO:: send the payment to the tip calculator
+        tipCounter.AddTip(tip);
     }
 
     /*
@@ -152,7 +157,12 @@ public class ObjectManager : MonoBehaviour
      */
     public void GiveComboMultiplier(float multiplier)
     {
-        //TODO
+        tipCounter.UpdateTipMultiplier(multiplier);
+    }
+
+    public void UpdateVisualiserCorrectness(int level)
+    {
+        visualizer.UpdateCorrectnessLevel(level);
     }
 
     /*
@@ -162,6 +172,7 @@ public class ObjectManager : MonoBehaviour
      */
     public void GiveTipTotal(float tipTotal)
     {
+        //endtracker
         //TODO
     }
 
@@ -178,7 +189,8 @@ public class ObjectManager : MonoBehaviour
      */
     public void RequestFood()
     {
-        kitchen.ReceiveFoodRequest(playerCharacter.transform);
+        kitchen.ReceiveFoodRequest(new Vector3(playerCharacter.transform.position.x, 
+            playerCharacter.transform.position.y + (float)0.264, playerCharacter.transform.position.z));
     }
 
     /*
@@ -197,13 +209,10 @@ public class ObjectManager : MonoBehaviour
      */
     public void GiveCorrectness(bool isCorrect)
     {
-        print("last input was::" + isCorrect);
         beatSpawner.GetComponent<BeatVisualizerCorrectnessDisplay>().Input(isCorrect);
         comboTracker.ReceiveCorrectness(isCorrect);
         //TODO
     }
-
-    private int totalBeats = 0;
 
     /*
      * Informs all relevant objects when a beat has occured, namely all objects
@@ -217,9 +226,14 @@ public class ObjectManager : MonoBehaviour
         }
         kitchen.BeatOccured();
         customerQueueTracker.BeatOccured();
-        totalBeats += 1;
-        print(totalBeats);
+        laserManager.BeatOccured();
         //TODO
+    }
+
+    public void UpdateTilePosition(int[] playerPos)
+    {
+        playerPosition = new int[] { playerPos[0], playerPos[1] };
+        laserManager.UpdatePosition(playerPos);
     }
 
     /*
@@ -228,6 +242,15 @@ public class ObjectManager : MonoBehaviour
      public void CleanNearestTable()
     {
         //TODO
+    }
+
+    public void RemoveCash(int x, int y, string orientation, float removalAmount)
+    {
+        print("called for remove");
+        if ((orientation == "vertical" && playerPosition[0] == x) || (orientation == "horizontal" && playerPosition[1] == y))
+        {
+            tipCounter.RemoveCash(removalAmount);
+        }
     }
 
     /*

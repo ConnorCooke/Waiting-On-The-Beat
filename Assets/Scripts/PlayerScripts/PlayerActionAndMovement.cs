@@ -11,7 +11,6 @@ public class PlayerActionAndMovement : MonoBehaviour
         Horizontal,
         Vertical
     };
-    private Orientation gridOrientation = Orientation.Horizontal;
     private Vector2 input;
     private bool isMoving = false;
     private bool wasMoving = false;
@@ -166,7 +165,7 @@ public class PlayerActionAndMovement : MonoBehaviour
         void DetermineTileInteractivity(int tileValue)
         {
             int direction = 0;
-            if(input.y < 0 || playerPosition[1] > 5)
+            if(input.y < 0 && playerPosition[1] == 5 || playerPosition[1] > 5)
             {
                 direction = 1;
             }
@@ -304,7 +303,7 @@ public class PlayerActionAndMovement : MonoBehaviour
         isMoving = true;
         startPosition = transform.position;
         t = 0;
-
+        objectManager.UpdateTilePosition(playerPosition);
         
         endPosition = new Vector3(startPosition.x + System.Math.Sign(input.x) * gridSize, startPosition.y + System.Math.Sign(input.y) * gridSize, startPosition.z);
         factor = 1f;

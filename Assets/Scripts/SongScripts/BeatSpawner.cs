@@ -5,10 +5,7 @@ using UnityEngine;
 public class BeatSpawner : MonoBehaviour
 {
     [SerializeField]
-    float spawnRate = 1.0f;
-    [SerializeField]
-    GameObject beatBar;
-    private float nextTimeToSpawn = 0.0f;
+    public GameObject beatBar;
     // Start is called before the first frame update
     void Awake()
     {
