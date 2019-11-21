@@ -25,6 +25,7 @@ public class ObjectManager : MonoBehaviour
         {
             tables[index].GetComponent<Table>().SetTableID(index);
         }
+
     }
 
     // Update is called once per frame

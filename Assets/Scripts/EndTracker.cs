@@ -11,7 +11,7 @@ public class EndTracker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame
@@ -26,10 +26,10 @@ public class EndTracker : MonoBehaviour
         if(totalTips < tipThreshhold)
         {
             //todo failed screen is set to active
+            PreviousScene.setScene(SceneManager.GetActiveScene());
+            PreviousScene.setTip(totalTips);
             SceneManager.LoadScene("FailResult");
             //FailScreen.setScene(curSceneName);
-            GameObject ev = GameObject.FindGameObjectsWithTag("EndResult")[0];
-            ev.GetComponent<FailScreen>().setScene(curSceneName);
         }
         else
         {

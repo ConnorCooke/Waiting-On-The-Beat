@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
-public class FailScreen : MonoBehaviour
+public class SuccessScreen : MonoBehaviour
 {
     public GameObject scoreField;
     private string sceneName;
@@ -13,27 +12,21 @@ public class FailScreen : MonoBehaviour
         scoreField.GetComponent<UnityEngine.UI.Text>().text = "Score: " + PreviousScene.getTip().ToString();
     }
 
+
     // Update is called once per frame
     void Update()
     {
         
     }
-
-    /*public void setScene(string name)
-    {
-        sceneName = name;
-    }
-    */
     public void ExitButton()
     {
         Debug.Log("Exit Button pressed, application would quit in a built project");
-        
+
         Application.Quit();
     }
-    public void RestartButton()
+    public void NextLevelButton()
     {
         //load same level
-        SceneManager.LoadScene(PreviousScene.getScene().name);
+        SceneManager.LoadScene(PreviousScene.getScene().buildIndex + 1);
     }
-
 }

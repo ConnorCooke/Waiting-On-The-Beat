@@ -649,7 +649,7 @@ GameObject:
   - component: {fileID: 1562850120}
   - component: {fileID: 1562850119}
   m_Layer: 5
-  m_Name: Text
+  m_Name: ScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1033,7 +1033,7 @@ GameObject:
   - component: {fileID: 2046483971}
   m_Layer: 0
   m_Name: EventSystem
-  m_TagString: Untagged
+  m_TagString: EndResult
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1098,3 +1098,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9f437cb2c1260043a395a71840ca058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreField: {fileID: 1562850117}
