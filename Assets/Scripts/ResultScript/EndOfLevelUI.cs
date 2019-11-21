@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public GameObject MenuPanel;
-//public GameObject LevelSelectPanel;
 
-public class NewBehaviourScript : MonoBehaviour
+
+public class EndOfLevelUI : MonoBehaviour
 {
+    public GameObject MenuPanel;
+    private float score;
+    //public GameObject LevelSelectPanel;
     // Start is called before the first frame update
     void Start()
     {
         MenuPanel.SetActive(true);
-        LevelSelectPanel.SetActive(false);
+        //LevelSelectPanel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -20,7 +22,14 @@ public class NewBehaviourScript : MonoBehaviour
         
     }
 
-
+    public float getScore()
+    {
+        return score;
+    }
+    public void setScore(float n)
+    {
+        score = n;
+    }
 public void ShowLevelPanel()
     {
          MenuPanel.SetActive(false);
