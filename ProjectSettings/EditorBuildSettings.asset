@@ -9,12 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/TileMapScene.unity
-    guid: 6e6ad05d8ae4dee4b879df57d8a0b62b
-  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 2e2d10e68b5a04940a6fbe8993d95154
   - enabled: 1
     path: Assets/Scenes/PlayerCreationMenu.unity
     guid: b5752df1b01d81b4998d46b1e376fe89
+  - enabled: 1
+    path: Assets/Scenes/TileMapScene.unity
+    guid: 6e6ad05d8ae4dee4b879df57d8a0b62b
   m_configObjects: {}
