@@ -322,7 +322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c8b4d2ec9cdb384c838818f5c655a70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tipThreshhold: 0
+  tipThreshhold: 30
 --- !u!4 &98152426
 Transform:
   m_ObjectHideFlags: 0
@@ -2818,7 +2818,7 @@ GameObject:
   - component: {fileID: 840838563}
   m_Layer: 5
   m_Name: InfoDisplayer
-  m_TagString: ShowOnPause
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

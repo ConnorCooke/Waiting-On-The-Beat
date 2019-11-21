@@ -246,7 +246,6 @@ public class ObjectManager : MonoBehaviour
 
     public void RemoveCash(int x, int y, string orientation, float removalAmount)
     {
-        print("called for remove");
         if ((orientation == "vertical" && playerPosition[0] == x) || (orientation == "horizontal" && playerPosition[1] == y))
         {
             tipCounter.RemoveCash(removalAmount);
