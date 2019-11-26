@@ -13,6 +13,7 @@ public class CustomerObject : MonoBehaviour
     private Table parentTable;
     private float tipValue;
     private int timer;
+    public GameObject handThatHoldsFood;
 
     public void SetTimer(int time)
     {
@@ -69,13 +70,15 @@ public class CustomerObject : MonoBehaviour
         if(food.GetComponent<Food>().GetName() == foodOrder.GetFoodName())
         {
             parentTable.CustomerReceivedFood(index, food);
+            food.transform.SetParent(handThatHoldsFood.transform);
+            food.transform.position = new Vector3(handThatHoldsFood.transform.position.x, handThatHoldsFood.transform.position.y, 0);
         }
         
     }
 
     public void ReceiveOrderRequest()
     {
-        parentTable.GiveFoodOrder(foodOrder);
+        parentTable.GiveFoodOrder(foodOrder, index);
     }
 
     public void ReceivePayRequest()

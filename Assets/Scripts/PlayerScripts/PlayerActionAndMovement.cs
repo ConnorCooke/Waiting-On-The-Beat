@@ -25,6 +25,7 @@ public class PlayerActionAndMovement : MonoBehaviour
     private int height = 11;
 
     private GameObject currentFood;
+    public GameObject handThatHoldsFood;
     private List<FoodOrder> currentOrders;
 
     public ObjectManager objectManager;
@@ -91,10 +92,6 @@ public class PlayerActionAndMovement : MonoBehaviour
                 wasMoving = true;
                 StartCoroutine(move(transform));
             }
-        }
-        if(!(currentFood is null))
-        {
-            currentFood.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - 1);
         }
     }
 
@@ -360,6 +357,8 @@ public class PlayerActionAndMovement : MonoBehaviour
     public void ReceiveFood(GameObject food)
     {
         currentFood = food;
+        currentFood.transform.SetParent(handThatHoldsFood.transform);
+        currentFood.transform.position = new Vector3(handThatHoldsFood.transform.position.x, handThatHoldsFood.transform.position.y, 0);
     }
     
     public void OrdersReceived()

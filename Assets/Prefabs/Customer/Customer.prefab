@@ -103,6 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ef8a17c529f2472eb13c3e1e1685380, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  handThatHoldsFood: {fileID: 9132693191014153842}
 --- !u!95 &9132693190470827228
 Animator:
   serializedVersion: 3
