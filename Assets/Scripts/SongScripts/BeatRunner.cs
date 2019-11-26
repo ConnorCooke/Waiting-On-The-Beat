@@ -7,7 +7,7 @@ using System.Globalization;
 public class BeatRunner : MonoBehaviour
 {
     
-    public int currentBeat;
+    private int currentBeat = 0;
     public AudioSource musicSource;
     private static List<double> beatPositionsInTime = new List<double>();
     private static List<double> beatObjectSpawnTime = new List<double>();
@@ -19,15 +19,16 @@ public class BeatRunner : MonoBehaviour
     private bool noInput = true;
     private bool beatHitReset = false;
     private bool noInputReset = false;
-    public int currentSpawn = 0;
-    private int count = 0;
+    private int currentSpawn = 0;
+    private static int spawnCount = 0;
+    private static int count = 0;
     
     
     void Start()
     {
         loadBeatsFromFile();
         
-        currentBeat = 1;
+        currentBeat = 0;
 
         musicSource.Play();
 
@@ -36,16 +37,16 @@ public class BeatRunner : MonoBehaviour
     static void loadBeatsFromFile()
     {
         StreamReader r = new StreamReader(beatFilePath);
-        int count = 0;
+        int beatCount = 0;
         while (!r.EndOfStream)
         {
             string ln = r.ReadLine();            
             double time = double.Parse(ln, CultureInfo.InvariantCulture.NumberFormat);
             beatPositionsInTime.Add(time);            
             
-            if (count<3)
+            if (beatCount<3)
             {
-                count++;
+                beatCount++;
             }
             else
             {
@@ -54,6 +55,7 @@ public class BeatRunner : MonoBehaviour
             
         }
         count = beatPositionsInTime.Count;
+        spawnCount = beatObjectSpawnTime.Count;
         r.Close();
     }
 
@@ -61,7 +63,7 @@ public class BeatRunner : MonoBehaviour
     {
         float currentSongTime = musicSource.time;
         // Debug.Log(beatPositionsInTime);
-        if (currentBeat + 1 != count)
+        if ((currentBeat + 1) < count && (currentSpawn + 1) < spawnCount)
         {
             if (currentSongTime > beatPositionsInTime[currentBeat + 1])
             {
@@ -102,6 +104,10 @@ public class BeatRunner : MonoBehaviour
                     StartCoroutine(WaitForActionToComplete());
                 }
             }
+        }
+        else
+        {
+            objectManager.EndLevel();
         }
     }
 

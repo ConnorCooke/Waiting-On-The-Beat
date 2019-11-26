@@ -5,7 +5,7 @@ using UnityEngine;
 public class Food : MonoBehaviour
 {
     // Start is called before the first frame update
-    string foodName;
+    int foodName;
     float foodValue;
 
     void Start()
@@ -23,7 +23,7 @@ public class Food : MonoBehaviour
         foodName = order.GetFoodName();
     }
 
-    public string GetName()
+    public int GetName()
     {
         return foodName;
     }

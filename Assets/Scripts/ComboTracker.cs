@@ -38,7 +38,7 @@ public class ComboTracker : MonoBehaviour
         }
         else if (totalCorrect > (maxCombo / 2))
         {
-            objectManager.UpdateVisualiserCorrectness(2);
+            objectManager.UpdateVisualiserCorrectness(1);
         }
     }
 

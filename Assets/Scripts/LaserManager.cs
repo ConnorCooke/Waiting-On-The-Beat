@@ -41,7 +41,7 @@ public class LaserManager : MonoBehaviour
         {
             difference = -1;
         }
-        if(orientation == "horizontal")
+        if(orientation == "vertical")
         {
             x = (float)(playerPosition[0] - 10 + difference);
             StartCoroutine(RemoveCash(playerPosition[0]+difference, playerPosition[1], orientation));

@@ -11,6 +11,7 @@ public class CustomerQueueTracker : MonoBehaviour
     public String[] bodypaths;
 
     public int numberOfStartingCustomers;
+    public int  diversityOfDrinks;
 
     private Queue<GameObject> customerEntranceQueue = new Queue<GameObject>();
     private Queue<int> customerRequestQueue = new Queue<int>();
@@ -19,7 +20,7 @@ public class CustomerQueueTracker : MonoBehaviour
     private int timer;
     public int[] customerTimerValues;
     public int[] customerTipValues;
-    public FoodOrder[] possibleOrders = new FoodOrder[] { new FoodOrder("temp", 2, 20) };
+    public FoodOrder[] possibleOrders = new FoodOrder[] { new FoodOrder(0, 2, 20) };
 
 
     /*
@@ -33,7 +34,7 @@ public class CustomerQueueTracker : MonoBehaviour
 
         CustomerObject customerObject = newCustomer.GetComponent<CustomerObject>();
 
-        customerObject.SetFoodOrder(possibleOrders[picker.Next(0, possibleOrders.Length)]);
+        customerObject.SetFoodOrder(new FoodOrder(UnityEngine.Random.Range(0, diversityOfDrinks), 2, 20));
         customerObject.SetTimer(customerTimerValues[picker.Next(0, customerTimerValues.Length)]);
         customerObject.SetTipValue(customerTipValues[picker.Next(0, customerTipValues.Length)]);
         customerEntranceQueue.Enqueue(newCustomer);

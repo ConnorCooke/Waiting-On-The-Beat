@@ -19,7 +19,6 @@ public class TipCounter : MonoBehaviour
 
     public void RemoveCash(float removal)
     {
-        print("remove");
         currTotalTips -= removal;
 
         if (currTotalTips < 0)
