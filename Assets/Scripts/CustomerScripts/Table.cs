@@ -11,6 +11,9 @@ public class Table : MonoBehaviour
     private GameObject[] customers = new GameObject[4];
     private bool requestedCustomer;
     private GameObject[] customersFood = new GameObject[4];
+    public GameObject[] visualsForCommunication;
+
+    private static Sprite[] drinkSprites = null;
 
     public int lowerBaseLayer;
     public int upperBaseLayer;
@@ -21,7 +24,7 @@ public class Table : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        drinkSprites = Resources.LoadAll<Sprite>("Sprites/SetDressing/drinksnoanimation");
     }
 
     // Update is called once per frame
@@ -163,6 +166,7 @@ public class Table : MonoBehaviour
         objectManager.CustomerEating(customers[index].transform.position);
         customersFood[index] = food;
         SetFoodTransform(index);
+        visualsForCommunication[index].GetComponent<Animator>().SetBool("Waiting", false);
     }
 
     /*
@@ -178,6 +182,16 @@ public class Table : MonoBehaviour
         DestroyImmediate(customersFood[index]);
         customers[index] = null;
         customersFood[index] = null;
+        print("Paid");
+        visualsForCommunication[index].GetComponent<Animator>().SetTrigger("Paid");
+        ResetTriggersForIndex(index, "Paid");
+    }
+
+    private IEnumerator ResetTriggersForIndex(int index, string name)
+    {
+        yield return new WaitForSeconds((float)0.25);
+        Animator needsReset = visualsForCommunication[index].GetComponent<Animator>();
+        needsReset.ResetTrigger(name);
     }
 
     /*
@@ -204,6 +218,7 @@ public class Table : MonoBehaviour
         int nearest = FindNearestCustomer(position);
         customers[nearest].GetComponent<CustomerObject>().ReceiveOrderRequest();
         objectManager.CustomerOrdered(customers[nearest].transform.position);
+        
     }
 
     public void ReceivePayRequest(Vector3 position)
@@ -211,7 +226,18 @@ public class Table : MonoBehaviour
         customers[FindNearestCustomer(position)].GetComponent<CustomerObject>().ReceivePayRequest();
     }
 
-    public void GiveFoodOrder(FoodOrder order){
+    public void GiveFoodOrder(FoodOrder order, int index){
         objectManager.GivePlayerOrder(order);
+        visualsForCommunication[index].GetComponent<Animator>().SetTrigger("Ordering");
+        visualsForCommunication[index].GetComponent<Animator>().SetInteger("Order", order.GetFoodName());
+        visualsForCommunication[index].GetComponent<Animator>().SetBool("Waiting", true);
+        ResetTriggersForIndex(index, "Ordering");
+        StartCoroutine(ResetOrderAnimation(index));
+    }
+
+    private IEnumerator ResetOrderAnimation(int index)
+    {
+        yield return new WaitForSeconds((float) 3);
+        visualsForCommunication[index].GetComponent<Animator>().SetInteger("Order", -1);
     }
 }

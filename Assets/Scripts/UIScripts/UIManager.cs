@@ -1,10 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     GameObject[] pauseObjects;
+    public string nextLevel;
+    public float tipThreshold;
+    public GameObject nextLevelButton;
+    public GameObject playButton;
+    public GameObject pauseText;
+    private float tipTotal;
 
     // Use this for initialization
     void Start()
@@ -34,6 +41,21 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void EndOfLevel(float tipTot)
+    {
+        tipTotal = tipTot;
+        showPaused();
+        playButton.SetActive(false);
+        if(tipTotal >= tipThreshold)
+        {
+            nextLevelButton.SetActive(true);
+            pauseText.GetComponent<Text>().text = "SUCCESS";
+        }
+        else
+        {
+            pauseText.GetComponent<Text>().text = "YOU'RE FIRED";
+        }
+    }
 
     //Reloads the Level
     public void Reload()
@@ -63,6 +85,7 @@ public class UIManager : MonoBehaviour
         {
             g.SetActive(true);
         }
+        nextLevelButton.SetActive(false);
         AudioListener.pause = true;
     }
 

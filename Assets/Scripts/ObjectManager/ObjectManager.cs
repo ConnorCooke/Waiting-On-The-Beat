@@ -15,7 +15,7 @@ public class ObjectManager : MonoBehaviour
     public LaserManager laserManager;
     public TipCounter tipCounter;
     public BeatVisualizerCorrectnessDisplay visualizer;
-    public EndTracker endTracker;
+    public UIManager uiManager;
     private int[] playerPosition= {10, 5};
 
     // Start is called before the first frame update
@@ -165,6 +165,11 @@ public class ObjectManager : MonoBehaviour
         visualizer.UpdateCorrectnessLevel(level);
     }
 
+    public void EndLevel()
+    {
+        tipCounter.receiveScoreRequest();
+    }
+
     /*
      * Tells the result tracker the total amount of tips the player made, so that it can determine
      * the result of the players performance
@@ -172,8 +177,7 @@ public class ObjectManager : MonoBehaviour
      */
     public void GiveTipTotal(float tipTotal)
     {
-        //endtracker
-        //TODO
+        uiManager.EndOfLevel(tipTotal);
     }
 
     /*

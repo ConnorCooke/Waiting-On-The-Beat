@@ -17,6 +17,8 @@ public class Kitchen : MonoBehaviour
     public GameObject foodPrefab;
     public GameObject foodBeingCooked;
 
+    private static Sprite[] drinkSprites = null;
+
     public void ReceiveOrders(List<FoodOrder> orders)
     {
         foreach (FoodOrder order in orders)
@@ -82,6 +84,7 @@ public class Kitchen : MonoBehaviour
         
     void Start()
     {
+        drinkSprites = Resources.LoadAll<Sprite>("Sprites/SetDressing/drinksnoanimation");
         foodBeingCooked = null;
         for(int index = 0; index < counterTop.Length; index++)
         {
@@ -118,6 +121,8 @@ public class Kitchen : MonoBehaviour
             foodBeingCooked = Instantiate(foodPrefab, new Vector3(-17, 0, 0), Quaternion.identity);
             FoodOrder order = uncookedFood.Dequeue();
             foodBeingCooked.GetComponent<Food>().CreateFood(order);
+            foodBeingCooked.GetComponent<SpriteRenderer>().sprite = drinkSprites[order.GetFoodName()];
+            foodBeingCooked.transform.localScale = new Vector3(0.2f, 0.2f, 1);
             kitchenTimer = order.GetCookingTime();
         }
     }
