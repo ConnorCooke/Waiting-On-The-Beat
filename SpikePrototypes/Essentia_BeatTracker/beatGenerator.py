@@ -3,7 +3,7 @@ from essentia.standard import *
 import numpy as np
 import json
 
-fname = './Bourée.wav'
+fname = './WelcomeToHellsKitchen.wav'
 audiobeat = MonoLoader(filename=fname)()
 
 rhythm_extractor = RhythmExtractor2013(method="multifeature")
@@ -18,6 +18,6 @@ bpm, beats, b_conf, _, _ = rhythm_extractor(audiobeat)
 # converted to floats by list comprehension stored in f_beats
 f_beats = [float(np_float) for np_float in list(beats)]
 
-with open('EnglishBallet.txt', "w+") as writer:
+with open('WelcomeToHellsKitchen.txt', "w+") as writer:
 	writer.write('\n'.join(str(x) for x in f_beats))
 
