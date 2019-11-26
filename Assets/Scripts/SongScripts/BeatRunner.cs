@@ -12,7 +12,7 @@ public class BeatRunner : MonoBehaviour
     private static List<double> beatPositionsInTime = new List<double>();
     private static List<double> beatObjectSpawnTime = new List<double>();
     public float inputLeeway;
-    public static string beatFilePath = "./Assets/Songs/beat-test.txt";
+    public static string beatFilePath = "Songs/beat-test.txt";
     public ObjectManager objectManager;
     private bool isActing;
     private bool beatHit = false;
@@ -36,7 +36,7 @@ public class BeatRunner : MonoBehaviour
 
     static void loadBeatsFromFile()
     {
-        StreamReader r = new StreamReader(beatFilePath);
+        StreamReader r = new StreamReader(Resources.Load(beatFilePath));
         int beatCount = 0;
         while (!r.EndOfStream)
         {
