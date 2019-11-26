@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.3.4)  26 NOV 2019 13:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.3.4)  26 NOV 2019 13:50
 entering extended mode
 **./playtest.tex
 (playtest.tex
@@ -517,12 +517,9 @@ LaTeX Font Warning: Font shape `OMS/pplx/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
 (Font)              for symbol `textbullet' on input line 135.
 
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 190.
 [1{C:/Users/User/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
 
-
-]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 190.
- [2
 
 ]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 190.
@@ -539,21 +536,21 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 190.
  ) 
 Here is how much of TeX's memory you used:
- 9689 strings out of 493020
- 150905 string characters out of 3136495
+ 9675 strings out of 493020
+ 150792 string characters out of 3136495
  290464 words of memory out of 3000000
  13262 multiletter control sequences out of 15000+200000
- 56048 words of font info for 160 fonts, out of 3000000 for 9000
+ 55122 words of font info for 150 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 36i,13n,43p,291b,457s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,8n,43p,291b,350s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
 KTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/User/AppData/Roami
 ng/MiKTeX/2.9/fonts/type1/public/fpl/fplrc8a.pfb><C:/Program Files/MiKTeX 2.9/f
 onts/type1/urw/palatino/uplb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw
 /palatino/uplr8a.pfb>
-Output written on playtest.pdf (2 pages, 70648 bytes).
+Output written on playtest.pdf (1 page, 68538 bytes).
 PDF statistics:
- 57 PDF objects out of 1000 (max. 8388607)
- 8 named destinations out of 1000 (max. 500000)
+ 53 PDF objects out of 1000 (max. 8388607)
+ 7 named destinations out of 1000 (max. 500000)
  46113 words of extra memory for PDF output out of 51595 (max. 10000000)
 
