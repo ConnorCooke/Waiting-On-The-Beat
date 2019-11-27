@@ -44,21 +44,21 @@ public class LaserManager : MonoBehaviour
         if(orientation == "vertical")
         {
             x = (float)(playerPosition[0] - 10 + difference);
-            StartCoroutine(RemoveCash(playerPosition[0]+difference, playerPosition[1], orientation));
+            StartCoroutine(RemoveCash(playerPosition[0]+difference, orientation));
         }
         else
         {
             y = -((float)(playerPosition[1] - 5 + difference));
             prefab = horizontalLaserPrefab;
-            StartCoroutine(RemoveCash(playerPosition[0], playerPosition[1]-difference, orientation));
+            StartCoroutine(RemoveCash(playerPosition[1]+difference, orientation));
         }
         Instantiate(prefab, new Vector3(x, y, 0), Quaternion.identity);
     }
 
-    public IEnumerator RemoveCash(int x, int y, string orientation)
+    public IEnumerator RemoveCash(int position, string orientation)
     {
         yield return new WaitForSeconds((float)1.5);
-        objectManager.RemoveCash(x, y, orientation, removalAmount);
+        objectManager.RemoveCash(position, orientation, removalAmount);
 
     }
 
