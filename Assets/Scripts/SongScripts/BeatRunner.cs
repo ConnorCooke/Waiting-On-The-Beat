@@ -12,7 +12,7 @@ public class BeatRunner : MonoBehaviour
     private static List<double> beatPositionsInTime = new List<double>();
     private static List<double> beatObjectSpawnTime = new List<double>();
     public float inputLeeway;
-    public static string beatFilePath = "./Assets/Songs/beat-test.txt";
+    public static string beatFilePath = "/Resources/Songs/DiscoDiner.txt";
     public ObjectManager objectManager;
     private bool isActing;
     private bool beatHit = false;
@@ -36,23 +36,27 @@ public class BeatRunner : MonoBehaviour
 
     static void loadBeatsFromFile()
     {
-        StreamReader r = new StreamReader(beatFilePath);
+        StreamReader r = new StreamReader(Application.dataPath + beatFilePath);
         int beatCount = 0;
         while (!r.EndOfStream)
         {
             string ln = r.ReadLine();            
             double time = double.Parse(ln, CultureInfo.InvariantCulture.NumberFormat);
-            beatPositionsInTime.Add(time);            
-            
-            if (beatCount<3)
+            double fractional = time % 1.0;
+            if (fractional > .9 || fractional < .1)
+            {
+                beatPositionsInTime.Add(time);
+            }
+
+
+            if (beatCount < 3)
             {
                 beatCount++;
             }
-            else
+            else if (fractional > .9 || fractional < .1)
             {
                 beatObjectSpawnTime.Add(time - 2);
             }
-            
         }
         count = beatPositionsInTime.Count;
         spawnCount = beatObjectSpawnTime.Count;
