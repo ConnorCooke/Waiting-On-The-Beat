@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Arch Linux) (preloaded format=pdflatex 2019.11.14)  28 NOV 2019 20:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Arch Linux) (preloaded format=pdflatex 2019.11.14)  28 NOV 2019 20:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -479,62 +479,62 @@ Underfull \hbox (badness 1430) in paragraph at lines 166--167
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 189--190
+Underfull \hbox (badness 10000) in paragraph at lines 188--189
 []\T1/pplx/m/n/10 (+20) How dif-fi-cult did you find the
  []
 
 
-Underfull \hbox (badness 5203) in paragraph at lines 194--195
+Underfull \hbox (badness 5203) in paragraph at lines 193--194
 []\T1/pplx/m/n/10 (+20) What did you not like about the
  []
 
 [2]
-Underfull \hbox (badness 1558) in paragraph at lines 217--257
+Underfull \hbox (badness 1558) in paragraph at lines 216--256
 \T1/pplx/m/n/10 (+20) This sec-tion will pro-vide a list of prob-
  []
 
 
-Underfull \hbox (badness 1158) in paragraph at lines 217--257
+Underfull \hbox (badness 1158) in paragraph at lines 216--256
 \T1/pplx/m/n/10 (+20) lems gen-er-ated from com-mon com-plaints
  []
 
 
-Underfull \hbox (badness 1448) in paragraph at lines 217--257
+Underfull \hbox (badness 1448) in paragraph at lines 216--256
 \T1/pplx/m/n/10 (+20) in the feed-back given by the playtesters
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 217--257
+Underfull \hbox (badness 10000) in paragraph at lines 216--256
 \T1/pplx/m/n/10 (+20) A ta-ble for-mat will show this best:
  []
 
 
-Overfull \hbox (225.00232pt too wide) in paragraph at lines 217--257
+Overfull \hbox (225.00232pt too wide) in paragraph at lines 216--256
 [] 
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 270.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 269.
 [3
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 270.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 269.
  (/home/user/Documents/cmpt306-group-project/SpikePrototypes/PlaytestingReport/playtest.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 270.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 270.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 269.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 269.
 Package rerunfilecheck Info: File `playtest.out' has not changed.
 (rerunfilecheck)             Checksum: DD40B449256562EBD35F969E47271D69;387.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 270.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 269.
  ) 
 Here is how much of TeX's memory you used:
- 10011 strings out of 492167
- 153696 string characters out of 6131557
+ 10007 strings out of 492167
+ 153665 string characters out of 6131557
  301516 words of memory out of 5000000
  14058 multiletter control sequences out of 15000+600000
- 63630 words of font info for 205 fonts, out of 8000000 for 9000
+ 63407 words of font info for 202 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  38i,13n,45p,382b,457s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{https://docs.google.com/spreadsheets/d/1ANOVLghsAPeU3L3zo1TeeCbxSlEFg69GmU0cMx_n9CA/edit?usp=sharing} has been referenced but does not exist, replaced by a fixed one
@@ -542,7 +542,7 @@ pdfTeX warning (dest): name{https://docs.google.com/spreadsheets/d/1ANOVLghsAPeU
 pdfTeX warning (dest): name{https://docs.google.com/document/d/1CnQ9mCSRhZsAQdpiiN130khrFRj5-IsULWaGTs2_KgE/edit?usp=sharing} has been referenced but does not exist, replaced by a fixed one
 
 {/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texmf-dist/fonts/type1/public/fpl/fplrc8a.pfb></usr/share/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb>
-Output written on /home/user/Documents/cmpt306-group-project/SpikePrototypes/PlaytestingReport/playtest.pdf (3 pages, 88139 bytes).
+Output written on /home/user/Documents/cmpt306-group-project/SpikePrototypes/PlaytestingReport/playtest.pdf (3 pages, 88149 bytes).
 PDF statistics:
  96 PDF objects out of 1000 (max. 8388607)
  84 compressed objects within 1 object stream
