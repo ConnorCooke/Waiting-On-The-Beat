@@ -57,6 +57,10 @@ INPUT /usr/share/texmf-dist/tex/latex/lettrine/lettrine.cfg
 INPUT /usr/share/texmf-dist/tex/latex/lettrine/lettrine.cfg
 INPUT /usr/share/texmf-dist/tex/latex/enumitem/enumitem.sty
 INPUT /usr/share/texmf-dist/tex/latex/enumitem/enumitem.sty
+INPUT /usr/share/texmf-dist/tex/latex/tools/tabularx.sty
+INPUT /usr/share/texmf-dist/tex/latex/tools/tabularx.sty
+INPUT /usr/share/texmf-dist/tex/latex/tools/array.sty
+INPUT /usr/share/texmf-dist/tex/latex/tools/array.sty
 INPUT /usr/share/texmf-dist/tex/latex/abstract/abstract.sty
 INPUT /usr/share/texmf-dist/tex/latex/abstract/abstract.sty
 INPUT /usr/share/texmf-dist/tex/latex/titlesec/titlesec.sty

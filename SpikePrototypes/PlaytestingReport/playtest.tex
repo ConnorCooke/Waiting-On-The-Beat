@@ -36,7 +36,7 @@
 
 \usepackage{enumitem} % Customized lists
 \setlist[itemize]{noitemsep} % Make itemize lists more compact
-
+\usepackage{tabularx}
 \usepackage{abstract} % Allows abstract customization
 \renewcommand{\abstractnamefont}{\normalfont\bfseries} % Set the "Abstract" text to bold
 \renewcommand{\abstracttextfont}{\normalfont\small\itshape} % Set the abstract itself to small italic textd
@@ -212,12 +212,42 @@ have new criticisms that will be summarized here:
 \end{itemize}
 \section{Moving Forward}
 This section will provide a list of problems generated from common complaints in the feedback given
-by the playtesters and what will be done to address them.
-\begin{enumerate}
-    \item Many players expressed that they were confused about what they were supposed to do when they started playing the game. This included not knowing the controls and not understanding the goal (how to win) and what needed to be done to achieve it. A simple solution to this would be to add an additional screen before the gameplay actually begins that outlines the controls and gives a clear, concise summary of how to play the game.
-    \item Another complaint that was brought up many times pertained to the music. Two issues were identified that frustrated players, the slow tempo and the lack of variation in the music. The former is the is the easiest to solve, we can just increase the tempo and run it through the script to update the list of beats. The lack in the variation of the music will be more of a challenge because it will require creating new music.
-    \item Multiple players identified a bug that kept them from interacting with the customers sitting at the bottom of the table. 
-\end{enumerate}
+by the playtesters and what will be done to address them. A table format will show this best:
+\begin{tabularx}{\textwidth}{ |X|X| }
+    \hline
+    Problem & Solution  \\ \hline
+    Lack of information about how to play the game & 
+    Create new screen(s) that explains the controls, how to take/serve orders, the purpose of the laser, etc. before starting gameplay
+    \\ \hline
+    Slow tempo and and no variation in the music & Increase bpm of songs and rework some of the music to make it more engaging
+    \\ \hline
+    Unable to interact with customers seated at the bottom of tables & 
+    Increase bpm of songs and rework some of the music to make it more engaging
+    \\
+    \hline
+    Unable to interact with customers seated at the bottom of tables &
+    Developers will have to debug customer interaction scripts and test them to make sure the issue is fixed
+    \\ \hline
+    Tedious having to use button presses to circulate through character customizations
+    &
+    Use scroll wheel for selection instead and add ID number so that customer has a reference for the options
+    \\ \hline
+    Range for hitting the beat is too lenient
+    &
+    Use scroll wheel for selection instead and add ID number so that customer has a reference for the options
+    \\ \hline
+    Range for hitting the beat is too lenient &
+    Recalibrate beat accuracy window to make it stricter (will require some trial and error)
+    \\ \hline
+    Customer states are unclear (waiting for order to be taken, waiting for food, eating, etc.) &
+    Use exclamation point to represent new customers who haven’t had their orders taken and have a thought bubble of their order to show their waiting for it to be served
+    \\ \hline
+    Not enough auditory or visual feedback to reflect if the player is doing well/poorly in the game
+    &
+    The team will have to go through the game and asses where visual and audio cues should be added to keep the player updated about their current status in the game
+    \\ \hline
+
+    \end{tabularx}
 %----------------------------------------------------------------------------------------
 %	REFERENCE LIST
 %----------------------------------------------------------------------------------------
