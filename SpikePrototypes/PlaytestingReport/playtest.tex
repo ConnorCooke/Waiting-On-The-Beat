@@ -14,11 +14,9 @@
 % CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %----------------------------------------------------------------------------------------
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
-
 \documentclass[twoside,twocolumn]{article}
 
 \usepackage{blindtext} % Package to generate dummy text throughout this template 
@@ -38,7 +36,7 @@
 
 \usepackage{enumitem} % Customized lists
 \setlist[itemize]{noitemsep} % Make itemize lists more compact
-
+\usepackage{tabularx}
 \usepackage{abstract} % Allows abstract customization
 \renewcommand{\abstractnamefont}{\normalfont\bfseries} % Set the "Abstract" text to bold
 \renewcommand{\abstracttextfont}{\normalfont\small\itshape} % Set the abstract itself to small italic textd
@@ -68,19 +66,13 @@
 
 \pretitle{\begin{center}\Huge\bfseries} % Article title formatting
 \posttitle{\end{center}} % Article title closing formatting
-\title{Waiting on the Beat Playtesting Report} % Article title
+\title{Waiting on the Beat Playtesting} % Article title
 \author{%
-\textsc{Connor Cooke}
-\and
-\textsc{Sarah Piot}
+\textsc{Eileen Van Heerde}
 \and
 \textsc{Cortland Laidlaw}
 \and
-\textsc{Josh Stanzeleit}
-\and
-\textsc{Eileen Van Heerde}
-\and
-\textsc{Martin Thingvold}\\
+\textsc{Martin Thingvold} \thanks{Connor Cooke, Sarah Piot, Josh Stanzeleit assisted by proofreading}\\
 %\normalsize University of Saskatchewan \\ % Your institution
 %\normalsize \href{mailto:mat534@usask.ca}{mat534@usask.ca}
 % Your email address
@@ -114,63 +106,150 @@
 
 \lettrine[nindent=0em,lines=3]{T} he goal of playtesting is to have users interact
 with our product and to utilize their feedback to improve the product. Our group chose
-6%TODO change number of participants
-participants to run through our alpha and give feedback. The playtesting had three components the evaluator followed; we first \hyperlink{section.2}{introduced the product to the player,} then we \hyperlink{section.3}{observed the player engaging with the
-game and transcribing their comments,} and finally we \hyperlink{section.4}{had players answer specific questions.}
+11
+participants to run through our alpha and give feedback. The evaluator carried out the following three steps to conduct the test; they first \hyperlink{section.2}{introduced the product to the player,} then they \hyperlink{section.3}{observed the player engaging with the
+game and transcribing their comments,} and finally they \hyperlink{section.4}{had players answer specific questions.}
 
 
-%\blindtext % Dummy text
 
-%\blindtext % Dummy text
 
 %------------------------------------------------
 
 \section{Playtesting Script}
 \label{sec:script}
-To remove biases from our results it's important to follow a script to ensure that all players are introduced
-to the product in the same way. The final script follows this principle while avoid "hand holding" with the player.
-The way we compromised these two principles was by thinking about what information would be given to the player in a finished product.
+To discourage biases from influencing the test results, it was decided that a script would be followed to ensure that
+ all the participants were introduced to the product in the same way.
+ This also minimized the risk of the evaluator potentially assisting the player (i.e. "hand holding") , 
+which could potentially skew the feedback given by the player. The script consisted of the following points:
 
 \begin{itemize}
-\item Our group has been working on a game called Waiting on the Beat
-\item It's a rhythm game, so you have to hit the arrow keys to the beat of the music
-\item There's a helpful visual component that should help you keep the beat at the bottom of the screen
+\item Our group has been working on a game called Waiting on the Beat.
+\item It's a rhythm game, so you have to hit the arrow keys to the beat of the music.
+\item There's a helpful visual component that should help you keep the beat at the bottom of the screen.
 \item Use the arrow keys to control the movement.
 \item The goal is to take orders, get food from the bar, bring the food to the customer and collect money.
 \item Here's where the bar is to submit orders and here is where you get food.
 \end{itemize}
-\blindtext % Dummy text
 
-Text requiring further explanation\footnote{Example footnote}.
+What was found was that we should've created UI indications for elements that need explaining.
+%Text requiring further explanation\footnote{Example footnote}.
 
 %------------------------------------------------
 
 \section{Observation}
 
-From observing we received a bunch of criticism
-%TODO WRITE THIS
+After compiling all the observations, some common themes were identified by analyzing them.
+ It was made clear by these observations that major improvements could be made to the product.
+  Common problems found in the area of customization were:
+\footnote{\hyperlink{https://docs.google.com/document/d/1CnQ9mCSRhZsAQdpiiN130khrFRj5-IsULWaGTs2_KgE/edit?usp=sharing}{Full transcript available on Google Drive}}
+ Common problem areas we
+found for \textbf{customization} were:
+\begin{itemize}
+    \item Some players were disappointed with the skin tone options.
+    \item Female testers unanimously wanted a gender option.
+    \item One player noted a hair texture looked "very pixelated"
+    \item The change direction option has an ambiguous outcome.
+    \item Customization options have no back button making navigation difficult.
+\end{itemize}
+For the most part during observation the character creator was well received. Our \textbf{gameplay}
+received the majority of criticism:
+\begin{itemize}
+
+    \item Players often waited until the visual beat bars hit the centre to move.
+    \item Players needed direction to go to the bottom area to submit orders.
+    \item Players didn't get necessary feedback to understand that the lasers were to be avoided, or they failed to understand that the lasers took tip money away.
+    \item Players didn't like not getting instant feedback for drinks.
+    \item All players had no idea how to collect tips after serving customers. Although some happened across the correct answer, it was not intuitive.
+    \item Players were confused as to why they had lost or won at the end of the level. The timer mechanic is not clear.
+    \item Several Players complained about the timing of the beat input and how it syncs with input.
+    \item Players would often try to give the drink to the table instead of the customer.
+    \item Some players didn't understand they could take multiple orders at once.
+    \item Players were confused by a bug where customers south of the table would not place orders.
+    \item Players didn't feel that their performance was good while playing.
+\end{itemize}
+A major error was noted during observation when the game did not
+ show a results screen and instead spawned numerous
+ lasers before locking up interactable objects. This problem has yet to 
+be replicated and the cause of it is currently unknown. \footnote{This occurred while testing subject 4}
 
 
 
 %------------------------------------------------
 
 \section{Post Gameplay Questions}
-After the player was finished engaging with the game we asked several questions to attempt to get more clear constructive feedback and locating issues with different users.
+After the player finished engaging with the
+game, they were asked to answer several follow-up questions. This was done to gain clear constructive feedback and identify the issues players had with the game directly. 
+It was decided that a Google Form would be used to process feedback because of its ability to summarized the responses, which made analyzing the data easier. We decided to ask the following questions:
 
 \begin{itemize}
-\item How much experience do you have playing games?
-\item How much experience do you have with rhythm games?
-\item Do you have any experience playing a musical instrument?
-\item Was there anything that frustrated you?
-\item What changes would you suggest to improve the game?
-\item How difficult did you find the game?
-\item How intuitive did the controls feel?
-\item What did you like about the game?
-\item What did you not like about the game?
-\item What changes would you suggest we make to the game?
+\item How much experience do you have playing games?(Linear scale)
+\item How much experience do you have with rhythm games? (Linear scale)
+\item Do you have any experience playing a musical instrument?(Linear scale)
+\item How difficult did you find the game?(Linear scale)
+\item Was there anything that you found frustrating?(long answer)
+\item What changes would you suggest to improve the game? (Long answer)
+\item How intuitive did the controls feel?(Long answer)
+\item What did you like about the game?(Long answer)
+\item What did you not like about the game?(Long answer)
+\item What changes would you suggest we make to the game?(Long answer)
 \end{itemize}
+\subsection{Demographics}\footnote{\hyperlink{https://docs.google.com/spreadsheets/d/1ANOVLghsAPeU3L3zo1TeeCbxSlEFg69GmU0cMx_n9CA/edit?usp=sharing}{Google Form result provided here.}}
+Our participant diversity is adequate for the scale that testing was conducted with.
+The only underrepresented group  that could have interesting insights are people who would
+rate themselves as having a below average game literacy.
+\subsection{Post-Gameplay Criticisms}
+A large majority of criticisms were already covered in the \hyperlink{section.3}{observation section}. Those
+criticisms will not be repeated here, however after having time to contemplate; participants did
+have new criticisms that will be summarized here:
+\begin{itemize}
+    \item the speech bubble not being clear as to whether a customer is ready to order, or is giving an order.
+    \item The ordering counter not being visually intuitive.
+    \item The music loop was too short.
+    \item The game's pacing felt slow.
+    \item The music got repetitive.
+    \item Numbering character customization options.
+    \item The beat visualizer was found to be unforgiving in handling user input.
+    \item Customers don't care about sitting in a lobby forever.
+    \item Visual and audio beats did not properly sync up.
+\end{itemize}
+\section{Moving Forward}
+This section will provide a list of problems generated from common complaints in the feedback given
+by the playtesters and what will be done to address them. A table format will show this best:
+\begin{tabularx}{\textwidth}{ |X|X| }
+    \hline
+    Problem & Solution  \\ \hline
+    Lack of information about how to play the game & 
+    Create new screen(s) that explains the controls, how to take/serve orders, the purpose of the laser, etc. before starting gameplay
+    \\ \hline
+    Slow tempo and and no variation in the music & Increase bpm of songs and rework some of the music to make it more engaging
+    \\ \hline
+    Unable to interact with customers seated at the bottom of tables & 
+    Increase bpm of songs and rework some of the music to make it more engaging
+    \\
+    \hline
+    Unable to interact with customers seated at the bottom of tables &
+    Developers will have to debug customer interaction scripts and test them to make sure the issue is fixed
+    \\ \hline
+    Tedious having to use button presses to circulate through character customizations
+    &
+    Use scroll wheel for selection instead and add ID number so that customer has a reference for the options
+    \\ \hline
+    Range for hitting the beat is too lenient
+    &
+    Use scroll wheel for selection instead and add ID number so that customer has a reference for the options
+    \\ \hline
+    Range for hitting the beat is too lenient &
+    Recalibrate beat accuracy window to make it stricter (will require some trial and error)
+    \\ \hline
+    Customer states are unclear (waiting for order to be taken, waiting for food, eating, etc.) &
+    Use exclamation point to represent new customers who haven’t had their orders taken and have a thought bubble of their order to show their waiting for it to be served
+    \\ \hline
+    Not enough auditory or visual feedback to reflect if the player is doing well/poorly in the game
+    &
+    The team will have to go through the game and asses where visual and audio cues should be added to keep the player updated about their current status in the game
+    \\ \hline
 
-
+    \end{tabularx}
 %----------------------------------------------------------------------------------------
 %	REFERENCE LIST
 %----------------------------------------------------------------------------------------
