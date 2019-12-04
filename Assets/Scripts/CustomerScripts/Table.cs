@@ -67,6 +67,7 @@ public class Table : MonoBehaviour
                 }
             }
         }
+        print("Nearest Customer::" + nearestCustomer);
         return nearestCustomer;
     }
 
@@ -143,7 +144,16 @@ public class Table : MonoBehaviour
 
     private void CustomerReceived(int index)
     {
-        objectManager.CustomerReadyToOrder(customers[index].transform.position);
+        Vector3 pos = customers[index].transform.position;
+        if (index > 1)
+        {
+            objectManager.CustomerReadyToOrder(new Vector3(pos.x, pos.y-1, pos.z));
+        }
+        else
+        {
+            objectManager.CustomerReadyToOrder(new Vector3(pos.x,pos.y,pos.z));
+        }
+        
     }
 
     public void CustomerReceivedFood(int index, GameObject food)
@@ -163,7 +173,15 @@ public class Table : MonoBehaviour
                 SetTransform(1);
             }
         }
-        objectManager.CustomerEating(customers[index].transform.position);
+        Vector3 pos = customers[index].transform.position;
+        if (index > 1)
+        {
+            objectManager.CustomerEating(new Vector3(pos.x,pos.y-1, pos.z));
+        }
+        else
+        {
+            objectManager.CustomerEating(new Vector3(pos.x, pos.y, pos.z));
+        }
         customersFood[index] = food;
         SetFoodTransform(index);
         visualsForCommunication[index].GetComponent<Animator>().SetBool("Waiting", false);
@@ -176,13 +194,20 @@ public class Table : MonoBehaviour
     public void CustomerPaid(float tip, int index)
     {
         Vector3 pos = customers[index].transform.position;
-        objectManager.CustomerPaid(tip, new Vector3(pos.x, pos.y, pos.z));
+        if(index > 1)
+        {
+            objectManager.CustomerPaid(tip, new Vector3(pos.x, pos.y-1, pos.z));
+        }
+        else
+        {
+            objectManager.CustomerPaid(tip, new Vector3(pos.x, pos.y, pos.z));
+        }
+       
         //todo remove customer animation activations
         DestroyImmediate(customers[index]);
         DestroyImmediate(customersFood[index]);
         customers[index] = null;
         customersFood[index] = null;
-        print("Paid");
         visualsForCommunication[index].GetComponent<Animator>().SetTrigger("Paid");
         ResetTriggersForIndex(index, "Paid");
     }
@@ -216,9 +241,16 @@ public class Table : MonoBehaviour
     public void ReceiveOrderRequest(Vector3 position)
     {
         int nearest = FindNearestCustomer(position);
+        Vector3 pos = customers[nearest].transform.position;
         customers[nearest].GetComponent<CustomerObject>().ReceiveOrderRequest();
-        objectManager.CustomerOrdered(customers[nearest].transform.position);
-        
+        if (nearest > 1)
+        {
+            objectManager.CustomerOrdered(new Vector3(pos.x, pos.y-1, pos.z));
+        }
+        else
+        {
+            objectManager.CustomerOrdered(new Vector3(pos.x, pos.y, pos.z));
+        }
     }
 
     public void ReceivePayRequest(Vector3 position)

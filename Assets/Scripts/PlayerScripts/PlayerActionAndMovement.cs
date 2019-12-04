@@ -329,6 +329,7 @@ public class PlayerActionAndMovement : MonoBehaviour
 
     private void UpdateCustomerTiles(Vector3 customerPosition, int tileValue)
     {
+        print("update" + tileValue + "position x:" + customerPosition.x + " y " + customerPosition.y);
         SetTileAtTransform(new Vector3( customerPosition.x - (float)0.5, customerPosition.y, customerPosition.z), tileValue);
         SetTileAtTransform(new Vector3( customerPosition.x + (float)0.5, customerPosition.y, customerPosition.z), tileValue);
     }
