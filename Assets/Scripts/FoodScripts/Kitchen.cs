@@ -17,6 +17,8 @@ public class Kitchen : MonoBehaviour
     public GameObject foodPrefab;
     public GameObject foodBeingCooked;
 
+    protected static Sprite[] drinkSprites = null;
+
     public void ReceiveOrders(List<FoodOrder> orders)
     {
         foreach (FoodOrder order in orders)
@@ -25,12 +27,12 @@ public class Kitchen : MonoBehaviour
         }
         objectManager.OrdersDelivered();
     }
-    
+
     /*
      * If there is an empty countertop position then the cooking bot places a cooked piece of food there
      * setting its rendering position and its transform accordingly
      */
-    private void toKitchenCounter()
+    protected virtual void toKitchenCounter()
     {
         void SetTransform(int x)
         {
@@ -58,11 +60,11 @@ public class Kitchen : MonoBehaviour
      * Receives a request from the player for the food at a specific countertop position
      * and sends the food to the player
      */
-    public void ReceiveFoodRequest(Transform playerPosition)
+    public virtual void ReceiveFoodRequest(Vector3 playerPosition)
     {
         void CheckIndex(int index)
         {
-            if (playerPosition.position.y < counterTop[index].transform.position.y + .1 && playerPosition.position.y > counterTop[index].transform.position.y-.1)
+            if (playerPosition.y < counterTop[index].transform.position.y + .1 && playerPosition.y > counterTop[index].transform.position.y-.1)
             {
                 objectManager.GivePlayerFood(counterTop[index]);
                 counterTop[index] = null;
@@ -80,8 +82,9 @@ public class Kitchen : MonoBehaviour
         }
     }
         
-    void Start()
+    protected virtual void Start()
     {
+        drinkSprites = Resources.LoadAll<Sprite>("Sprites/SetDressing/drinksnoanimation");
         foodBeingCooked = null;
         for(int index = 0; index < counterTop.Length; index++)
         {
@@ -94,7 +97,7 @@ public class Kitchen : MonoBehaviour
      * Decrements timer if there is food currently being cooked, if the food has finished cooking it is
      * put in the queue for placement on the counter
      */
-    public void BeatOccured()
+    public virtual void BeatOccured()
     {
         if(kitchenTimer > 0)
         {
@@ -111,13 +114,15 @@ public class Kitchen : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         if(foodBeingCooked is null && uncookedFood.Count > 0)
         {
             foodBeingCooked = Instantiate(foodPrefab, new Vector3(-17, 0, 0), Quaternion.identity);
             FoodOrder order = uncookedFood.Dequeue();
             foodBeingCooked.GetComponent<Food>().CreateFood(order);
+            foodBeingCooked.GetComponent<SpriteRenderer>().sprite = drinkSprites[order.GetFoodName()];
+            foodBeingCooked.transform.localScale = new Vector3(0.2f, 0.2f, 1);
             kitchenTimer = order.GetCookingTime();
         }
     }

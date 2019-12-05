@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class FoodOrder
 {
-    private string name;
+    private int name;
     private int cookingTime;
     private float price;
 
-    public FoodOrder(string nam, int timer, float prce)
+    public FoodOrder(int nam, int timer, float prce)
     {
         this.name = nam;
         this.cookingTime = timer;
         this.price = prce;
     }
 
-    public string GetFoodName()
+    public int GetFoodName()
     {
         return this.name;
     }

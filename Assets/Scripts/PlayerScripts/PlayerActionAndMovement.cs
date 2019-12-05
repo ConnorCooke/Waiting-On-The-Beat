@@ -4,34 +4,34 @@ using UnityEngine;
 
 public class PlayerActionAndMovement : MonoBehaviour
 {
-    private float moveSpeed = 2f;
-    private float gridSize = 1f;
-    private enum Orientation
+    protected float moveSpeed = 2f;
+    protected float gridSize = 1f;
+    protected enum Orientation
     {
         Horizontal,
         Vertical
     };
-    private Orientation gridOrientation = Orientation.Horizontal;
-    private Vector2 input;
-    private bool isMoving = false;
-    private bool wasMoving = false;
-    private Vector3 startPosition;
-    private Vector3 endPosition;
-    private float t;
-    private float factor;
-    private bool validMovement;
+    protected Vector2 input;
+    protected bool isMoving = false;
+    protected bool wasMoving = false;
+    protected Vector3 startPosition;
+    protected Vector3 endPosition;
+    protected float t;
+    protected float factor;
+    protected bool validMovement;
     public int[] playerPosition;
-    private int[,] tileContents;
-    private int width = 17;
-    private int height = 11;
+    protected int[,] tileContents;
+    protected int width = 17;
+    protected int height = 11;
 
-    private GameObject currentFood;
-    private List<FoodOrder> currentOrders;
+    protected GameObject currentFood;
+    public GameObject handThatHoldsFood;
+    protected List<FoodOrder> currentOrders;
 
     public ObjectManager objectManager;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         playerPosition = new int[] {10, 5};
         tileContents =new int[,] { { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -48,7 +48,7 @@ public class PlayerActionAndMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         /**
          * When the player is not already moving input can be taken in, it then deals with ambiguities/player trying to input both directions
@@ -93,18 +93,14 @@ public class PlayerActionAndMovement : MonoBehaviour
                 StartCoroutine(move(transform));
             }
         }
-        if(!(currentFood is null))
-        {
-            currentFood.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - 1);
-        }
     }
 
-    private void RequestFood()
+    protected virtual void RequestFood()
     {
         objectManager.RequestFood();
     }
 
-    private void DeliverFood(int direction)
+    protected virtual void DeliverFood(int direction)
     {
         if(!(currentFood is null))
         {
@@ -113,12 +109,12 @@ public class PlayerActionAndMovement : MonoBehaviour
         
     }
 
-    private void RequestOrder(int direction)
+    protected virtual void RequestOrder(int direction)
     {
         objectManager.RequestOrder(direction);
     }
 
-    private void DeliverOrders()
+    protected virtual void DeliverOrders()
     {
         if (!(currentOrders is null))
         {
@@ -130,17 +126,17 @@ public class PlayerActionAndMovement : MonoBehaviour
     /**
      * Calls objectmanager which tells the nearest table ot the player to clean itself
      */
-    private void CleanTable()
+    protected virtual void CleanTable()
     {
         objectManager.CleanNearestTable();
     }
 
-    private void RequestPayment(int direction)
+    protected virtual void RequestPayment(int direction)
     {
         objectManager.RequestPayment(direction);
     }
 
-    private int DetermineBaseLayer()
+    protected virtual int DetermineBaseLayer()
     {
         if(playerPosition[1] < 1)
         {
@@ -161,12 +157,12 @@ public class PlayerActionAndMovement : MonoBehaviour
      * picking up food, dropping off food, and clean tables. It sends the respective messages if neccessary
      * @return void
      */
-    private void CheckMovementInteractions()
+    protected virtual void CheckMovementInteractions()
     {
         void DetermineTileInteractivity(int tileValue)
         {
             int direction = 0;
-            if(input.y < 0 || playerPosition[1] > 5)
+            if(input.y < 0 && playerPosition[1] == 5 || playerPosition[1] > 5)
             {
                 direction = 1;
             }
@@ -181,7 +177,10 @@ public class PlayerActionAndMovement : MonoBehaviour
                     DeliverOrders();
                     break;
                 case 4:
-                    RequestFood();
+                    if(currentFood is null)
+                    {
+                        RequestFood();
+                    }
                     break;
                 case 5:
                     DeliverFood(direction);
@@ -282,7 +281,7 @@ public class PlayerActionAndMovement : MonoBehaviour
         CheckSouthwardInteractions();
     }
 
-    public IEnumerator WaitWhileInteracting()
+    public virtual IEnumerator WaitWhileInteracting()
     {
         yield return new WaitForSeconds((float)0.25);
         GetComponent<Animator>().SetInteger("Direction", -1);
@@ -296,12 +295,12 @@ public class PlayerActionAndMovement : MonoBehaviour
      * @param transform the position the player sprite is moving to
      * @return nothing
      */
-    public IEnumerator move(Transform transform)
+    public virtual IEnumerator move(Transform transform)
     {
         isMoving = true;
         startPosition = transform.position;
         t = 0;
-
+        objectManager.UpdateTilePosition(playerPosition);
         
         endPosition = new Vector3(startPosition.x + System.Math.Sign(input.x) * gridSize, startPosition.y + System.Math.Sign(input.y) * gridSize, startPosition.z);
         factor = 1f;
@@ -321,51 +320,53 @@ public class PlayerActionAndMovement : MonoBehaviour
     /**
      * Given the transform of a specific object determines the correct tile and sets its value to tileValue
      */
-    private void SetTileAtTransform(Vector3 TilePosition, int tileValue)
+    protected virtual void SetTileAtTransform(Vector3 TilePosition, int tileValue)
     {
         int xPosition = (int)((TilePosition.x - 0.5) + (float)10.0);
         int yPosition = (int)(-(TilePosition.y - 0.5) + (float)5.0);
         tileContents[yPosition, xPosition] = tileValue;
     }
 
-    private void UpdateCustomerTiles(Vector3 customerPosition, int tileValue)
+    protected virtual void UpdateCustomerTiles(Vector3 customerPosition, int tileValue)
     {
         SetTileAtTransform(new Vector3( customerPosition.x - (float)0.5, customerPosition.y, customerPosition.z), tileValue);
         SetTileAtTransform(new Vector3( customerPosition.x + (float)0.5, customerPosition.y, customerPosition.z), tileValue);
     }
 
-    public void CustomerPaid(Vector3 position)
+    public virtual void CustomerPaid(Vector3 position)
     {
         UpdateCustomerTiles(position, 1);
     }
 
-    public void CustomerReadyToOrder(Vector3 position)
+    public virtual void CustomerReadyToOrder(Vector3 position)
     {
         UpdateCustomerTiles(position, 2);
     }
 
-    public void CustomerOrdered(Vector3 position)
+    public virtual void CustomerOrdered(Vector3 position)
     {
         UpdateCustomerTiles(position, 5);
     }
 
-    public void CustomerEating(Vector3 position)
+    public virtual void CustomerEating(Vector3 position)
     {
         UpdateCustomerTiles(position, 7);
         currentFood = null;
     }
-    
-    public void ReceiveFood(GameObject food)
+
+    public virtual void ReceiveFood(GameObject food)
     {
         currentFood = food;
+        currentFood.transform.SetParent(handThatHoldsFood.transform);
+        currentFood.transform.position = new Vector3(handThatHoldsFood.transform.position.x, handThatHoldsFood.transform.position.y, 0);
     }
-    
-    public void OrdersReceived()
+
+    public virtual void OrdersReceived()
     {
         currentOrders = null;
     }
-    
-    public void ReceiveOrder(FoodOrder order)
+
+    public virtual void ReceiveOrder(FoodOrder order)
     {
         if(currentOrders is null)
         {

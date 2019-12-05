@@ -7,24 +7,28 @@ using System.Globalization;
 public class BeatRunner : MonoBehaviour
 {
     
-    public int currentBeat;
+    private int currentBeat = 0;
     public AudioSource musicSource;
     private static List<double> beatPositionsInTime = new List<double>();
     private static List<double> beatObjectSpawnTime = new List<double>();
     public float inputLeeway;
-    public static string beatFilePath = "./Assets/Songs/beat-test.txt";
+    public static string beatFilePath = "/Resources/Songs/DiscoDiner.txt";
     public ObjectManager objectManager;
     private bool isActing;
-    bool beatHit = false;
-    bool alreadyFailed = false;
-    public int currentSpawn = 0;
+    private bool beatHit = false;
+    private bool noInput = true;
+    private bool beatHitReset = false;
+    private bool noInputReset = false;
+    private int currentSpawn = 0;
+    private static int spawnCount = 0;
+    private static int count = 0;
     
     
     void Start()
     {
         loadBeatsFromFile();
         
-        currentBeat = 1;
+        currentBeat = 0;
 
         musicSource.Play();
 
@@ -32,25 +36,30 @@ public class BeatRunner : MonoBehaviour
 
     static void loadBeatsFromFile()
     {
-        StreamReader r = new StreamReader(beatFilePath);
-        int count = 0;
+        StreamReader r = new StreamReader(Application.dataPath + beatFilePath);
+        int beatCount = 0;
         while (!r.EndOfStream)
         {
             string ln = r.ReadLine();            
             double time = double.Parse(ln, CultureInfo.InvariantCulture.NumberFormat);
-            beatPositionsInTime.Add(time);            
-            
-            if (count<3)
+            double fractional = time % 1.0;
+            if (fractional > .9 || fractional < .1)
             {
-                count++;
+                beatPositionsInTime.Add(time);
             }
-            else
+
+
+            if (beatCount < 3)
+            {
+                beatCount++;
+            }
+            else if (fractional > .9 || fractional < .1)
             {
                 beatObjectSpawnTime.Add(time - 2);
             }
-            
         }
-
+        count = beatPositionsInTime.Count;
+        spawnCount = beatObjectSpawnTime.Count;
         r.Close();
     }
 
@@ -58,45 +67,57 @@ public class BeatRunner : MonoBehaviour
     {
         float currentSongTime = musicSource.time;
         // Debug.Log(beatPositionsInTime);
-        if (currentSongTime > beatPositionsInTime[currentBeat + 1])
+        if ((currentBeat + 1) < count && (currentSpawn + 1) < spawnCount)
         {
-            currentBeat++;
-            objectManager.BeatOccured();
-        }
-        else if (currentSongTime > beatPositionsInTime[currentBeat] + inputLeeway)
-        {
-            if (!beatHit && !alreadyFailed) {
-                objectManager.GiveCorrectness(false);
-                alreadyFailed = true;
-            }
-            else
+            if (currentSongTime > beatPositionsInTime[currentBeat + 1])
             {
-                beatHit = false;
+                currentBeat++;
+                objectManager.BeatOccured();
+                noInputReset = false;
+                beatHitReset = false;
             }
-        }
-
-        if(currentSongTime > beatObjectSpawnTime[currentSpawn])
-        {
-            objectManager.SpawnBeatVisual();
-            currentSpawn++;
-        }
-
-        if (!isActing)
-        {
-            Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-
-            if (input != Vector2.zero )
+            else if (currentSongTime > beatPositionsInTime[currentBeat] + inputLeeway)
             {
-                isActing = true;
-                objectManager.GiveCorrectness(PlayerInputCloseToCurrentBeat());
-                StartCoroutine(WaitForActionToComplete());
+                if (!noInputReset && !beatHitReset)
+                {
+                    if (!beatHit && noInput)
+                    {
+                        objectManager.GiveCorrectness(false);
+                    }
+                    noInput = true;
+                    beatHit = false;
+                    noInputReset = true;
+                    beatHitReset = true;
+                }
             }
+
+            if (currentSongTime > beatObjectSpawnTime[currentSpawn])
+            {
+                objectManager.SpawnBeatVisual();
+                currentSpawn++;
+            }
+
+            if (!isActing)
+            {
+                Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
+                if (input != Vector2.zero)
+                {
+                    isActing = true;
+                    objectManager.GiveCorrectness(PlayerInputCloseToCurrentBeat());
+                    StartCoroutine(WaitForActionToComplete());
+                }
+            }
+        }
+        else
+        {
+            objectManager.EndLevel();
         }
     }
 
     IEnumerator WaitForActionToComplete()
     {
-        yield return new WaitForSeconds((float).1);
+        yield return new WaitForSeconds((float).25);
         isActing = false;
     }
 
@@ -108,6 +129,7 @@ public class BeatRunner : MonoBehaviour
     public bool PlayerInputCloseToCurrentBeat()
     {
         float inputTime = musicSource.time;
+        noInput = false;
         if(inputTime < beatPositionsInTime[currentBeat] + inputLeeway || inputTime > beatPositionsInTime[currentBeat+1] - inputLeeway)
         {
             beatHit = true;

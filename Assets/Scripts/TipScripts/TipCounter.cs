@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TipCounter : MonoBehaviour
 {
@@ -12,13 +13,30 @@ public class TipCounter : MonoBehaviour
     void Start()
     {
         tipMultiplier = 0f;
-        currTotalTips = 0;
+        currTotalTips = 0f;
+        GetComponent<Text>().text = "Current Tips:: " + currTotalTips + " $";
+    }
+
+    public void RemoveCash(float removal)
+    {
+        currTotalTips -= removal;
+
+        if (currTotalTips < 0)
+        {
+            currTotalTips = 0;
+        }
+        UpdateVisual();
+    }
+
+    private void UpdateVisual()
+    {
+        GetComponent<Text>().text = "Current Tips:: " + currTotalTips + " $";
     }
 
     /**
      * Adds customer tip to totalTips based on tipMultiplier
      */
-    void addTip(float tipValue)
+    public void AddTip(float tipValue)
     {
         float tipToAdd = 0f;
 
@@ -32,12 +50,13 @@ public class TipCounter : MonoBehaviour
         }
 
         currTotalTips += tipToAdd;
+        UpdateVisual();
     }
 
     /**
      * Updates the tipMultiplier value
      */
-    void updateTipMultiplier(float newMultiplier)
+    public void UpdateTipMultiplier(float newMultiplier)
     {
         tipMultiplier = newMultiplier;
     }
@@ -45,15 +64,13 @@ public class TipCounter : MonoBehaviour
     /**
      * 
      */
-     void receiveScoreRequest()
+    public void receiveScoreRequest()
     {
         objectManager.GiveTipTotal(currTotalTips);
-        // add tips earned from lvl to PlayerData.totalTips value
-        PlayerData.setTotalTips(PlayerData.getTotalTips() + currTotalTips);
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         
     }
