@@ -13,11 +13,11 @@ public class CustomerQueueTracker : MonoBehaviour
     public int numberOfStartingCustomers;
     public int  diversityOfDrinks;
 
-    private Queue<GameObject> customerEntranceQueue = new Queue<GameObject>();
-    private Queue<int> customerRequestQueue = new Queue<int>();
+    protected Queue<GameObject> customerEntranceQueue = new Queue<GameObject>();
+    protected Queue<int> customerRequestQueue = new Queue<int>();
 
     public int spawnTimer = 10;
-    private int timer;
+    protected int timer;
     public int[] customerTimerValues;
     public int[] customerTipValues;
     public FoodOrder[] possibleOrders = new FoodOrder[] { new FoodOrder(0, 2, 20) };
@@ -26,7 +26,7 @@ public class CustomerQueueTracker : MonoBehaviour
     /*
     * This is for generating any new customers for the game
     */
-    private void generateCustomer()
+    protected virtual void generateCustomer()
     {
         GameObject newCustomer = Instantiate(customer, new Vector3(15, 0, 0), Quaternion.identity);
 
@@ -53,7 +53,7 @@ public class CustomerQueueTracker : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         timer = 0;
         for(int count = 0; count< numberOfStartingCustomers; count++)
@@ -64,7 +64,7 @@ public class CustomerQueueTracker : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         //leave empty
     }
@@ -73,7 +73,7 @@ public class CustomerQueueTracker : MonoBehaviour
     /*
     * Receives customer request from a table
     */
-    public void ReceiveCustomerRequest(int tableNumber)
+    public virtual void ReceiveCustomerRequest(int tableNumber)
     {
         customerRequestQueue.Enqueue(tableNumber);
     }
@@ -81,7 +81,7 @@ public class CustomerQueueTracker : MonoBehaviour
     /*
     * Send customer to the table that requested one
     */
-    public void GiveCustomer(int tableNumber, GameObject customer)//NOT DONE
+    public virtual void GiveCustomer(int tableNumber, GameObject customer)//NOT DONE
     {
         //attach customerObject to table
         objectManager.GiveCustomer(customer, tableNumber);
@@ -92,7 +92,7 @@ public class CustomerQueueTracker : MonoBehaviour
     * Increments the timer for spawning customers and gives a customer to the earliest tables request,
     * occasionally changes the order of the requests to appear more random
     */
-    public void BeatOccured()
+    public virtual void BeatOccured()
     {
         timer++;
         if(timer == spawnTimer)
