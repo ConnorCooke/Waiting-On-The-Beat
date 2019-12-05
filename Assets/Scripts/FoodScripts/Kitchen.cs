@@ -17,7 +17,7 @@ public class Kitchen : MonoBehaviour
     public GameObject foodPrefab;
     public GameObject foodBeingCooked;
 
-    private static Sprite[] drinkSprites = null;
+    protected static Sprite[] drinkSprites = null;
 
     public void ReceiveOrders(List<FoodOrder> orders)
     {
@@ -27,12 +27,12 @@ public class Kitchen : MonoBehaviour
         }
         objectManager.OrdersDelivered();
     }
-    
+
     /*
      * If there is an empty countertop position then the cooking bot places a cooked piece of food there
      * setting its rendering position and its transform accordingly
      */
-    private void toKitchenCounter()
+    protected virtual void toKitchenCounter()
     {
         void SetTransform(int x)
         {
@@ -60,7 +60,7 @@ public class Kitchen : MonoBehaviour
      * Receives a request from the player for the food at a specific countertop position
      * and sends the food to the player
      */
-    public void ReceiveFoodRequest(Vector3 playerPosition)
+    public virtual void ReceiveFoodRequest(Vector3 playerPosition)
     {
         void CheckIndex(int index)
         {
@@ -82,7 +82,7 @@ public class Kitchen : MonoBehaviour
         }
     }
         
-    void Start()
+    protected virtual void Start()
     {
         drinkSprites = Resources.LoadAll<Sprite>("Sprites/SetDressing/drinksnoanimation");
         foodBeingCooked = null;
@@ -97,7 +97,7 @@ public class Kitchen : MonoBehaviour
      * Decrements timer if there is food currently being cooked, if the food has finished cooking it is
      * put in the queue for placement on the counter
      */
-    public void BeatOccured()
+    public virtual void BeatOccured()
     {
         if(kitchenTimer > 0)
         {
@@ -114,7 +114,7 @@ public class Kitchen : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         if(foodBeingCooked is null && uncookedFood.Count > 0)
         {
