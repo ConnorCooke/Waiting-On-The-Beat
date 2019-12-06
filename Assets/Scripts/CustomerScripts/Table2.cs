@@ -8,24 +8,25 @@ public class Table2 : Table
     // Start is called before the first frame update
 
 
-    protected virtual void Update()
+    override protected void Update()
     {
         if (!requestedCustomer)
         {
             int index = 0;
-            while (index < 6)
+            while (index < 10)
             {
                 if (customers[index] is null)
                 {
                     RequestCustomer();
-                    index = 6;
+                    index = 10;
                 }
                 index++;
             }
         }
     }
-    protected virtual void SetCustomerTransform(int idx, GameObject customer)
+    override protected void SetCustomerTransform(int idx, GameObject customer)
     {
+        Debug.Log("herwohwrhioweh");
         void SetTransform(float x, float y)
         {
             float tablex = middleX;
@@ -46,22 +47,22 @@ public class Table2 : Table
         }
         else if (idx == 2)
         {
-            SetTransform(-1, (float)-2.5);
+            SetTransform(-2, (float)-1);
             customer.GetComponent<CustomerSpriteManager>().faceEast(lowerBaseLayer);
         }
         else if (idx == 3)
         {
-            SetTransform(1, (float)1.5);
-            customer.GetComponent<CustomerSpriteManager>().faceWest(lowerBaseLayer);
+            SetTransform(1, (float)1);
+            customer.GetComponent<CustomerSpriteManager>().faceEast(lowerBaseLayer);
         }
         else if (idx == 4)
         {
-            SetTransform(1, (float)-0.5);
-            customer.GetComponent<CustomerSpriteManager>().faceWest(lowerBaseLayer);
+            SetTransform(1, (float)0);
+            customer.GetComponent<CustomerSpriteManager>().faceEast(lowerBaseLayer);
         }
         else
         {
-            SetTransform(1, (float)-2.5);
+            SetTransform(1, (float)-1);
             customer.GetComponent<CustomerSpriteManager>().faceWest(lowerBaseLayer);
         }
     }
