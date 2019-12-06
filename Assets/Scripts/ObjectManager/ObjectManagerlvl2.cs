@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectManagerlvl2 : MonoBehaviour
+public class ObjectManagerlvl2 : ObjectManager
 {
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
+	protected GameObject[] tables;
+	protected int[] playerPosition= {3, 2};
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	protected override int FindNearestTable(int direction){
+		return 0;
+	}
+
+
+
 }

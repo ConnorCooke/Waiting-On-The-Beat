@@ -10,21 +10,31 @@ public class PAMlvl2 : PlayerActionAndMovement
 	
 	
 	protected override void Start(){
-		
+		//0 -> Movable
+		//1 -> Not-Movable
+		//3 -> OrderPlace
+		//4 -> DrinkSpawn
 		playerPosition = new int[]{3,2};
-		tileContents = new int[,]{{0,0,0,3,3,4,4,4,4,3,3,0,0,0},{0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,1,1,1,1,0,0,0,0,0},
-		{0,0,0,0,0,0,1,1,0,0,0,0,0,0},
-		{0,0,0,0,0,1,1,1,1,0,0,0,0,0},
-		{0,0,0,0,0,0,1,1,0,0,0,0,0,0},
-		{0,0,0,0,0,1,1,1,1,0,0,0,0,0},
-		{0,0,0,0,0,0,1,1,0,0,0,0,0,0},
-		{0,0,0,0,0,1,1,1,1,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0}};
+		tileContents = new int[,]{
+		{0,0,0,3,3,4,4,4,4,3,3,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0},
+		{0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0},
+		{0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0},
+		{0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0},
+		{0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0},
+		{0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}};
 
 	}
 	
-
+	protected override void UpdateCustomerTiles(Vector3 customerPosition, int tileValue)
+    {
+        SetTileAtTransform(new Vector3( customerPosition.x, customerPosition.y - (float)0.5, customerPosition.z), tileValue);
+        SetTileAtTransform(new Vector3( customerPosition.x, customerPosition.y + (float)0.5, customerPosition.z), tileValue);
+    }
 
    
 }
