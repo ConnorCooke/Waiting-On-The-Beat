@@ -139,6 +139,7 @@ public class ObjectManager : MonoBehaviour
     {
         playerCharacter.GetComponent<PlayerActionAndMovement>().CustomerPaid(position);
         tipCounter.AddTip(tip);
+        laserManager.AddTip(tip);
     }
 
     /*
