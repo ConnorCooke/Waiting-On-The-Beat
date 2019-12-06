@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PAMlvl2 : PlayerActionAndMovement
+public class PAMlvl3 : PlayerActionAndMovement
 {
     // Start is called before the first frame update
 	protected int width = 14;
