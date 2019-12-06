@@ -28,6 +28,8 @@ public class PlayerActionAndMovement : MonoBehaviour
     public GameObject handThatHoldsFood;
     protected List<FoodOrder> currentOrders;
 
+    public GameObject[] orderMachines;
+
     public ObjectManager objectManager;
 
     // Start is called before the first frame update
@@ -42,8 +44,8 @@ public class PlayerActionAndMovement : MonoBehaviour
                                    { 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                                    { 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0 },
                                    { 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0 },
-                                   { 1, 3, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0 },
-                                   { 1, 3, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0 },
+                                   { 3, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0 },
+                                   { 3, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0 },
                                    { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }};
     }
 
@@ -119,10 +121,22 @@ public class PlayerActionAndMovement : MonoBehaviour
         if (!(currentOrders is null))
         {
             objectManager.DeliverOrdersToKitchen(currentOrders);
+            foreach(GameObject orderMachine in orderMachines)
+            {
+                orderMachine.GetComponent<Animator>().SetTrigger("OrdersPlaced");
+            }
+            
         }
         
     }
-
+    protected virtual IEnumerator ResetOrderMachines()
+    {
+        yield return new WaitForSeconds((float)0.25);
+        foreach (GameObject orderMachine in orderMachines)
+        {
+            orderMachine.GetComponent<Animator>().ResetTrigger("OrdersPlaced");
+        }
+    }
     /**
      * Calls objectmanager which tells the nearest table ot the player to clean itself
      */

@@ -8,13 +8,28 @@ public class TipCounter : MonoBehaviour
     private float tipMultiplier;
     private float currTotalTips;
     public ObjectManager objectManager;
+    public Slider tipDisplay;
 
     // Start is called before the first frame update
     void Start()
     {
         tipMultiplier = 0f;
         currTotalTips = 0f;
+        tipDisplay.value = currTotalTips;
         GetComponent<Text>().text = "Current Tips:: " + currTotalTips + " $";
+    }
+
+    protected void UpdateSlider()
+    {
+        if(currTotalTips <= tipDisplay.maxValue)
+        {
+            tipDisplay.value = currTotalTips;
+        }
+        else
+        {
+            tipDisplay.value = tipDisplay.maxValue;
+        }
+        
     }
 
     public void RemoveCash(float removal)
@@ -25,6 +40,7 @@ public class TipCounter : MonoBehaviour
         {
             currTotalTips = 0;
         }
+        UpdateSlider();
         UpdateVisual();
     }
 
@@ -50,6 +66,7 @@ public class TipCounter : MonoBehaviour
         }
 
         currTotalTips += tipToAdd;
+        UpdateSlider();
         UpdateVisual();
     }
 
