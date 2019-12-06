@@ -1,11 +1,29 @@
 ﻿using UnityEngine;
 
-public class MartinTable : Table
+public class Table2 : Table
 {
     new protected GameObject[] customers = new GameObject[6];
     new protected GameObject[] customersFood = new GameObject[6];
 
     // Start is called before the first frame update
+
+
+    protected virtual void Update()
+    {
+        if (!requestedCustomer)
+        {
+            int index = 0;
+            while (index < 6)
+            {
+                if (customers[index] is null)
+                {
+                    RequestCustomer();
+                    index = 6;
+                }
+                index++;
+            }
+        }
+    }
     protected virtual void SetCustomerTransform(int idx, GameObject customer)
     {
         void SetTransform(float x, float y)
@@ -18,12 +36,12 @@ public class MartinTable : Table
         }
         if (idx == 0)
         {
-            SetTransform(-1, (float)1.5);
+            SetTransform(-2, (float)1);
             customer.GetComponent<CustomerSpriteManager>().faceEast(upperBaseLayer);
         }
         else if (idx == 1)
         {
-            SetTransform(-1, (float)-0.5);
+            SetTransform(-2, (float)0);
             customer.GetComponent<CustomerSpriteManager>().faceEast(upperBaseLayer);
         }
         else if (idx == 2)
