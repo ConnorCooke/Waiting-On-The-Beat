@@ -3779,7 +3779,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 324196c852050824097ab9da4f957935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextLevel: 
+  nextLevel: level2
   tipThreshold: 0
   nextLevelButton: {fileID: 0}
   playButton: {fileID: 0}
