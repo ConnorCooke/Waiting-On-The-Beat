@@ -8,6 +8,7 @@ public class Table2 : Table
     // Start is called before the first frame update
     protected override void SetCustomerTransform(int idx, GameObject customer)
     {
+        Debug.Log("herwohwrhioweh");
         void SetTransform(float x, float y)
         {
             float tablex = middleX;
@@ -18,32 +19,32 @@ public class Table2 : Table
         }
         if (idx == 0)
         {
-            SetTransform(-1, (float)1.5);
+            SetTransform(-2, (float)1);
             customer.GetComponent<CustomerSpriteManager>().faceEast(upperBaseLayer);
         }
         else if (idx == 1)
         {
-            SetTransform(-1, (float)-0.5);
+            SetTransform(-2, (float)0);
             customer.GetComponent<CustomerSpriteManager>().faceEast(upperBaseLayer);
         }
         else if (idx == 2)
         {
-            SetTransform(-1, (float)-2.5);
+            SetTransform(-2, (float)-1);
             customer.GetComponent<CustomerSpriteManager>().faceEast(lowerBaseLayer);
         }
         else if (idx == 3)
         {
-            SetTransform(1, (float)1.5);
-            customer.GetComponent<CustomerSpriteManager>().faceWest(lowerBaseLayer);
+            SetTransform(1, (float)1);
+            customer.GetComponent<CustomerSpriteManager>().faceEast(lowerBaseLayer);
         }
         else if (idx == 4)
         {
-            SetTransform(1, (float)-0.5);
-            customer.GetComponent<CustomerSpriteManager>().faceWest(lowerBaseLayer);
+            SetTransform(1, (float)0);
+            customer.GetComponent<CustomerSpriteManager>().faceEast(lowerBaseLayer);
         }
         else
         {
-            SetTransform(1, (float)-2.5);
+            SetTransform(1, (float)-1);
             customer.GetComponent<CustomerSpriteManager>().faceWest(lowerBaseLayer);
         }
     }
