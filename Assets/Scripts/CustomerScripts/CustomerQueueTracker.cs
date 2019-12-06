@@ -16,7 +16,7 @@ public class CustomerQueueTracker : MonoBehaviour
     protected Queue<GameObject> customerEntranceQueue = new Queue<GameObject>();
     protected Queue<int> customerRequestQueue = new Queue<int>();
 
-    public int spawnTimer = 10;
+    public int spawnTimer = 12;
     protected int timer;
     public int[] customerTimerValues;
     public int[] customerTipValues;

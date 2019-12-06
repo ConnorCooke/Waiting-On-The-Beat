@@ -24,7 +24,7 @@ public class BeatRunner : MonoBehaviour
     private static int count = 0;
     
     
-    void Start()
+    protected virtual void Start()
     {
         loadBeatsFromFile();
         
