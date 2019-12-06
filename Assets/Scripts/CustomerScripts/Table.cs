@@ -106,7 +106,7 @@ public class Table : MonoBehaviour
             }
             index++;
         }
-        requestedCustomer = false;
+
     }
 
     IEnumerator SpawnAfterAnimation(int index, GameObject customer)
@@ -114,6 +114,7 @@ public class Table : MonoBehaviour
         visualsForCommunication[index].GetComponent<Animator>().SetTrigger("SpawnCustomer");
         ResetTriggersForIndex(index, "SpawnCustomer");
         yield return new WaitForSeconds((float).99);
+		requestedCustomer = false;
         SetCustomerTransform(index, customer);
         CustomerReceived(index);
     }
