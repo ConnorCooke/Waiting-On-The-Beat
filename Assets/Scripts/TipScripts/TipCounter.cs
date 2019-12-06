@@ -19,6 +19,19 @@ public class TipCounter : MonoBehaviour
         GetComponent<Text>().text = "Current Tips:: " + currTotalTips + " $";
     }
 
+    protected void UpdateSlider()
+    {
+        if(currTotalTips <= tipDisplay.maxValue)
+        {
+            tipDisplay.value = currTotalTips;
+        }
+        else
+        {
+            tipDisplay.value = tipDisplay.maxValue;
+        }
+        
+    }
+
     public void RemoveCash(float removal)
     {
         currTotalTips -= removal;
@@ -27,6 +40,7 @@ public class TipCounter : MonoBehaviour
         {
             currTotalTips = 0;
         }
+        UpdateSlider();
         UpdateVisual();
     }
 
@@ -52,6 +66,7 @@ public class TipCounter : MonoBehaviour
         }
 
         currTotalTips += tipToAdd;
+        UpdateSlider();
         UpdateVisual();
     }
 
