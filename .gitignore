@@ -60,3 +60,4 @@ crashlytics-build.properties
 
 # Apple auto-generated files.
 *.DS_Store
+.DS_Store
