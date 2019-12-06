@@ -27,7 +27,7 @@ public class ComboTracker : MonoBehaviour
 
     private void UpdateVisual()
     {
-        GetComponent<Text>().text = "Combo: " + totalCorrect + " \nMultiplier: " + currentMultiplier;
+        GetComponent<Text>().text = "Combo: " + totalCorrect + " Multiplier: " + currentMultiplier;
         if (currentMultiplier == 1.0f && totalCorrect == 0)
         {
             objectManager.UpdateVisualiserCorrectness(0);

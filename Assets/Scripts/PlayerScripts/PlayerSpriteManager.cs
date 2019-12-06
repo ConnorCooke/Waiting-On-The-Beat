@@ -187,12 +187,20 @@ public class PlayerSpriteManager : MonoBehaviour
     public void LoadNose()
     {
         Sprite[] noses = Resources.LoadAll<Sprite>("Sprites/Customers/noses");
-
-        sprites[1][0] = noses[PlayerVisual.getNose()];
-        sprites[1][1] = noses[PlayerVisual.getNose() + 6 * (PlayerVisual.getSkinTone() + 1)];
+        int nose = PlayerVisual.getNose();
+        sprites[1][0] = noses[nose];
+        sprites[1][1] = noses[nose + 9 * (PlayerVisual.getSkinTone() + 1)];
 
         Sprite[] noseEast = Resources.LoadAll<Sprite>("Sprites/Customers/nosesEast");
-        sprites[1][2] = noseEast[PlayerVisual.getNose() + 6 * PlayerVisual.getSkinTone()];
+        if(nose < 6)
+        {
+            sprites[1][2] = noseEast[nose + 6 * PlayerVisual.getSkinTone()];
+        }
+        else
+        {
+            sprites[1][2] = noseEast[4 + 6 * PlayerVisual.getSkinTone()];
+        }
+        
     }
 
     public void LoadHairType()
