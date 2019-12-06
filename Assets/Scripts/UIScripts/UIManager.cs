@@ -5,16 +5,16 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    GameObject[] pauseObjects;
+    protected GameObject[] pauseObjects;
     public string nextLevel;
     public float tipThreshold;
     public GameObject nextLevelButton;
     public GameObject playButton;
     public GameObject pauseText;
-    private float tipTotal;
+    protected float tipTotal;
 
     // Use this for initialization
-    void Start()
+    protected virtual void Start()
     {
         Time.timeScale = 1; //1
         pauseObjects = GameObject.FindGameObjectsWithTag("ShowOnPause");
@@ -22,7 +22,7 @@ public class UIManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
 
         //uses the p button to pause and unpause the game
