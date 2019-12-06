@@ -4859,6 +4859,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPosition: 
   handThatHoldsFood: {fileID: 1539913742}
+  orderMachines: []
   objectManager: {fileID: 134908785}
 --- !u!1 &1883006314
 GameObject:
@@ -5324,6 +5325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectManager: {fileID: 134908785}
+  tipDisplay: {fileID: 0}
 --- !u!1 &1909456212
 GameObject:
   m_ObjectHideFlags: 0
@@ -6248,6 +6250,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 255902876216268125, guid: 184230a09ea45e346930c7ebe3917db6,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 484208115, guid: 184230a09ea45e346930c7ebe3917db6, type: 3}
       propertyPath: objectManager
