@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PAMlvl2 : PlayerActionAndMovement
+public class PAMTutoriallvl : PlayerActionAndMovement
 {
     // Start is called before the first frame update
 	
@@ -12,7 +12,7 @@ public class PAMlvl2 : PlayerActionAndMovement
 		//1 -> Not-Movable
 		//3 -> OrderPlace
 		//4 -> DrinkSpawn
-		playerPosition = new int[]{3,2};
+		playerPosition = new int[]{4,2};
 		width = 12;
 	    height = 6;
 		tileContents = new int[,]{

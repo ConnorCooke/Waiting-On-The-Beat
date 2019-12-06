@@ -705,6 +705,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPosition: 
+  handThatHoldsFood: {fileID: 6154844979339195221}
+  orderMachines: []
   objectManager: {fileID: 0}
 --- !u!95 &6154844979595183820
 Animator:

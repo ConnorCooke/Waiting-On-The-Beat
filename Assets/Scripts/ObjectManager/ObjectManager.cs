@@ -16,7 +16,7 @@ public class ObjectManager : MonoBehaviour
     public TipCounter tipCounter;
     public BeatVisualizerCorrectnessDisplay visualizer;
     public UIManager uiManager;
-    protected int[] playerPosition= {10, 5};
+    protected int[] playerPosition= {3, 4};
 
     // Start is called before the first frame update
     protected virtual void Start()
