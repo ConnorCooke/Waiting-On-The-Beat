@@ -38,7 +38,6 @@ public class Table2 : Table
     // Start is called before the first frame update
     protected override void SetCustomerTransform(int idx, GameObject customer)
     {
-        Debug.Log("herwohwrhioweh");
         void SetTransform(float x, float y)
         {
             float tablex = middleX;
