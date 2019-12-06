@@ -1618,8 +1618,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 920333706}
-  - component: {fileID: 920333705}
   - component: {fileID: 920333707}
+  - component: {fileID: 920333705}
   m_Layer: 0
   m_Name: BeatTracker
   m_TagString: Untagged
@@ -1636,7 +1636,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 920333704}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2ce50c39079d014581ef952b36b5d15, type: 3}
+  m_Script: {fileID: 11500000, guid: c1af5c70c903e8b46b8a132d690580fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   musicSource: {fileID: 920333707}
@@ -1666,7 +1666,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8836833f5ba40b247ba60684eab0a9a5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: f7f14a4bb8cc5b54f97f9baa2fda78e2, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
