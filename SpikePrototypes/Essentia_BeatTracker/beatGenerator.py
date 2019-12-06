@@ -3,7 +3,7 @@ from essentia.standard import *
 import numpy as np
 import json
 
-fname = './Serve.wav'
+fname = '../../Assets/Songs/Serve.wav'
 audiobeat = MonoLoader(filename=fname)()
 
 rhythm_extractor = RhythmExtractor2013(method="multifeature")
