@@ -36,5 +36,13 @@ public class PAMlvl3 : PlayerActionAndMovement
         SetTileAtTransform(new Vector3( customerPosition.x, customerPosition.y + (float)0.5, customerPosition.z), tileValue);
     }
 
-   
+    protected override void SetTileAtTransform(Vector3 TilePosition, int tileValue)
+    {
+        int xPosition = (int)((TilePosition.x - 0.5) + (float)8.0);
+        int yPosition = (int)(-(TilePosition.y - 0.5) + (float)4.0);
+        print("X: " + xPosition + ", Y: " + yPosition);
+        tileContents[yPosition, xPosition] = tileValue;
+    }
+
+
 }

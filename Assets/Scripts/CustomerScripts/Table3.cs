@@ -43,27 +43,27 @@ public class Table3 : Table
             float tablex = middleX;
             float tabley = middleY;
             float tablez = this.transform.position.z;
-            customers[idx].transform.position = new Vector3((tablex + x), (tabley - y), tablez); //neg to pos on table +y
+            customers[idx].transform.position = new Vector3((tablex + x), (tabley + y), tablez); //neg to pos on table +y
             customers[idx].GetComponent<CustomerObject>().SetTable(this);
         }
         if (idx == 0)
         {
-            SetTransform(-3.5f, (float)3.5f);
+            SetTransform(-3.5f, 1f);
             customer.GetComponent<CustomerSpriteManager>().faceSouth(lowerBaseLayer);
         }
         else if(idx ==1)
         {
-            SetTransform(-1.5f, (float)-3.5f);
+            SetTransform(-1.5f, 1f);
             customer.GetComponent<CustomerSpriteManager>().faceSouth(lowerBaseLayer);
         }
         else if(idx == 2)
         {
-            SetTransform(0.5f, (float)-3.5f);
+            SetTransform(0.5f, 1f);
             customer.GetComponent<CustomerSpriteManager>().faceSouth(lowerBaseLayer);
         }
         else
         {
-            SetTransform(2.5f, (float)-3.5f);
+            SetTransform(2.5f, 1f);
             customer.GetComponent<CustomerSpriteManager>().faceSouth(lowerBaseLayer);
         }
     }

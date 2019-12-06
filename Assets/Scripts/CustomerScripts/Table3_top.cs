@@ -48,22 +48,22 @@ public class Table3_top : Table
         }
         if (idx == 0)
         {
-            SetTransform(-3.5f, 3.5f);
+            SetTransform(-3.5f, -1f);
             customer.GetComponent<CustomerSpriteManager>().faceNorth(upperBaseLayer);
         }
         else if (idx == 1)
         {
-            SetTransform(-1.5f, 3.5f);
+            SetTransform(-1.5f, -1f);
             customer.GetComponent<CustomerSpriteManager>().faceNorth(upperBaseLayer);
         }
         else if (idx == 2)
         {
-            SetTransform(0.5f, 3.5f);
+            SetTransform(0.5f, -1f);
             customer.GetComponent<CustomerSpriteManager>().faceNorth(lowerBaseLayer);
         }
         else if (idx == 3)
         {
-            SetTransform(2.5f, 3.5f);
+            SetTransform(2.5f, -1f);
             customer.GetComponent<CustomerSpriteManager>().faceNorth(lowerBaseLayer);
         }
 	}
