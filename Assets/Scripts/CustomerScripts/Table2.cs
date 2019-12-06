@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class MartinTable : Table
+public class Table2 : Table
 {
     new protected GameObject[] customers = new GameObject[6];
     new protected GameObject[] customersFood = new GameObject[6];
