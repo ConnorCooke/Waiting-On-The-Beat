@@ -3863,8 +3863,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 324196c852050824097ab9da4f957935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextLevel: 
-  tipThreshold: 7
+  nextLevel: level3
+  tipThreshold: 76
   nextLevelButton: {fileID: 323928609}
   playButton: {fileID: 1908081708}
   pauseText: {fileID: 554103600}
