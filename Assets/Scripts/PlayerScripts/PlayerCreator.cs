@@ -32,6 +32,8 @@ public class PlayerCreator : MonoBehaviour
         PlayerVisual.setHairType(UnityEngine.Random.Range(0, 14));
 
         PlayerVisual.setHairColour(UnityEngine.Random.Range(0, 8));
+        
+        PlayerVisual.setMouth(UnityEngine.Random.Range(0, 24));
 
         playerSpriteManager.LoadAll();
     }
@@ -63,7 +65,7 @@ public class PlayerCreator : MonoBehaviour
     public void ChangeNose()
     {
         int newNose = PlayerVisual.getNose() + 1;
-        if (newNose == 6)
+        if (newNose == 9)
         {
             newNose = 0;
         }
@@ -89,7 +91,7 @@ public class PlayerCreator : MonoBehaviour
     public void ChangeMouth()
     {
         int newMouth = PlayerVisual.getMouth() + 1;
-        if (newMouth == 6)
+        if (newMouth == 24)
         {
             newMouth = 0;
         }
