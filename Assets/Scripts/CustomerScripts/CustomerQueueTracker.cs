@@ -42,12 +42,12 @@ public class CustomerQueueTracker : MonoBehaviour
         newCustomer.GetComponent<CustomerSpriteManager>().LoadSprites(
             UnityEngine.Random.Range(0, 6), // headshape
             UnityEngine.Random.Range(0, 6), // skintone
-            UnityEngine.Random.Range(0, 6), // nose
+            UnityEngine.Random.Range(0, 9), // nose
             UnityEngine.Random.Range(0, 16), // accessory
             UnityEngine.Random.Range(0, 14), // hairtype
             UnityEngine.Random.Range(0, 8), // haircolour
             bodypaths[UnityEngine.Random.Range(0, bodypaths.Length)], //bodypath
-            UnityEngine.Random.Range(0, 6)); // mouth
+            UnityEngine.Random.Range(0, 24)); // mouth
         
     }
 
