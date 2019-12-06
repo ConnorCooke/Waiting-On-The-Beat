@@ -13,6 +13,7 @@ public class LaserManager : MonoBehaviour
     public ObjectManager objectManager;
     private int[] playerPosition = {10, 5};
     public float removalAmount;
+    private float currTipTotal = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +26,8 @@ public class LaserManager : MonoBehaviour
     {
         
     }
+
+
     
     public void UpdatePosition(int[] playerPos)
     {
@@ -33,26 +36,29 @@ public class LaserManager : MonoBehaviour
 
     private void SpawnLaser(string orientation)
     {
-        float x = 0;
-        float y = 0;
-        int difference = 1;
-        GameObject prefab = verticalLaserPrefab;
-        if (UnityEngine.Random.Range(0.0f, 1.0f) <= .5 )
+        if (currTipTotal > 0f)
         {
-            difference = -1;
+            float x = 0;
+            float y = 0;
+            int difference = 1;
+            GameObject prefab = verticalLaserPrefab;
+            if (UnityEngine.Random.Range(0.0f, 1.0f) <= .5)
+            {
+                difference = -1;
+            }
+            if (orientation == "vertical")
+            {
+                x = (float)(playerPosition[0] - 10 + difference);
+                StartCoroutine(RemoveCash(playerPosition[0] + difference, orientation));
+            }
+            else
+            {
+                y = -((float)(playerPosition[1] - 5 + difference));
+                prefab = horizontalLaserPrefab;
+                StartCoroutine(RemoveCash(playerPosition[1] + difference, orientation));
+            }
+            Instantiate(prefab, new Vector3(x, y, 0), Quaternion.identity);
         }
-        if(orientation == "vertical")
-        {
-            x = (float)(playerPosition[0] - 10 + difference);
-            StartCoroutine(RemoveCash(playerPosition[0]+difference, orientation));
-        }
-        else
-        {
-            y = -((float)(playerPosition[1] - 5 + difference));
-            prefab = horizontalLaserPrefab;
-            StartCoroutine(RemoveCash(playerPosition[1]+difference, orientation));
-        }
-        Instantiate(prefab, new Vector3(x, y, 0), Quaternion.identity);
     }
 
     public IEnumerator RemoveCash(int position, string orientation)
@@ -96,6 +102,11 @@ public class LaserManager : MonoBehaviour
             }
             
         }
+    }
+
+    public void AddTip(float tip)
+    {
+        currTipTotal += tip;
     }
     
 }
