@@ -1296,7 +1296,7 @@ PrefabInstance:
     - target: {fileID: 7222102057666583783, guid: 68900e744d8bfef47b3d4ee897323de4,
         type: 3}
       propertyPath: m_WasSpriteAssigned
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68900e744d8bfef47b3d4ee897323de4, type: 3}
@@ -2458,7 +2458,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicSource: {fileID: 920333707}
-  inputLeeway: 0.2
+  inputLeeway: 0
   objectManager: {fileID: 134908785}
 --- !u!4 &920333706
 Transform:
@@ -2484,7 +2484,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8836833f5ba40b247ba60684eab0a9a5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 482ba2f32203b954e82658916dab6c54, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -5687,6 +5687,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6154844979865260230}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1881740808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881740806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce688eeda3144d039d695f718243519, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPosition: 
+  handThatHoldsFood: {fileID: 1539913742}
+  orderMachines:
+  - {fileID: 350031312}
+  - {fileID: 1118978983}
+  objectManager: {fileID: 134908785}
 --- !u!1 &1883006314
 GameObject:
   m_ObjectHideFlags: 0
@@ -6848,7 +6866,7 @@ MonoBehaviour:
   - Sprites/Customers/body/suitbody
   numberOfStartingCustomers: 1
   diversityOfDrinks: 1
-  spawnTimer: 12
+  spawnTimer: 0
   customerTimerValues: 02000000
   customerTipValues: 14000000
 --- !u!1001 &2052836405345546212
@@ -7134,7 +7152,7 @@ PrefabInstance:
     - target: {fileID: 5847276741092497540, guid: 9a5eac663c6ac854e886b2ece7a81db8,
         type: 3}
       propertyPath: middleY
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5847276741092497540, guid: 9a5eac663c6ac854e886b2ece7a81db8,
         type: 3}
@@ -7198,7 +7216,7 @@ PrefabInstance:
     - target: {fileID: 6154844979595183809, guid: f6e63c6c804364b4c91d5f15709942b0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.236
       objectReference: {fileID: 0}
     - target: {fileID: 6154844979595183809, guid: f6e63c6c804364b4c91d5f15709942b0,
         type: 3}
@@ -7270,5 +7288,6 @@ PrefabInstance:
       propertyPath: orderMachines.Array.data[1]
       value: 
       objectReference: {fileID: 1118978983}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6154844979595183823, guid: f6e63c6c804364b4c91d5f15709942b0, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f6e63c6c804364b4c91d5f15709942b0, type: 3}
