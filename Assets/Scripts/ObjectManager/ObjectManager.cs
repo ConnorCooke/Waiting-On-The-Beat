@@ -16,10 +16,10 @@ public class ObjectManager : MonoBehaviour
     public TipCounter tipCounter;
     public BeatVisualizerCorrectnessDisplay visualizer;
     public UIManager uiManager;
-    private int[] playerPosition= {10, 5};
+    protected int[] playerPosition= {10, 5};
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         for(int index = 0; index < tables.Length; index++)
         {
@@ -28,12 +28,12 @@ public class ObjectManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         
     }
 
-    private int FindNearestTable(int direction)
+    protected virtual int FindNearestTable(int direction)
     {
         float playerx = playerCharacter.transform.position.x;
         float playery = playerCharacter.transform.position.y;
@@ -64,7 +64,7 @@ public class ObjectManager : MonoBehaviour
      * Determines the table closest to player and then tells the Table to give the
      * player the nearest customers order
      */
-    public void RequestOrder(int direction)
+    public virtual void RequestOrder(int direction)
     {
         tables[FindNearestTable(direction)].GetComponent<Table>().ReceiveOrderRequest(playerCharacter.transform.position);
     }
@@ -73,7 +73,7 @@ public class ObjectManager : MonoBehaviour
      * Determines the table closest to player and then tells the Table to determine
      * closest customer to player and have that customer pay for their food
      */
-    public void RequestPayment(int direction)
+    public virtual void RequestPayment(int direction)
     {
         tables[FindNearestTable(direction)].GetComponent<Table>().ReceivePayRequest(playerCharacter.transform.position);
     }
@@ -83,7 +83,7 @@ public class ObjectManager : MonoBehaviour
      * the food to the customer nearest to the player
      * @param food GameObject A food prefab that the player is currently holding
      */
-    public void DeliverFood(GameObject food, int direction)
+    public virtual void DeliverFood(GameObject food, int direction)
     {
         tables[FindNearestTable(direction)].GetComponent<Table>().ReceiveFood(food, playerCharacter.transform.position);
     }
@@ -92,7 +92,7 @@ public class ObjectManager : MonoBehaviour
      * Tells player to hold the food
      * @param food GameObject A food prefab player is picking up
      */
-    public void GivePlayerFood(GameObject food)
+    public virtual void GivePlayerFood(GameObject food)
     {
         playerCharacter.GetComponent<PlayerActionAndMovement>().ReceiveFood(food);
     }
@@ -101,12 +101,12 @@ public class ObjectManager : MonoBehaviour
      * Tells the kitchen to take in the food orders
      * @param order FoodOrder adt that tells kitchen relevant info to "cook" a new food prefab
      */
-    public void DeliverOrdersToKitchen(List<FoodOrder> orders)
+    public virtual void DeliverOrdersToKitchen(List<FoodOrder> orders)
     {
         kitchen.ReceiveOrders(orders);
     }
 
-    public void OrdersDelivered()
+    public virtual void OrdersDelivered()
     {
         playerCharacter.GetComponent<PlayerActionAndMovement>().OrdersReceived();
     }
@@ -114,12 +114,12 @@ public class ObjectManager : MonoBehaviour
     /*
      * Tells the player that they are able to pick up the order from the customer at position
      */
-    public void CustomerReadyToOrder(Vector3 position)
+    public virtual void CustomerReadyToOrder(Vector3 position)
     {
         playerCharacter.GetComponent<PlayerActionAndMovement>().CustomerReadyToOrder(position);
     }
 
-    public void CustomerOrdered(Vector3 position)
+    public virtual void CustomerOrdered(Vector3 position)
     {
         playerCharacter.GetComponent<PlayerActionAndMovement>().CustomerOrdered(position);
     }
@@ -127,7 +127,7 @@ public class ObjectManager : MonoBehaviour
     /*
     * Tells the player that the customer at position is eating, allowing payment requests to occur
     */
-    public void CustomerEating(Vector3 position)
+    public virtual void CustomerEating(Vector3 position)
     {
         playerCharacter.GetComponent<PlayerActionAndMovement>().CustomerEating(position);
     }
@@ -135,7 +135,7 @@ public class ObjectManager : MonoBehaviour
     /*
     * Tells the player that the customer at position is eating and cannot be interacting
     */
-    public void CustomerPaid(float tip, Vector3 position)
+    public virtual void CustomerPaid(float tip, Vector3 position)
     {
         playerCharacter.GetComponent<PlayerActionAndMovement>().CustomerPaid(position);
         tipCounter.AddTip(tip);
@@ -145,7 +145,7 @@ public class ObjectManager : MonoBehaviour
      * Tells the player to carry order
      * @param order FoodOrder adt that holds info for "cooking" a new food prefab
      */
-    public void GivePlayerOrder(FoodOrder order)
+    public virtual void GivePlayerOrder(FoodOrder order)
     {
         playerCharacter.GetComponent<PlayerActionAndMovement>().ReceiveOrder(order);
         //TODO
@@ -155,17 +155,17 @@ public class ObjectManager : MonoBehaviour
      * Tells tiptracker the current multiplier based on the players combo
      * @param multiplier float
      */
-    public void GiveComboMultiplier(float multiplier)
+    public virtual void GiveComboMultiplier(float multiplier)
     {
         tipCounter.UpdateTipMultiplier(multiplier);
     }
 
-    public void UpdateVisualiserCorrectness(int level)
+    public virtual void UpdateVisualiserCorrectness(int level)
     {
         visualizer.UpdateCorrectnessLevel(level);
     }
 
-    public void EndLevel()
+    public virtual void EndLevel()
     {
         tipCounter.receiveScoreRequest();
     }
@@ -175,7 +175,7 @@ public class ObjectManager : MonoBehaviour
      * the result of the players performance
      * @param tipTotal float
      */
-    public void GiveTipTotal(float tipTotal)
+    public virtual void GiveTipTotal(float tipTotal)
     {
         uiManager.EndOfLevel(tipTotal);
     }
@@ -183,7 +183,7 @@ public class ObjectManager : MonoBehaviour
     /*
      * Tells the CustomerQueueTracker the request for a customer
      */
-    public void RequestCustomer(int tableNumber)
+    public virtual void RequestCustomer(int tableNumber)
     {
         customerQueueTracker.ReceiveCustomerRequest(tableNumber);
     }
@@ -191,7 +191,7 @@ public class ObjectManager : MonoBehaviour
     /*
      * Tells the kitchen to give the player the food from the nearest tile to the player
      */
-    public void RequestFood()
+    public virtual void RequestFood()
     {
         kitchen.ReceiveFoodRequest(new Vector3(playerCharacter.transform.position.x, 
             playerCharacter.transform.position.y + (float)0.264, playerCharacter.transform.position.z));
@@ -203,7 +203,7 @@ public class ObjectManager : MonoBehaviour
      * @param customer GameObject
      * @param tableNumber int
      */
-    public void GiveCustomer(GameObject customer, int tableNumber)
+    public virtual void GiveCustomer(GameObject customer, int tableNumber)
     {
         tables[tableNumber].GetComponent<Table>().ReceiveCustomer(customer);
     }
@@ -211,7 +211,7 @@ public class ObjectManager : MonoBehaviour
     /*
      * Tells combotracker the correctness of the last input
      */
-    public void GiveCorrectness(bool isCorrect)
+    public virtual void GiveCorrectness(bool isCorrect)
     {
         beatSpawner.GetComponent<BeatVisualizerCorrectnessDisplay>().Input(isCorrect);
         comboTracker.ReceiveCorrectness(isCorrect);
@@ -222,7 +222,7 @@ public class ObjectManager : MonoBehaviour
      * Informs all relevant objects when a beat has occured, namely all objects
      * with beat based timers
      */
-    public void BeatOccured()
+    public virtual void BeatOccured()
     {
         foreach(GameObject table in tables)
         {
@@ -234,7 +234,7 @@ public class ObjectManager : MonoBehaviour
         //TODO
     }
 
-    public void UpdateTilePosition(int[] playerPos)
+    public virtual void UpdateTilePosition(int[] playerPos)
     {
         playerPosition = new int[] { playerPos[0], playerPos[1] };
         laserManager.UpdatePosition(playerPos);
@@ -243,12 +243,12 @@ public class ObjectManager : MonoBehaviour
     /*
      * Cleans the nearest table to the player
      */
-     public void CleanNearestTable()
+    public virtual void CleanNearestTable()
     {
         //TODO
     }
 
-    public void RemoveCash(int position, string orientation, float removalAmount)
+    public virtual void RemoveCash(int position, string orientation, float removalAmount)
     {
         if ((orientation == "vertical" && playerPosition[0] == position) || (orientation == "horizontal" && playerPosition[1] == position))
         {
@@ -259,7 +259,7 @@ public class ObjectManager : MonoBehaviour
     /*
      * Spawns a beat visualisation
      */
-    public void SpawnBeatVisual()
+    public virtual void SpawnBeatVisual()
     {
         beatSpawner.SpawnBeat();
     }
