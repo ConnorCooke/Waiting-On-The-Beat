@@ -5,8 +5,6 @@ using UnityEngine;
 public class PAMlvl2 : PlayerActionAndMovement
 {
     // Start is called before the first frame update
-	protected int width = 14;
-	protected int height = 10;
 	
 	
 	protected override void Start(){
@@ -15,6 +13,8 @@ public class PAMlvl2 : PlayerActionAndMovement
 		//3 -> OrderPlace
 		//4 -> DrinkSpawn
 		playerPosition = new int[]{3,2};
+		width = 14;
+	    height = 10;
 		tileContents = new int[,]{
 		{0,0,0,3,3,4,4,4,4,3,3,0,0,0,0,0},
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -29,6 +29,14 @@ public class PAMlvl2 : PlayerActionAndMovement
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}};
 
 	}
+
+	protected override void SetTileAtTransform(Vector3 TilePosition, int tileValue)
+    {
+        int xPosition = (int)((TilePosition.x - 0.5) + (float)8.0);
+		print("X" + xPosition);
+        int yPosition = (int)(-(TilePosition.y - 0.5) + (float)4.0);
+        tileContents[yPosition, xPosition] = tileValue;
+    }
 	
 	protected override void UpdateCustomerTiles(Vector3 customerPosition, int tileValue)
     {
