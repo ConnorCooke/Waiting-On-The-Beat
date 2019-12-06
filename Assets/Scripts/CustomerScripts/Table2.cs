@@ -6,7 +6,7 @@ public class Table2 : Table
     new protected GameObject[] customersFood = new GameObject[6];
 
     // Start is called before the first frame update
-    protected virtual void SetCustomerTransform(int idx, GameObject customer)
+    protected override void SetCustomerTransform(int idx, GameObject customer)
     {
         void SetTransform(float x, float y)
         {
