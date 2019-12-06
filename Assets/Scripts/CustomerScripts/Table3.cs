@@ -7,8 +7,8 @@ public class Table3 : Table
     protected override void Start()
     {
         drinkSprites = Resources.LoadAll<Sprite>("Sprites/SetDressing/drinksnoanimation");
-        customers = new GameObject[6];
-        customersFood = new GameObject[6];
+        customers = new GameObject[4];
+        customersFood = new GameObject[4];
     }
 
     protected override void Update()
@@ -16,12 +16,12 @@ public class Table3 : Table
         if (!requestedCustomer)
         {
             int index = 0;
-            while (index < 8)
+            while (index < 4)
             {
                 if (customers[index] is null)
                 {
                     RequestCustomer();
-                    index = 8;
+                    index = 4;
                 }
                 index++;
             }
@@ -43,40 +43,20 @@ public class Table3 : Table
             float tablex = middleX;
             float tabley = middleY;
             float tablez = this.transform.position.z;
-            customers[idx].transform.position = new Vector3((tablex + x), (tabley + y), tablez);
+            customers[idx].transform.position = new Vector3((tablex + x), (tabley - y), tablez); //neg to pos on table +y
             customers[idx].GetComponent<CustomerObject>().SetTable(this);
         }
         if (idx == 0)
         {
-            SetTransform(-3.5f, 3.5f);
-            customer.GetComponent<CustomerSpriteManager>().faceNorth(upperBaseLayer);
-        }
-        else if (idx == 1)
-        {
-            SetTransform(-1.5f, 3.5f);
-            customer.GetComponent<CustomerSpriteManager>().faceNorth(upperBaseLayer);
-        }
-        else if (idx == 2)
-        {
-            SetTransform(0.5f, 3.5f);
-            customer.GetComponent<CustomerSpriteManager>().faceNorth(lowerBaseLayer);
-        }
-        else if (idx == 3)
-        {
-            SetTransform(2.5f, 3.5f);
-            customer.GetComponent<CustomerSpriteManager>().faceNorth(lowerBaseLayer);
-        }
-        else if (idx == 4)
-        {
-            SetTransform(-3.5f, -3.5f);
+            SetTransform(-3.5f, (float)3.5f);
             customer.GetComponent<CustomerSpriteManager>().faceSouth(lowerBaseLayer);
         }
-        else if(idx ==5)
+        else if(idx ==1)
         {
             SetTransform(-1.5f, (float)-3.5f);
             customer.GetComponent<CustomerSpriteManager>().faceSouth(lowerBaseLayer);
         }
-        else if(idx == 6)
+        else if(idx == 2)
         {
             SetTransform(0.5f, (float)-3.5f);
             customer.GetComponent<CustomerSpriteManager>().faceSouth(lowerBaseLayer);
