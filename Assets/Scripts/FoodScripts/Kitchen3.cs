@@ -14,8 +14,15 @@ public class Kitchen3 : Kitchen
 				counterTop[x].GetComponent<SpriteRenderer>().sortingOrder = 61;
 			}
 			else{
-				counterTop[x].transform.position = new Vector3((float)0-x, (float)1.5, 0); 
-				counterTop[x].GetComponent<SpriteRenderer>().sortingOrder = 61;
+				if (x == 1 || x == 2){
+					counterTop[x].transform.position = new Vector3((float)0-x, (float)1.5, 0); 
+					counterTop[x].GetComponent<SpriteRenderer>().sortingOrder = 61;
+				}
+				else if (x == 4 || x == 5){
+					counterTop[x].transform.position = new Vector3((float)0-x, (float)(-0.5), 0); 
+					counterTop[x].GetComponent<SpriteRenderer>().sortingOrder = 61;
+				}
+				
 			}
 		}
             

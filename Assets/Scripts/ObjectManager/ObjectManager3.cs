@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectManager3 : MonoBehaviour
+public class ObjectManager3 : ObjectManager
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    protected GameObject[] tables;
+	protected int[] PlayerPosition = {3,4};
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	//protected override void Start(){
+		//PlayerPosition = {5,4};
+	//}
+
 }

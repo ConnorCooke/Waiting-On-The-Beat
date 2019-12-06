@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Table3 : Table
+public class Table3_top : Table
 {
     protected override void Start()
     {
@@ -43,28 +43,29 @@ public class Table3 : Table
             float tablex = middleX;
             float tabley = middleY;
             float tablez = this.transform.position.z;
-            customers[idx].transform.position = new Vector3((tablex + x), (tabley - y), tablez); //neg to pos on table +y
+            customers[idx].transform.position = new Vector3((tablex + x), (tabley + y), tablez);
             customers[idx].GetComponent<CustomerObject>().SetTable(this);
         }
         if (idx == 0)
         {
-            SetTransform(-3.5f, (float)3.5f);
-            customer.GetComponent<CustomerSpriteManager>().faceSouth(lowerBaseLayer);
+            SetTransform(-3.5f, 3.5f);
+            customer.GetComponent<CustomerSpriteManager>().faceNorth(upperBaseLayer);
         }
-        else if(idx ==1)
+        else if (idx == 1)
         {
-            SetTransform(-1.5f, (float)-3.5f);
-            customer.GetComponent<CustomerSpriteManager>().faceSouth(lowerBaseLayer);
+            SetTransform(-1.5f, 3.5f);
+            customer.GetComponent<CustomerSpriteManager>().faceNorth(upperBaseLayer);
         }
-        else if(idx == 2)
+        else if (idx == 2)
         {
-            SetTransform(0.5f, (float)-3.5f);
-            customer.GetComponent<CustomerSpriteManager>().faceSouth(lowerBaseLayer);
+            SetTransform(0.5f, 3.5f);
+            customer.GetComponent<CustomerSpriteManager>().faceNorth(lowerBaseLayer);
         }
-        else
+        else if (idx == 3)
         {
-            SetTransform(2.5f, (float)-3.5f);
-            customer.GetComponent<CustomerSpriteManager>().faceSouth(lowerBaseLayer);
+            SetTransform(2.5f, 3.5f);
+            customer.GetComponent<CustomerSpriteManager>().faceNorth(lowerBaseLayer);
         }
-    }
+	}
+        
 }
