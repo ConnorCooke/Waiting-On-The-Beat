@@ -44,6 +44,7 @@ public class UIManager : MonoBehaviour
     public void EndOfLevel(float tipTot)
     {
         tipTotal = tipTot;
+        Time.timeScale = 0;
         showPaused();
         playButton.SetActive(false);
         if(tipTotal >= tipThreshold)

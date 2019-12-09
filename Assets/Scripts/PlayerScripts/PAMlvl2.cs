@@ -33,7 +33,6 @@ public class PAMlvl2 : PlayerActionAndMovement
 	protected override void SetTileAtTransform(Vector3 TilePosition, int tileValue)
     {
         int xPosition = (int)((TilePosition.x - 0.5) + (float)8.0);
-		print("X" + xPosition);
         int yPosition = (int)(-(TilePosition.y - 0.5) + (float)4.0);
         tileContents[yPosition, xPosition] = tileValue;
     }

@@ -9,6 +9,7 @@ public class TypeItOut : MonoBehaviour
     public string[] text;
     protected int index = 0;
     bool locked = false;
+    public GameObject button;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +35,7 @@ public class TypeItOut : MonoBehaviour
     {
         if (!locked)
         {
+            button.SetActive(false);
             locked = true;
             writeTo.text = "";
             foreach (char letter in message.ToCharArray())
@@ -43,6 +45,7 @@ public class TypeItOut : MonoBehaviour
             }
             yield return new WaitForSecondsRealtime(0.4f);
             locked = false;
+            button.SetActive(true);
         }
         
     }

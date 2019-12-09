@@ -50,31 +50,37 @@ public class Table2 : Table
         {
             SetTransform(-2, (float)2);
             customer.GetComponent<CustomerSpriteManager>().faceEast(upperBaseLayer);
+            customer.GetComponent<Animator>().SetTrigger("East");
         }
         else if (idx == 1)
         {
             SetTransform(-2, (float)0);
             customer.GetComponent<CustomerSpriteManager>().faceEast(upperBaseLayer);
+            customer.GetComponent<Animator>().SetTrigger("East");
         }
         else if (idx == 2)
         {
             SetTransform(-2, (float)-2);
             customer.GetComponent<CustomerSpriteManager>().faceEast(lowerBaseLayer);
+            customer.GetComponent<Animator>().SetTrigger("East");
         }
         else if (idx == 3)
         {
             SetTransform(1, (float)2);
             customer.GetComponent<CustomerSpriteManager>().faceEast(lowerBaseLayer);
+            customer.GetComponent<Animator>().SetTrigger("West");
         }
         else if (idx == 4)
         {
             SetTransform(1, (float)0);
             customer.GetComponent<CustomerSpriteManager>().faceEast(lowerBaseLayer);
+            customer.GetComponent<Animator>().SetTrigger("West");
         }
         else
         {
             SetTransform(1, (float)-2);
-            customer.GetComponent<CustomerSpriteManager>().faceWest(lowerBaseLayer);
+            customer.GetComponent<CustomerSpriteManager>().faceEast(lowerBaseLayer);
+            customer.GetComponent<Animator>().SetTrigger("West");
         }
     }
 }

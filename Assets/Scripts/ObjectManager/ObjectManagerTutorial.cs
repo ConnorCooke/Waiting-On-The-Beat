@@ -5,6 +5,7 @@ using UnityEngine;
 public class ObjectManagerTutorial : ObjectManager
 {
     public UIManagerTutorial uiManagerTutorial;
+    protected int numberOfCalls = 0;
 
     protected override int FindNearestTable(int direction)
     {
@@ -15,6 +16,7 @@ public class ObjectManagerTutorial : ObjectManager
     {
         base.CustomerPaid(tip, position);
         uiManagerTutorial.NextTutorialSection();
+        numberOfCalls++;
     }
 
     public override void CustomerReadyToOrder(Vector3 position)
@@ -23,9 +25,15 @@ public class ObjectManagerTutorial : ObjectManager
         uiManagerTutorial.NextTutorialSection();
     }
 
-    public virtual void CustomerOrdered(Vector3 position)
+    public override void CustomerOrdered(Vector3 position)
     {
         base.CustomerOrdered(position);
+        uiManagerTutorial.NextTutorialSection();
+    }
+
+    public override void RemoveCash(int position, string orientation, float removalAmount)
+    {
+        base.RemoveCash(position, orientation, removalAmount);
         uiManagerTutorial.NextTutorialSection();
     }
 }

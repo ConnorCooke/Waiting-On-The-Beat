@@ -12,7 +12,7 @@ public class BeatRunner : MonoBehaviour
     private static List<double> beatPositionsInTime = new List<double>();
     private static List<double> beatObjectSpawnTime = new List<double>();
     public float inputLeeway;
-    public static string beatFilePath = "/Resources/Songs/WelcomeToHellsKitchen.txt";
+    public static string beatFilePath = "/Resources/Songs/EnglishBallet.txt";
     public ObjectManager objectManager;
     private bool isActing;
     private bool beatHit = false;
@@ -22,10 +22,15 @@ public class BeatRunner : MonoBehaviour
     private int currentSpawn = 0;
     private static int spawnCount = 0;
     private static int count = 0;
+    private bool locked = false;
     
     
     protected virtual void Start()
     {
+        spawnCount = 0;
+        count = 0;
+        beatPositionsInTime = new List<double>();
+        beatObjectSpawnTime = new List<double>();
         loadBeatsFromFile();
         
         currentBeat = 0;
@@ -66,8 +71,10 @@ public class BeatRunner : MonoBehaviour
         // Debug.Log(beatPositionsInTime);
         if ((currentBeat + 1) < count && (currentSpawn + 1) < spawnCount)
         {
-            if (currentSongTime > beatPositionsInTime[currentBeat + 1])
+            if (!locked && currentSongTime > beatPositionsInTime[currentBeat + 1])
             {
+                locked = true;
+                StartCoroutine(LockBeatSpawning());
                 currentBeat++;
                 objectManager.BeatOccured();
                 noInputReset = false;
@@ -110,6 +117,12 @@ public class BeatRunner : MonoBehaviour
         {
             objectManager.EndLevel();
         }
+    }
+
+    IEnumerator LockBeatSpawning()
+    {
+        yield return new WaitForSeconds(.3f);
+        locked = false;
     }
 
     IEnumerator WaitForActionToComplete()

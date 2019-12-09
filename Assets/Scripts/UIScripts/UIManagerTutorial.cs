@@ -8,8 +8,10 @@ public class UIManagerTutorial : UIManager
     GameObject[] tutorialObjects;
     public int[] numberOfTextDuringPause;
     bool paused = false;
+    bool locked = false;
     public TypeItOut typeItOut;
     protected int currentLimits = 0;
+    public ObjectManager objectManager;
 
     protected override void Start()
     {
@@ -20,30 +22,39 @@ public class UIManagerTutorial : UIManager
 
     public void NextTutorialSection()
     {
-        if(currentLimits < numberOfTextDuringPause.Length)
+        if (currentLimits < numberOfTextDuringPause.Length)
         {
+            print("Pause: " + paused + " current limit " + currentLimits + " index " + index + " number of text during pause " + numberOfTextDuringPause[currentLimits]);
             if (paused)
             {
-                typeItOut.WriteOutTutorial();
-                index++;
                 if (index == numberOfTextDuringPause[currentLimits])
                 {
                     paused = false;
-                    index = 0;
+                    tutorialPauseControl();
                     currentLimits++;
+                }
+                else
+                {
+                    typeItOut.WriteOutTutorial();
+                    index++;
                 }
             }
             else
             {
+                index = 0;
                 tutorialPauseControl();
                 paused = true;
+                typeItOut.WriteOutTutorial();
+                index++;
             }
         }
         else
         {
-
+            objectManager.EndLevel();
         }
     }
+    
+
     //controls the pausing of the scene
     public void tutorialPauseControl()
     {

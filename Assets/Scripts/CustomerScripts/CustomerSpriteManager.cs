@@ -172,16 +172,16 @@ public class CustomerSpriteManager : MonoBehaviour
         Sprite[] noses = Resources.LoadAll<Sprite>("Sprites/Customers/noses");
 
         sprites[1][0] = noses[nose];
-        sprites[1][1] = noses[nose + 6 * (skinTone + 1)];
+        sprites[1][1] = noses[nose + (6 * (skinTone + 1))];
 
         Sprite[] noseEast = Resources.LoadAll<Sprite>("Sprites/Customers/nosesEast");
         if (nose < 6)
         {
-            sprites[1][2] = noseEast[nose + 6 * PlayerVisual.getSkinTone()];
+            sprites[1][2] = noseEast[nose + (6 * skinTone)];
         }
         else
         {
-            sprites[1][2] = noseEast[4 + 6 * PlayerVisual.getSkinTone()];
+            sprites[1][2] = noseEast[4 + (6 * skinTone)];
         }
 
         Sprite[] accessories = Resources.LoadAll<Sprite>("Sprites/Customers/accessories");

@@ -9,7 +9,7 @@ public class Kitchen2 : Kitchen
 
         void SetTransform(int x)
         {
-            counterTop[x].transform.position = new Vector3((float)0-x, (float)4.5, 0); //5.5 to 4.5
+            counterTop[x].transform.position = new Vector3((float)-2+x, (float)4.5, 0); //5.5 to 4.5
             counterTop[x].GetComponent<SpriteRenderer>().sortingOrder = 61;
         }
 

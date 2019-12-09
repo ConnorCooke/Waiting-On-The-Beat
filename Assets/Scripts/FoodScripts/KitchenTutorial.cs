@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class KitchenTutorial : Kitchen
 {
+    public UIManagerTutorial uiManagerTutorial;
     bool spawned = false;
     protected override void toKitchenCounter()
     {
         spawned = true;
         counterTop[0] = cookedFood.Dequeue().gameObject;
         counterTop[0].transform.position = new Vector3((float)-7.5, (float)1.5, 0);
+        uiManagerTutorial.NextTutorialSection();
     }
 
     public override void ReceiveFoodRequest(Vector3 playerPosition)

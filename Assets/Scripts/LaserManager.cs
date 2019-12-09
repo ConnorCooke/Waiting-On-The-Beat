@@ -5,15 +5,15 @@ using UnityEngine;
 public class LaserManager : MonoBehaviour
 {
     public int spawnRate;
-    private int spawnTimer = 0;
+    protected int spawnTimer = 0;
     public int startTimingAtThisBeat;
-    private bool startSpawning;
+    protected bool startSpawning;
     public GameObject verticalLaserPrefab;
     public GameObject horizontalLaserPrefab;
     public ObjectManager objectManager;
-    private int[] playerPosition = {10, 5};
+    protected int[] playerPosition = {10, 5};
     public float removalAmount;
-    private float currTipTotal = 0f;
+    protected float currTipTotal = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +34,7 @@ public class LaserManager : MonoBehaviour
         playerPosition = new int[] { playerPos[0], playerPos[1] };
     }
 
-    private void SpawnLaser(string orientation)
+    protected virtual void SpawnLaser(string orientation)
     {
         if (currTipTotal > 0f)
         {
